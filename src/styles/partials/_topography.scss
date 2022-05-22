@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'Water Brush';
+    src: url(../../assets/font/waterbrush/WaterBrush-Regular.woff2) format('woof2'),
+    url(../../assets/font/waterbrush/WaterBrush-Regular.woff) format('woof'),
+    url(../../assets/font/waterbrush/WaterBrush-Regular.ttf) format('truetype');
+
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cormorant Garamond';
+    src: url(../../assets/font/cormorantgaramond/CormorantGaramond-Regular.woff2) format('woof2'),
+    url(../../assets/font/cormorantgaramond/CormorantGaramond-Regular.woff) format('woof'),
+    url(../../assets/font/cormorantgaramond/CormorantGaramond-Regular.ttf) format('truetype');
+
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+$primaryFont: 'Cormorant Garamond';
+$headingFont: 'Water Brush';
+
+$weightNorma: 400;
