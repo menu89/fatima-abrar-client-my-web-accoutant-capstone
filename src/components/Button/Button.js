@@ -1,8 +1,11 @@
 import './Button.scss';
 
-function Button () {
+function Button ({content, clickFunc}) {
     return (
         <>
+        <button className='button' onClick={clickFunc}>
+            {content}
+        </button>
         </>
     )
 }
