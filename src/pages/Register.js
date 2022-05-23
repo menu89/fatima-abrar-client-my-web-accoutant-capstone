@@ -5,6 +5,9 @@ import useForm from '../util/useForm';
 import checkFieldCompletion, {validateRegistrationForm} from '../util/formValidation';
 import InputField from '../components/InputField/InputField';
 import Button from '../components/Button/Button';
+import axios from 'axios';
+
+const axiosURL = 'http://localhost:9000/api'
 
 function Register () {
     const [values, handleOnChange] = useForm({username:"",email:"",password:"",confirmPassword:""})
@@ -24,12 +27,44 @@ function Register () {
         setButtonStatus(checkFieldCompletion(values))
     }, [values])
 
+    const callAxios = () => {
+        const newUser = {
+            username: values['username'],
+            email: values['email'],
+            password: values['password'],
+            confirmpassword: values['confirmPassword']
+        }
+
+        axios.post(`${axiosURL}/user/register`,newUser)
+        .then((response) => {
+            setValidationMsg(response.data)
+            setValidationStatus(false)
+            setTimeout(()=>{
+                setRedirectState(true)
+            },3000)
+        })
+        .catch((err) => {
+            let message = ""
+            if (err.response.status === 404) {
+                message = err.message
+            } else {
+                message = err.response.data
+            }
+            setValidationMsg(message)
+            setValidationStatus(false)
+        })
+    }
+
     const register = (event) => {
         event.preventDefault()
         const {status, message} = validateRegistrationForm(values)
         setValidationStatus(status)
         setValidationMsg(message)
-        console.log(values)
+        
+        if (status) {
+            callAxios()
+        }
+        
     }
 
     return (
