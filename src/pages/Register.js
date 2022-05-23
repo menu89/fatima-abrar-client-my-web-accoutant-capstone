@@ -1,38 +1,54 @@
 import '../styles/Register.scss';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {Redirect} from 'react-router-dom';
 import useForm from '../util/useForm';
+import checkFieldCompletion, {validateRegistrationForm} from '../util/formValidation';
 import InputField from '../components/InputField/InputField';
 import Button from '../components/Button/Button';
 
 function Register () {
-    const [values, handleOnChange] = useForm({username:""})
+    const [values, handleOnChange] = useForm({username:"",email:"",password:"",confirmPassword:""})
     const [redirectState, setRedirectState] = useState(false)
+    const [buttonStatus, setButtonStatus] = useState(true)
 
     const propsArray = [
-        { name:'username', labelText: 'User Name', changeFunc:handleOnChange, values:values['username']},
-        { name:'email', labelText: "Email", changeFunc:handleOnChange, values:values['email']},
-        { name:'password', labelText: "Password", changeFunc:handleOnChange, values:values['password']},
-        { name:'confirmPassword', labelText: "Confirm Password", changeFunc:handleOnChange, values:values['confirmPassword']}
+        { name:'username', labelText: 'User Name', changeFunc:handleOnChange, values:values['username'], type:'text'},
+        { name:'email', labelText: "Email", changeFunc:handleOnChange, values:values['email'], type:'text'},
+        { name:'password', labelText: "Password", changeFunc:handleOnChange, values:values['password'],type:'password'},
+        { name:'confirmPassword', labelText: "Confirm Password", changeFunc:handleOnChange, values:values['confirmPassword'], type:'password'}
     ]
 
-    const register = () => {
-        console.log('in fucntion')
+    useEffect(()=> {
+        setButtonStatus(checkFieldCompletion(values))
+    }, [values])
+
+    const register = (event) => {
+        event.preventDefault()
+        validateRegistrationForm(values)
+        console.log(values)
     }
 
     return (
         <main>
-            <h1 class="register__main-heading">My Web Accountant</h1>
+            <h1 className="register__main-heading">My Web Accountant</h1>
             <form>
                 {propsArray.map( 
-                    oneItem => <InputField fieldData={oneItem} />
+                    oneItem => <InputField key={oneItem.name} fieldData={oneItem} />
                 )}
                             
                 <div className='register__button-container'>
-                    <Button content="Register" clickFunc={register}/>
-                    <Button content="Back to Log In" clickFunc={
-                        () => setRedirectState(true)
-                    } />
+                    <Button 
+                        content="Register" 
+                        clickFunc={(event) => register(event)} 
+                        buttonEnabled={buttonStatus}
+                    />
+                    <Button 
+                        content="Back to Log In" 
+                        clickFunc={
+                            () => setRedirectState(true)
+                        }
+                        buttonEnabled={false} 
+                    />
                 </div>
             </form>
             

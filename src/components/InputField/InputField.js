@@ -1,7 +1,7 @@
 import './InputField.scss';
 
 function InputField ({fieldData}) {
-    const {name, labelText, changeFunc,values} = fieldData
+    const {name, labelText, changeFunc,values,type} = fieldData
     
     return (
         <div className='input__container'>
@@ -10,7 +10,7 @@ function InputField ({fieldData}) {
                 <input 
                     className='input__field' 
                     name={name}
-                    type='text'
+                    type={type}
                     placeholder={name}
                     onChange={changeFunc}
                     value={values}
