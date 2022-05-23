@@ -10,6 +10,8 @@ function Register () {
     const [values, handleOnChange] = useForm({username:"",email:"",password:"",confirmPassword:""})
     const [redirectState, setRedirectState] = useState(false)
     const [buttonStatus, setButtonStatus] = useState(true)
+    const [validationStatus, setValidationStatus] = useState(null)
+    const [validationMsg, setValidationMsg] = useState(null)
 
     const propsArray = [
         { name:'username', labelText: 'User Name', changeFunc:handleOnChange, values:values['username'], type:'text'},
@@ -24,7 +26,9 @@ function Register () {
 
     const register = (event) => {
         event.preventDefault()
-        validateRegistrationForm(values)
+        const {status, message} = validateRegistrationForm(values)
+        setValidationStatus(status)
+        setValidationMsg(message)
         console.log(values)
     }
 
@@ -52,6 +56,8 @@ function Register () {
                 </div>
             </form>
             
+            {}
+            {!validationStatus && <p>{validationMsg}</p>}
             {redirectState && <Redirect to='/' />}
             <p>.</p>
         </main>
