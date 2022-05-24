@@ -1,10 +1,10 @@
 import './Button.scss';
 
-function Button ({content, clickFunc, buttonEnabled}) {
+function Button ({content, clickFunc, buttonEnabled, newClass}) {
     return (
         <>
         <button 
-            className={`button ${buttonEnabled && 'button--disabled'}`} 
+            className={`button ${buttonEnabled && 'button--disabled'} ${newClass && 'button-mini'}`} 
             onClick={clickFunc}
             disabled={buttonEnabled}
         >

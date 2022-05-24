@@ -1,4 +1,3 @@
-import '../styles/InitialSetUp.scss';
 import { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import {v4} from 'uuid';

@@ -1,4 +1,3 @@
-import '../styles/Register.scss';
 import {useState, useEffect} from 'react';
 import {Redirect} from 'react-router-dom';
 import useForm from '../util/useForm';
@@ -17,10 +16,10 @@ function Register () {
     const [validationMsg, setValidationMsg] = useState(null)
 
     const propsArray = [
-        { name:'username', labelText: 'User Name', changeFunc:handleOnChange, values:values['username'], type:'text'},
-        { name:'email', labelText: "Email", changeFunc:handleOnChange, values:values['email'], type:'text'},
-        { name:'password', labelText: "Password", changeFunc:handleOnChange, values:values['password'],type:'password'},
-        { name:'confirmPassword', labelText: "Confirm Password", changeFunc:handleOnChange, values:values['confirmPassword'], type:'password'}
+        { name:'username', labelText: 'User Name', changeFunc:handleOnChange, values:values['username'], type:'text',componentClasses:'input'},
+        { name:'email', labelText: "Email", changeFunc:handleOnChange, values:values['email'], type:'text',componentClasses:'input'},
+        { name:'password', labelText: "Password", changeFunc:handleOnChange, values:values['password'],type:'password',componentClasses:'input'},
+        { name:'confirmPassword', labelText: "Confirm Password", changeFunc:handleOnChange, values:values['confirmPassword'], type:'password',componentClasses:'input'}
     ]
 
     useEffect(()=> {
