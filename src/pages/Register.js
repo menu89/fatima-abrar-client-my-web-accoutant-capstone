@@ -7,7 +7,7 @@ import InputField from '../components/InputField/InputField';
 import Button from '../components/Button/Button';
 import axios from 'axios';
 
-const axiosURL = 'http://localhost:9000/api'
+const axiosURL = process.env.REACT_APP_AXIOSURL
 
 function Register () {
     const [values, handleOnChange] = useForm({username:"",email:"",password:"",confirmPassword:""})
