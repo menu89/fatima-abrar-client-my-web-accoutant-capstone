@@ -9,15 +9,12 @@ import AddBankAcc from './pages/AddBankAcc';
 function App() {
   return (
     <>
-    <div className="App">
-      <h1>hello</h1>
-    </div>
-
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/ISU" component={InitialSetUp} />
+        <Route path="/account-list" component={InitialSetUp} />
         <Route path='/add-account' component={AddBankAcc} />
         <Route path='/dashboard' component={Dashboard} />
         <Redirect to="/" />
