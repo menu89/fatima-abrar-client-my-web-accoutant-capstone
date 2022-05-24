@@ -17,13 +17,31 @@ function NavBar () {
     },[])
 
     return (
-        <nav>
-            <ul>
-                <li><Link to='/dashboard'>Dashboard</Link></li>
-                <li><Link to='/account-list'>Account List</Link></li>
-                <li><Link>Actions</Link></li>
-                <li><Link>Transactions by Period</Link></li>
-                <li onClick={(event) => removeToken(event)}>Log Out</li>
+        <nav className='navigation'>
+            <ul className='navigation__list'>
+                <li className='navigation__list-item'>
+                    <Link className='navigation__list-link' to='/dashboard'>
+                        Dashboard
+                    </Link>
+                </li>
+                <li className='navigation__list-item'>
+                    <Link className='navigation__list-link' to='/account-list'>
+                        Account List
+                    </Link>
+                </li>
+                <li className='navigation__list-item'>
+                    <Link className='navigation__list-link' to=''>
+                        Actions
+                    </Link>
+                </li>
+                <li className='navigation__list-item'>
+                    <Link className='navigation__list-link' to=''>
+                        Transactions by Period
+                    </Link>
+                </li>
+                <li className='navigation__list-item' onClick={(event) => removeToken(event)}>
+                    Log Out
+                </li>
             </ul>
 
             {!checkLogIn && <Redirect to='/' />}
