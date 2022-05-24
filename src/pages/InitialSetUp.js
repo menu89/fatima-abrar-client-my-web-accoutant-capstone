@@ -73,7 +73,7 @@ function InitialSetUp () {
                 <Button 
                     content='Next' 
                     clickFunc={()=>(setRedirectToDash(true))}
-                    buttonEnabled={false}
+                    buttonEnabled={!(bankList.length !== 0)}
                 />
             </div>
 
