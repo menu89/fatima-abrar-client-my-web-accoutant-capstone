@@ -45,8 +45,20 @@ function validateRegistrationForm (values) {
     return {status: true}
 }
 
+function validateLoginForm (values) {
+    const { email} = values
+    if (!checkEmail(email)) {
+        return {
+            status:false,
+            message: "Please use a valid email address"
+        }
+    }
+
+    return {status: true}
+}
 
 export default checkFieldCompletion;
 export {
-    validateRegistrationForm
+    validateRegistrationForm,
+    validateLoginForm
 }

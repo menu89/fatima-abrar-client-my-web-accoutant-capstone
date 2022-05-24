@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import InitialSetUp from './pages/InitialSetUp';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Switch>
         <Route path="/" exact component={Login} />
         <Route path="/register" component={Register} />
+        <Route path="/ISU" component={InitialSetUp} />
         <Route path='/dashboard' component={Dashboard} />
         <Redirect to="/" />
       </Switch>
