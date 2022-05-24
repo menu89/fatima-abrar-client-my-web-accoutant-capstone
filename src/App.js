@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import InitialSetUp from './pages/InitialSetUp';
+import AddBankAcc from './pages/AddBankAcc';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" exact component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/ISU" component={InitialSetUp} />
+        <Route path='/add-account' component={AddBankAcc} />
         <Route path='/dashboard' component={Dashboard} />
         <Redirect to="/" />
       </Switch>

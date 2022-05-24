@@ -69,13 +69,13 @@ function Register () {
 
     return (
         <main>
-            <h1 className="register__main-heading">My Web Accountant</h1>
+            <h1 className="main-heading">My Web Accountant</h1>
             <form>
                 {propsArray.map( 
                     oneItem => <InputField key={oneItem.name} fieldData={oneItem} />
                 )}
                             
-                <div className='register__button-container'>
+                <div className='button-container'>
                     <Button 
                         content="Register" 
                         clickFunc={(event) => register(event)} 

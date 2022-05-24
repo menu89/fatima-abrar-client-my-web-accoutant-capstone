@@ -1,0 +1,29 @@
+@use '../../styles/partials/colors';
+
+.display-three {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: colors.$fieldSecondary;
+    border-radius: 20px;
+    font-weight: bold;
+    margin: 0rem 0.5rem 0.5rem 0.5rem;
+    
+
+    &__content {
+        font-size: 0.75rem;
+        width:30%;
+        border-right: 1px solid black;
+        margin:0.5rem 0rem;
+        
+        
+        &--end {
+            border: none;
+        }
+    }
+
+    &--regular {
+        background-color: colors.$fieldPrimary;
+        border-radius: 0px;
+        font-weight: normal;
+    }
+}
