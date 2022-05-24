@@ -1,0 +1,19 @@
+@use '../../styles/partials/colors';
+@use '../../styles/partials/mixins';
+
+.display-four {
+    @include mixins.headingStyles;
+    &__content {
+        @include mixins.contentStyle;
+        width:22%;
+        overflow-wrap: break-word;
+        
+        &--end {
+            border: none;
+        }
+    }
+
+    &--regular {
+        @include mixins.contentContainer;
+    }
+}

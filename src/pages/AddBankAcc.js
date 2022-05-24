@@ -21,8 +21,8 @@ function AddBankAcc() {
     ]
 
     const propsArray = [
-        { name:'acc_des', labelText: "Account Description", changeFunc:handleOnChange, values:values['acc_des'], type:'text'},
-        { name:'amount', labelText: "Amount", changeFunc:handleOnChange, values:values['amount'],type:'text'}
+        { name:'acc_des', labelText: "Account Description", changeFunc:handleOnChange, values:values['acc_des'], type:'text', componentClasses:'input'},
+        { name:'amount', labelText: "Amount", changeFunc:handleOnChange, values:values['amount'],type:'text', componentClasses:'input'}
     ]
 
     useEffect(()=> {

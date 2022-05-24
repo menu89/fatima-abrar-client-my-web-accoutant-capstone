@@ -1,4 +1,3 @@
-import '../styles/Login.scss';
 import {useState, useEffect} from 'react';
 import {Redirect} from 'react-router-dom';
 import useForm from '../util/useForm';
@@ -18,8 +17,8 @@ function Login () {
     const [validationMsg, setValidationMsg] = useState(null)
 
     const propsArray = [
-        { name:'email', labelText: "Email", changeFunc:handleOnChange, values:values['email'], type:'text'},
-        { name:'password', labelText: "Password", changeFunc:handleOnChange, values:values['password'],type:'password'}
+        { name:'email', labelText: "Email", changeFunc:handleOnChange, values:values['email'], type:'text',componentClasses:'input'},
+        { name:'password', labelText: "Password", changeFunc:handleOnChange, values:values['password'],type:'password',componentClasses:'input'}
     ]
 
     useEffect(()=> {

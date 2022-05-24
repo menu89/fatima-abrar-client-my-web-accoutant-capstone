@@ -1,4 +1,3 @@
-import '../styles/InitialSetUp.scss';
 import { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import {v4} from 'uuid';
@@ -71,7 +70,7 @@ function InitialSetUp () {
                     buttonEnabled={false}
                 />
                 <Button 
-                    content='Next' 
+                    content='Dashboard' 
                     clickFunc={()=>(setRedirectToDash(true))}
                     buttonEnabled={!(bankList.length !== 0)}
                 />

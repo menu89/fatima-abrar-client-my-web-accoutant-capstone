@@ -1,14 +1,14 @@
 import './InputField.scss';
 
 function InputField ({fieldData}) {
-    const {name, labelText, changeFunc,values,type} = fieldData
+    const {name, labelText, changeFunc,values,type, componentClasses} = fieldData
     
     return (
-        <div className='input__container'>
-            <label className='input__label'>
+        <div className={`${componentClasses}__contianer`}>
+            <label className={`${componentClasses}__label`}>
                 {labelText}
                 <input 
-                    className='input__field' 
+                    className={`${componentClasses}__field`} 
                     name={name}
                     type={type}
                     placeholder={labelText}

@@ -82,9 +82,47 @@ function validateBankInfo (values) {
     return {status: true}
 }
 
+function validateTotalSearch (values) {
+    const { searchMonth, searchYear} = values
+
+    if (!checkNumber(searchMonth) || !checkNumber(searchYear)) {
+        return {
+            status:false,
+            message: "You must only use numbers for the amount"
+        }
+    }
+
+    if ((parseInt(searchMonth) > 12) || (parseInt(searchMonth) < 1)) {
+        return {
+            status:false,
+            message: "Please enter a valid number for month"
+        }
+    }
+
+    if ((parseInt(searchYear) < 2022)) {
+        return {
+            status:false,
+            message: "Cannot search for items prior to 2021"
+        }
+    }
+    
+    const currentDate = new Date(Date.now())
+    const currentYear = currentDate.getFullYear()
+    
+    if (parseInt(searchYear) > currentYear) {
+        return {
+            status:false,
+            message: "You are searching in a year that hasn't started yet."
+        }
+    }
+
+    return {status: true}
+}
+
 export default checkFieldCompletion;
 export {
     validateRegistrationForm,
     validateLoginForm,
-    validateBankInfo
+    validateBankInfo,
+    validateTotalSearch
 }
