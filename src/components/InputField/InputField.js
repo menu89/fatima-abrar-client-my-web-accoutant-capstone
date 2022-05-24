@@ -11,7 +11,7 @@ function InputField ({fieldData}) {
                     className='input__field' 
                     name={name}
                     type={type}
-                    placeholder={name}
+                    placeholder={labelText}
                     onChange={changeFunc}
                     value={values}
                 />

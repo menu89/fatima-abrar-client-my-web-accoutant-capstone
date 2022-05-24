@@ -41,7 +41,7 @@ function Login () {
             sessionStorage.setItem('JWT-Token', JSON.stringify(response.data.token))
             setTimeout(()=>{
                 setRedirectToISU(true)
-            },3000)
+            },1000)
         })
         .catch((err) => {
             let message = ""
@@ -68,11 +68,11 @@ function Login () {
 
     return ( 
         <main>
-            <h1 className="register__main-heading">My Web Accountant</h1>
+            <h1 className="main-heading">My Web Accountant</h1>
             <form>
                 {propsArray.map(oneItem => <InputField key={oneItem.name} fieldData={oneItem} />)}
             </form>
-            <div className='register__button-container'>
+            <div className='button-container'>
                 <Button content="Register" clickFunc={()=>setRedirectToRegister(true)} buttonEnabled={false} />
                 <Button content="Log In" clickFunc={(event)=>login(event)} buttonEnabled={buttonStatus} />
             </div>

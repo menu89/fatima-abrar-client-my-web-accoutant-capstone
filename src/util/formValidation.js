@@ -24,6 +24,19 @@ function checkEmail (emailInput) {
     return false
 }
 
+function checkNumber (numInput) {
+    const numbers = '0123456789.'
+    const numArray = (
+        numInput.split('')
+                .map(oneNum => {
+                    return numbers.includes(oneNum)
+                })
+                .filter(num => !(!num))
+                .length
+    )
+    return (numInput.length === numArray)
+}
+
 function validateRegistrationForm (values) {
     //also recieves username but not using it anywhere at this time
     const { email, password, confirmPassword} = values
@@ -57,8 +70,21 @@ function validateLoginForm (values) {
     return {status: true}
 }
 
+function validateBankInfo (values) {
+    const { amount,} = values
+    if (!checkNumber(amount)) {
+        return {
+            status:false,
+            message: "You must only use numbers for the amount"
+        }
+    }
+
+    return {status: true}
+}
+
 export default checkFieldCompletion;
 export {
     validateRegistrationForm,
-    validateLoginForm
+    validateLoginForm,
+    validateBankInfo
 }

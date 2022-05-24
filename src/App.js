@@ -18,7 +18,7 @@ function App() {
         <Route path="/" exact component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/ISU" component={InitialSetUp} />
-        <Route path='add-account' component={AddBankAcc} />
+        <Route path='/add-account' component={AddBankAcc} />
         <Route path='/dashboard' component={Dashboard} />
         <Redirect to="/" />
       </Switch>

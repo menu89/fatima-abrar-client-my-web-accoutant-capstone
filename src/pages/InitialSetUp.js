@@ -42,7 +42,7 @@ function InitialSetUp () {
 
     return (
         <main>
-            <h1 className="register__main-heading">My Web Accountant</h1>
+            <h1 className="main-heading">My Web Accountant</h1>
             <h2>Account List</h2>
             <section>
                 <DisplayFieldOne 
@@ -64,7 +64,7 @@ function InitialSetUp () {
                 })}
             </section>
             
-            <div className='register__button-container'>
+            <div className='button-container'>
                 <Button 
                     content='+ Add another account' 
                     clickFunc={()=>(setRedirectToForm(true))}
