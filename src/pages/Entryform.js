@@ -11,23 +11,25 @@ import axios from 'axios';
 const axiosURL = process.env.REACT_APP_AXIOSURL
 
 function Entryform() {
-    const [redirectAdd, setRedirectAdd] = useState("")
-    const [values, handleOnChange] = useForm({amount:"",description:"",trandate:""})
+    const [values, handleOnChange] = useForm({amount:"",description:"",trandate:"", debit:"", credit:""})
     const [buttonStatus, setButtonStatus] = useState(true)
     const [creditOptions, setCreditOptions] = useState([])
     const [debitOptions, setDebitOptions] = useState([])
+    const [redirectAdd, setRedirectAdd] = useState("")
     const propInfo = useRouteMatch()
 
     const propsArray = [
-        { name:'amount', labelText: "Amount", changeFunc:handleOnChange, values:values['amount'], type:'text',componentClasses:'input'},
+        { name:'amount', labelText: "Amount", changeFunc:handleOnChange, values:values['amount'], type:'number',componentClasses:'input'},
         { name:'description', labelText: "Description", changeFunc:handleOnChange, values:values['description'],type:'text',componentClasses:'input'},
         { name:'trandate', labelText: "Transaction Date", changeFunc:handleOnChange, values:values['trandate'],type:'date',componentClasses:'input'}
     ]
     
     let optionArray = []
     let bankCategory = ''
+    let trantype = ''
     if(propInfo.path === '/add-transaction') {
-        bankCategory = 'credit'
+        bankCategory = 'c'
+        trantype = 'expense'
         optionArray = [
             {name:'debit', labelText: 'Expense',values:values['debit'],changeFunc:handleOnChange, options:debitOptions},
             {name:'credit', labelText: 'Payment from:',values:values['credit'],changeFunc:handleOnChange, options:creditOptions}
@@ -38,6 +40,25 @@ function Entryform() {
         setButtonStatus(checkFieldCompletion(values))
     }, [values])
 
+    const getExpIncList = () => {
+        axios.get(`${axiosURL}/account-list`)
+        .then(response => {
+            const responseList = response.data
+            const prepareExpArray = []
+            const prepareIncArray = []
+            for (let loopAcc = 0; loopAcc < responseList.length; loopAcc++) {
+                if (responseList[loopAcc]['type'] === 'expense') {
+                    prepareExpArray.push(responseList[loopAcc]['name'])
+                }
+                if (responseList[loopAcc]['type'] === 'income') {
+                    prepareIncArray.push(responseList[loopAcc]['name'])
+                }
+            }
+            if (trantype === 'expense') {
+                setDebitOptions([...prepareExpArray])
+            }
+        })
+    }
     const getAccountLists = () => {
         const token = JSON.parse(sessionStorage.getItem('JWT-Token'))
 
@@ -51,17 +72,39 @@ function Entryform() {
             for (let loopBanks =0; loopBanks < responseList.length; loopBanks++) {
                 prepareArray.push(responseList[loopBanks]['acc_des'])
             }
-            if (bankCategory === 'credit') {
+            if (bankCategory === 'c') {
                 setCreditOptions([...prepareArray])
             } else (
                 setDebitOptions([...prepareArray])
             )
-        })
+        })    
     }
 
     useEffect(() =>{
         getAccountLists()
+        getExpIncList()
     },[])
+
+    const clickAdd = (event) => {
+        event.preventDefault()
+        const token = JSON.parse(sessionStorage.getItem('JWT-Token'))
+        const dateConvert = Date.parse(new Date(values['trandate']))
+        const sendTran = {
+            'debit':values['debit'],
+            'credit':values['credit'],
+            'bank_type':bankCategory,
+            'transaction_timestamp': dateConvert,
+            'amount':values['amount'],
+            'description':values['description']
+        }
+        axios.post(`${axiosURL}/user/transaction`, sendTran, {headers: {
+            "Content-type": "application/json",
+            'authorization': `Bearer ${token}`
+        }})
+        .then(response => {
+            setRedirectAdd('/dashboard')
+        })
+    }
     
     return (
         <>
@@ -74,7 +117,7 @@ function Entryform() {
                     {optionArray.map(oneItem => <InputDropDown key={v4()} fieldData={oneItem} />)}
                     {propsArray.map(oneItem => <InputField key={v4()} fieldData={oneItem} />)}
                     <div className="button-container">
-                        <Button content='+ Add' buttonEnabled={buttonStatus} clickFunc={()=> {console.log('infunction')}} />
+                        <Button content='+ Add' buttonEnabled={buttonStatus} clickFunc={(event)=> {clickAdd(event)}} />
                         <Button content='Cancel' buttonEnabled={false} clickFunc={()=> {setRedirectAdd('/actions')}} />
                     </div>
                 </form>
