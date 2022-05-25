@@ -5,6 +5,8 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import InitialSetUp from './pages/InitialSetUp';
 import AddBankAcc from './pages/AddBankAcc';
+import Actions from './pages/Actions';
+import Entryform from './pages/Entryform';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Route path="/account-list" component={InitialSetUp} />
         <Route path='/add-account' component={AddBankAcc} />
         <Route path='/dashboard' component={Dashboard} />
+        <Route path='/add-transaction' component={Entryform} />
+        <Route path='/actions' component={Actions} />
         <Redirect to="/" />
       </Switch>
     </BrowserRouter>

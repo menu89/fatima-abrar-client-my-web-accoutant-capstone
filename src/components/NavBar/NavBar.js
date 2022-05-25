@@ -30,7 +30,7 @@ function NavBar () {
                     </Link>
                 </li>
                 <li className='navigation__list-item'>
-                    <Link className='navigation__list-link' to=''>
+                    <Link className='navigation__list-link' to='/actions'>
                         Actions
                     </Link>
                 </li>

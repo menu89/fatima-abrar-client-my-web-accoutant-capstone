@@ -13,6 +13,7 @@ function InputDropDown ({fieldData}) {
                     onChange={changeFunc}
                     value={values}
                 >
+                    <option value=''></option>
                     {options.map(oneOption => {
                         return <option 
                             key={v4()}
