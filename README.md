@@ -10,12 +10,12 @@ HTML, CSS, SASS, JavaScript, React, NodeJS
 # Features
 
 The app currently has the following features:
-Register a user
+Register a user.
 Individual Users can log in and have access to the follow:
-Set up payment account information
-Record purchases
-View a breakdown of expenses by category and period
-View a list of payment accounts set up
+Set up payment account information,
+Record purchases,
+View a breakdown of expenses by category and period,
+View a list of payment accounts set up,
 Users only have access to information for their own user only.
 
 # Run Locally
