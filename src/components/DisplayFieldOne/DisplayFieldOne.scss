@@ -1,0 +1,19 @@
+@use '../../styles/partials/colors';
+@use '../../styles/partials/mixins';
+
+.display-three {
+    @include mixins.headingStyles;
+
+    &__content {
+        @include mixins.contentStyle;
+        width:30%;
+        
+        &--end {
+            border: none;
+        }
+    }
+
+    &--regular {
+        @include mixins.contentContainer;
+    }
+}

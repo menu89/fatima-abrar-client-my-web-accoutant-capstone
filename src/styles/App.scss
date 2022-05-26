@@ -1,0 +1,54 @@
+@use './partials/colors';
+@use './partials//topography';
+
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+body {
+    font-family: topography.$primaryFont;
+    color: colors.$fontPrimary;
+    font-weight: topography.$weightNormal;
+    margin: 0%;
+    background-color: colors.$backgroundPrimary;
+}
+
+header {
+    width: 95vw;
+    max-width: 47.5rem;
+    border-radius: 30px;
+    margin: 1rem 2.5vw;
+    height: fit-content;
+}
+
+main {
+    background-color: colors.$backgroundSecondary;
+    width: 95vw;
+    max-width: 47.5rem;
+    border-radius: 30px;
+    margin: 1rem 2.5vw;
+    height: fit-content;
+    min-height: 20rem;
+}
+
+h1 {
+    font-family: topography.$headingFont;
+    font-weight: topography.$weightNormal;
+    display: inline-block;
+    font-size: 1.5rem;
+}
+
+h2 {
+    padding-top: 1rem;
+    text-align: center;
+}
+
+.main-heading {
+    margin: 0.5rem calc((100vw - 14rem)/2)
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}

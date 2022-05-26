@@ -1,0 +1,42 @@
+@use '../../styles/partials/colors';
+@use '../../styles/partials/mixins';
+@use '../../styles/partials/topography';
+
+.input {
+
+    &__container {
+        margin: 1rem 0rem;
+    }
+
+    &__label {
+        margin-left: 0.75rem;
+        font-size: 1rem;
+    }
+
+    &__field {
+        display: block;
+        margin-left: 0.75rem;
+        padding: 0.5rem 1rem;
+
+        @include mixins.inputFields;
+    }
+}
+
+.mini-input {
+    
+    &__contianer {
+        display: flex;
+    }
+    &__label {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-family: topography.$primaryFont;
+    }
+    &__field {
+        display: inline-block;
+        @include mixins.inputFields;
+        padding: 0rem 0.5rem;
+        margin: 0rem 0.5rem;
+        width: 3rem;
+    }
+}

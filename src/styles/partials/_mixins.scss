@@ -1,0 +1,32 @@
+@use './colors';
+@use './topography';
+
+@mixin headingStyles {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: colors.$fieldSecondary;
+    border-radius: 20px;
+    font-weight: bold;
+    margin: 0rem 0.5rem 0.5rem 0.5rem;
+}
+
+@mixin contentStyle {
+    font-size: 0.75rem;
+    border-right: 1px solid black;
+    margin:0.5rem 0rem;
+    text-align: center;
+}
+
+@mixin contentContainer {
+    background-color: colors.$fieldPrimary;
+    border-radius: 0px;
+    font-weight: normal;
+}
+
+@mixin inputFields {
+    background-color: colors.$fieldPrimary;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 2px 2px rgba(0,0,0,0.4);
+    font-family: topography.$primaryFont;
+}

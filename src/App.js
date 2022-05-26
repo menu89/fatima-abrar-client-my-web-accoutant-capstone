@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import './styles/App.scss';
+import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
+import InitialSetUp from './pages/InitialSetUp';
+import AddBankAcc from './pages/AddBankAcc';
+import Actions from './pages/Actions';
+import Entryform from './pages/Entryform';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" exact component={Login} />
+        <Route path="/register" component={Register} />
+        <Route path="/ISU" component={InitialSetUp} />
+        <Route path="/account-list" component={InitialSetUp} />
+        <Route path='/add-account' component={AddBankAcc} />
+        <Route path='/dashboard' component={Dashboard} />
+        <Route path='/add-transaction' component={Entryform} />
+        <Route path='/actions' component={Actions} />
+        <Redirect to="/" />
+      </Switch>
+    </BrowserRouter>
+    </>
+    
   );
 }
 
