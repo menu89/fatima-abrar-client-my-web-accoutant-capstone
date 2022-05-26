@@ -1,6 +1,5 @@
 import { Redirect, useRouteMatch } from "react-router-dom";
 import { useEffect, useState } from "react";
-import {v4} from 'uuid';
 import useForm from '../util/useForm';
 import checkFieldCompletion from '../util/formValidation';
 import Button from "../components/Button/Button";
@@ -35,12 +34,31 @@ function Entryform() {
             {name:'credit', labelText: 'Payment from:',values:values['credit'],changeFunc:handleOnChange, options:creditOptions}
         ]
     }
-    
-    useEffect(()=> {
-        setButtonStatus(checkFieldCompletion(values))
-    }, [values])
 
-    const getExpIncList = () => {
+    useEffect(() =>{
+        const token = JSON.parse(sessionStorage.getItem('JWT-Token'))
+
+        //gets list of bank accounts for the specific user
+        axios.get(`${axiosURL}/user/bank-list`, {headers: {
+            "Content-type": "application/json",
+            'authorization': `Bearer ${token}`
+        }})
+        .then(response => {
+            const responseList = response.data
+            const prepareArray = []
+            for (let loopBanks =0; loopBanks < responseList.length; loopBanks++) {
+                prepareArray.push(responseList[loopBanks]['acc_des'])
+            }
+            if (bankCategory === 'c') {
+                setCreditOptions([...prepareArray])
+            } else (
+                setDebitOptions([...prepareArray])
+            )
+        })   
+    },[bankCategory])
+
+    useEffect(() => {
+        //get's list of expense and income accounts
         axios.get(`${axiosURL}/account-list`)
         .then(response => {
             const responseList = response.data
@@ -58,32 +76,7 @@ function Entryform() {
                 setDebitOptions([...prepareExpArray])
             }
         })
-    }
-    const getAccountLists = () => {
-        const token = JSON.parse(sessionStorage.getItem('JWT-Token'))
-
-        axios.get(`${axiosURL}/user/bank-list`, {headers: {
-            "Content-type": "application/json",
-            'authorization': `Bearer ${token}`
-        }})
-        .then(response => {
-            const responseList = response.data
-            const prepareArray = []
-            for (let loopBanks =0; loopBanks < responseList.length; loopBanks++) {
-                prepareArray.push(responseList[loopBanks]['acc_des'])
-            }
-            if (bankCategory === 'c') {
-                setCreditOptions([...prepareArray])
-            } else (
-                setDebitOptions([...prepareArray])
-            )
-        })    
-    }
-
-    useEffect(() =>{
-        getAccountLists()
-        getExpIncList()
-    },[])
+    },[trantype])
 
     const clickAdd = (event) => {
         event.preventDefault()
@@ -105,6 +98,10 @@ function Entryform() {
             setRedirectAdd('/dashboard')
         })
     }
+
+    useEffect(()=> {
+        setButtonStatus(checkFieldCompletion(values))
+    }, [values])
     
     return (
         <>
@@ -114,8 +111,8 @@ function Entryform() {
             <main>
                 <h2>Bought Something / Paid Expense</h2>
                 <form>
-                    {optionArray.map(oneItem => <InputDropDown key={v4()} fieldData={oneItem} />)}
-                    {propsArray.map(oneItem => <InputField key={v4()} fieldData={oneItem} />)}
+                    {optionArray.map(oneItem => <InputDropDown key={oneItem.name} fieldData={oneItem} />)}
+                    {propsArray.map(oneItem => <InputField key={oneItem.name} fieldData={oneItem} />)}
                     <div className="button-container">
                         <Button content='+ Add' buttonEnabled={buttonStatus} clickFunc={(event)=> {clickAdd(event)}} />
                         <Button content='Cancel' buttonEnabled={false} clickFunc={()=> {setRedirectAdd('/actions')}} />

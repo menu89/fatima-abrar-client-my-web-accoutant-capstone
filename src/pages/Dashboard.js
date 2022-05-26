@@ -1,7 +1,6 @@
 import '../styles/Dashboard.scss';
 import { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import {v4} from 'uuid';
 import useForm from '../util/useForm';
 import checkFieldCompletion, {validateTotalSearch} from '../util/formValidation';
 import NavBar from '../components/NavBar/NavBar';
@@ -25,17 +24,6 @@ function Dashboard () {
         { name:'searchMonth', labelText: "Month", changeFunc:handleOnChange, values:values['searchMonth'], type:'text',componentClasses:'mini-input'},
         { name:'searchYear', labelText: "Year", changeFunc:handleOnChange, values:values['searchYear'],type:'text',componentClasses:'mini-input'}
     ]
-
-    useEffect(()=> {
-        setButtonStatus(checkFieldCompletion(values))
-    }, [values])
-
-    useEffect(() => {
-        setRedirectToMain(!sessionStorage.getItem('JWT-Token'))
-        if (!redirectToMain) {
-            callAxiosForActuals()
-        }
-    }, [])
 
     const callAxiosForActuals = () => {
         const token = JSON.parse(sessionStorage.getItem('JWT-Token'))
@@ -85,6 +73,21 @@ function Dashboard () {
         }
     }
 
+    useEffect(()=> {
+        setButtonStatus(checkFieldCompletion(values))
+    }, [values])
+
+    useEffect(() => {
+        const doWeRedirect = !sessionStorage.getItem('JWT-Token') 
+        setRedirectToMain(doWeRedirect)
+
+        if (!doWeRedirect) {
+            callAxiosForActuals()
+        }
+        
+        //eslint-disable-next-line
+    }, [])
+
     return (
         <>
             <header>
@@ -93,15 +96,15 @@ function Dashboard () {
             </header>
             <main>
                 <form className='dashboard__form'>
-                    {propsArray.map(oneItem => <InputField key={v4()} fieldData={oneItem} />)}
+                    {propsArray.map(oneItem => <InputField key={oneItem.name} fieldData={oneItem} />)}
                     <Button content='Go' clickFunc={(event)=>{clickGo(event)}} buttonEnabled={buttonStatus} newClass={true}/>
                     
                 </form>
                 <DisplayFieldTwo objectClass='display-four' one='Expense' two='Budget' three='Actual' four='Difference'/>
-                {tableRow.map(oneRow => {
+                {tableRow.map((oneRow,rowIndex) => {
                     const {heading, budget, actual} = oneRow
                     let diff = budget - actual
-                    return (<DisplayFieldTwo key={v4()} objectClass='display-four display-four--regular' one={heading} two={budget} three={actual} four={diff} />)
+                    return (<DisplayFieldTwo key={rowIndex} objectClass='display-four display-four--regular' one={heading} two={budget} three={actual} four={diff} />)
                 })}
                 <DisplayFieldTwo objectClass='display-four' one='Total' two={0} three={totalActual} four={0-totalActual}/>
                 
