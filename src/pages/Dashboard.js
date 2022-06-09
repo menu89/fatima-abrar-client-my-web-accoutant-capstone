@@ -12,7 +12,12 @@ import axios from 'axios';
 const axiosURL=process.env.REACT_APP_AXIOSURL
 
 function Dashboard () {
-    const [values, handleOnChange] = useForm({searchMonth:"05", searchYear:"2022"})
+    const currentDate = new Date(Date.now())
+    let cm = currentDate.getMonth()+1
+    if (currentDate.getMonth() < 10) {
+        cm = `0${cm}`
+    }
+    const [values, handleOnChange] = useForm({searchMonth:`${cm}`, searchYear:`${currentDate.getFullYear()}`})
     const [buttonStatus, setButtonStatus] = useState(false)
     const [redirectToMain, setRedirectToMain] =useState(false)
     const [tableRow, setTableRow] = useState([])
@@ -27,12 +32,8 @@ function Dashboard () {
 
     const callAxiosForActuals = () => {
         const token = JSON.parse(sessionStorage.getItem('JWT-Token'))
-        const para = {
-            month:values['searchMonth'],
-            year:values['searchYear']
-        }
 
-        axios.post(`${axiosURL}/user/total-by-period`, para,{
+        axios.get(`${axiosURL}/actual/total-by-period?month=${values['searchMonth']}&year=${values['searchYear']}`,{
             headers: {
             "Content-type": "application/json",
             'authorization': `Bearer ${token}`

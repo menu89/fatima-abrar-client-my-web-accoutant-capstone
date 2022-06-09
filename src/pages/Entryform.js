@@ -90,7 +90,7 @@ function Entryform() {
             'amount':values['amount'],
             'description':values['description']
         }
-        axios.post(`${axiosURL}/user/transaction`, sendTran, {headers: {
+        axios.post(`${axiosURL}/actual/transaction`, sendTran, {headers: {
             "Content-type": "application/json",
             'authorization': `Bearer ${token}`
         }})
