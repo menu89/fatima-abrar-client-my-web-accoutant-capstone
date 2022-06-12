@@ -35,7 +35,7 @@ function NavBar () {
                     </Link>
                 </li>
                 <li className='navigation__list-item'>
-                    <Link className='navigation__list-link' to=''>
+                    <Link className='navigation__list-link' to='/tran-by-period'>
                         Transactions by Period
                     </Link>
                 </li>

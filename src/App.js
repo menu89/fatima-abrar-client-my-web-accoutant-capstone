@@ -7,6 +7,7 @@ import InitialSetUp from './pages/InitialSetUp';
 import AddBankAcc from './pages/AddBankAcc';
 import Actions from './pages/Actions';
 import Entryform from './pages/Entryform';
+import TranByPeriod from './pages/TranByPeriod';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path='/add-account' component={AddBankAcc} />
         <Route path='/dashboard' component={Dashboard} />
         <Route path='/add-transaction' component={Entryform} />
+        <Route path='/tran-by-period' component={TranByPeriod} />
         <Route path='/actions' component={Actions} />
         <Redirect to="/" />
       </Switch>

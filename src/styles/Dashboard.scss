@@ -1,6 +1,30 @@
+@use './partials/colors';
+
 .dashboard__form {
     display: flex;
     padding: 1rem 0.5rem;
     margin-bottom: 1rem;
     margin-left: 1rem;
+}
+
+.transaction-list {
+    background-color: colors.$fieldTertiary;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+
+    & span {
+        margin-right: 2rem;
+    }
+
+    & p {
+        margin: 0%;
+        margin-bottom: 0.25rem;
+        font-size: 0.8rem;
+    }
+
+    &--amount {
+        font-weight: bold;
+    }
+    
 }

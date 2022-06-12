@@ -6,23 +6,24 @@ import InputField from '../components/InputField/InputField';
 import InputDropDown from '../components/InputField/InputDropDown';
 import Button from '../components/Button/Button';
 import axios from 'axios';
+import propsInfo from '../assets/propsinformation.json';
 
 const axiosURL=process.env.REACT_APP_AXIOSURL
 
 function AddBankAcc() {
-    const [values, handleOnChange] = useForm({acc_des:"",amount:"",acc_type:'chequeing'})
+    const [values, handleOnChange] = useForm({acc_des:"",amount:"",acc_type:''})
     const [redirectToISU, setRedirectToISU] = useState(false)
     const [buttonStatus, setButtonStatus] = useState(true)
     const [validationStatus, setValidationStatus] = useState(null)
     const [validationMsg, setValidationMsg] = useState(null)
 
     const optionArray =[
-        {name:'acc_type', labelText: 'Account Type',values:values['acc_type'],changeFunc:handleOnChange, options:['chequeing','credit-card','line-of-credit']}
+        { ...propsInfo.bankAccTypeOptions, values:values['acc_type'],changeFunc:handleOnChange}
     ]
 
     const propsArray = [
-        { name:'acc_des', labelText: "Account Description", changeFunc:handleOnChange, values:values['acc_des'], type:'text', componentClasses:'input'},
-        { name:'amount', labelText: "Amount", changeFunc:handleOnChange, values:values['amount'],type:'text', componentClasses:'input'}
+        { ...propsInfo.descriptionTwoLabel, changeFunc:handleOnChange, values:values['acc_des']},
+        { ...propsInfo.amountLabel, changeFunc:handleOnChange, values:values['amount']}
     ]
 
     useEffect(()=> {

@@ -1,0 +1,35 @@
+{
+    "nameLabel": {
+        "name":"username", "labelText": "User Name", "type":"text","componentClasses":"input"
+    },
+    "emailLabel": {
+        "name":"email", "labelText": "Email", "type":"text" ,"componentClasses":"input"
+    },
+    "passwordLabel": {
+        "name":"password" , "labelText": "Password", "type":"password","componentClasses":"input"
+    },
+    "confirmPasswordLabel": {
+        "name":"confirmPassword", "labelText": "Confirm Password", "type":"password", "componentClasses":"input"
+    },
+    "amountLabel": {
+        "name":"amount", "labelText": "Amount", "type":"number","componentClasses":"input"
+    },
+    "descriptionLabel": {
+        "name":"description", "labelText": "Description", "type":"text","componentClasses":"input"
+    },
+    "tranDateLabel": {
+        "name":"trandate", "labelText": "Transaction Date", "type":"date","componentClasses":"input"
+    },
+    "searchMonthLabel": {
+        "name":"searchMonth", "labelText": "Month", "type":"text","componentClasses":"mini-input"
+    },
+    "searchYearLabel": {
+        "name":"searchYear", "labelText": "Year", "type":"text","componentClasses":"mini-input"
+    },
+    "descriptionTwoLabel": {
+        "name":"acc_des", "labelText": "Account Description", "type":"text", "componentClasses":"input"
+    },
+    "bankAccTypeOptions": {
+        "name":"acc_type", "labelText": "Account Type", "options":["chequeing","credit-card","line-of-credit"]
+    }
+}

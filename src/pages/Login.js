@@ -5,6 +5,7 @@ import checkFieldCompletion, {validateLoginForm} from '../util/formValidation';
 import InputField from '../components/InputField/InputField';
 import Button from '../components/Button/Button';
 import axios from 'axios';
+import propsInfo from '../assets/propsinformation.json';
 
 const axiosURL=process.env.REACT_APP_AXIOSURL
 
@@ -17,8 +18,8 @@ function Login () {
     const [validationMsg, setValidationMsg] = useState(null)
 
     const propsArray = [
-        { name:'email', labelText: "Email", changeFunc:handleOnChange, values:values['email'], type:'text',componentClasses:'input'},
-        { name:'password', labelText: "Password", changeFunc:handleOnChange, values:values['password'],type:'password',componentClasses:'input'}
+        { ...propsInfo.emailLabel, changeFunc:handleOnChange, values:values['email']},
+        { ...propsInfo.passwordLabel, changeFunc:handleOnChange, values:values['password']}
     ]
 
     useEffect(()=> {

@@ -6,6 +6,7 @@ import Button from "../components/Button/Button";
 import InputField from "../components/InputField/InputField";
 import InputDropDown from "../components/InputField/InputDropDown";
 import axios from 'axios';
+import propsInfo from '../assets/propsinformation.json';
 
 const axiosURL = process.env.REACT_APP_AXIOSURL
 
@@ -18,9 +19,9 @@ function Entryform() {
     const propInfo = useRouteMatch()
 
     const propsArray = [
-        { name:'amount', labelText: "Amount", changeFunc:handleOnChange, values:values['amount'], type:'number',componentClasses:'input'},
-        { name:'description', labelText: "Description", changeFunc:handleOnChange, values:values['description'],type:'text',componentClasses:'input'},
-        { name:'trandate', labelText: "Transaction Date", changeFunc:handleOnChange, values:values['trandate'],type:'date',componentClasses:'input'}
+        { ...propsInfo.amountLabel, changeFunc:handleOnChange, values:values['amount']},
+        { ...propsInfo.descriptionLabel, changeFunc:handleOnChange, values:values['description']},
+        { ...propsInfo.tranDateLabel, changeFunc:handleOnChange, values:values['trandate']}
     ]
     
     let optionArray = []

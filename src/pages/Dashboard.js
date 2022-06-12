@@ -8,6 +8,7 @@ import DisplayFieldTwo from '../components/DisplayFieldTwo/DisplayFieldTwo';
 import InputField from '../components/InputField/InputField';
 import Button from '../components/Button/Button';
 import axios from 'axios';
+import propsInfo from '../assets/propsinformation.json';
 
 const axiosURL=process.env.REACT_APP_AXIOSURL
 
@@ -26,8 +27,8 @@ function Dashboard () {
     const [validationMsg, setValidationMsg] = useState(null)
 
     const propsArray = [
-        { name:'searchMonth', labelText: "Month", changeFunc:handleOnChange, values:values['searchMonth'], type:'text',componentClasses:'mini-input'},
-        { name:'searchYear', labelText: "Year", changeFunc:handleOnChange, values:values['searchYear'],type:'text',componentClasses:'mini-input'}
+        { ...propsInfo.searchMonthLabel, changeFunc:handleOnChange, values:values['searchMonth']},
+        { ...propsInfo.searchYearLabel, changeFunc:handleOnChange, values:values['searchYear']}
     ]
 
     const callAxiosForActuals = () => {
@@ -101,13 +102,15 @@ function Dashboard () {
                     <Button content='Go' clickFunc={(event)=>{clickGo(event)}} buttonEnabled={buttonStatus} newClass={true}/>
                     
                 </form>
-                <DisplayFieldTwo objectClass='display-four' one='Expense' two='Budget' three='Actual' four='Difference'/>
-                {tableRow.map((oneRow,rowIndex) => {
-                    const {heading, budget, actual} = oneRow
-                    let diff = budget - actual
-                    return (<DisplayFieldTwo key={rowIndex} objectClass='display-four display-four--regular' one={heading} two={budget} three={actual} four={diff} />)
-                })}
-                <DisplayFieldTwo objectClass='display-four' one='Total' two={0} three={totalActual} four={0-totalActual}/>
+                <section>
+                    <DisplayFieldTwo objectClass='display-four' one='Expense' two='Budget' three='Actual' four='Difference'/>
+                    {tableRow.map((oneRow,rowIndex) => {
+                        const {heading, budget, actual} = oneRow
+                        let diff = budget - actual
+                        return (<DisplayFieldTwo key={rowIndex} objectClass='display-four display-four--regular' one={heading} two={budget} three={actual} four={diff} />)
+                    })}
+                    <DisplayFieldTwo objectClass='display-four' one='Total' two={0} three={totalActual} four={0-totalActual}/>
+                </section>
                 
             </main>
             

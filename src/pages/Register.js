@@ -5,6 +5,7 @@ import checkFieldCompletion, {validateRegistrationForm} from '../util/formValida
 import InputField from '../components/InputField/InputField';
 import Button from '../components/Button/Button';
 import axios from 'axios';
+import propsInfo from '../assets/propsinformation.json';
 
 const axiosURL = process.env.REACT_APP_AXIOSURL
 
@@ -16,10 +17,10 @@ function Register () {
     const [validationMsg, setValidationMsg] = useState(null)
 
     const propsArray = [
-        { name:'username', labelText: 'User Name', changeFunc:handleOnChange, values:values['username'], type:'text',componentClasses:'input'},
-        { name:'email', labelText: "Email", changeFunc:handleOnChange, values:values['email'], type:'text',componentClasses:'input'},
-        { name:'password', labelText: "Password", changeFunc:handleOnChange, values:values['password'],type:'password',componentClasses:'input'},
-        { name:'confirmPassword', labelText: "Confirm Password", changeFunc:handleOnChange, values:values['confirmPassword'], type:'password',componentClasses:'input'}
+        { ...propsInfo.nameLabel, changeFunc:handleOnChange, values:values['username']},
+        { ...propsInfo.emailLabel, changeFunc:handleOnChange, values:values['email']},
+        { ...propsInfo.passwordLabel, changeFunc:handleOnChange, values:values['password']},
+        { ...propsInfo.confirmPasswordLabel, changeFunc:handleOnChange, values:values['confirmPassword']}
     ]
 
     useEffect(()=> {
