@@ -1,0 +1,89 @@
+@use '../../styles/partials/mixins';
+@use '../../styles/partials/colors';
+@use '../../styles/partials/topography';
+
+@keyframes changeSize {
+    0% {width: 0rem; color: colors.$fontSecondary;}
+    100% {width:6rem; color:colors.$fontPrimary;}
+}
+
+@keyframes animateVertically {
+    0%{transform: translate(0%, -100%);}
+    100%{transform: translate(0%,0%);}    
+}
+
+.heading {
+    margin: 0%;
+    position: fixed;
+    top: 0%;
+    width: 100vw;
+    
+    &:hover .short-navigation {
+        display: initial;
+    }
+
+    &__icon {
+        @include mixins.navigationIcons;
+        z-index: 1;
+    }
+}
+
+.short-navigation {
+    position: fixed;
+    top: 0%;
+    left: 3rem;
+    display: none;
+
+    &__list {
+        list-style: none;
+        padding: 0%;
+        margin: 0%;
+        display: flex;
+        
+    }
+
+    &__list-item {
+        position: relative;
+
+        &:hover {
+            & .short-navigation__link {
+                display: initial;
+                animation: changeSize 0.5s ease-out;
+            }
+        }
+    }
+    
+    // &__icon-link{}
+    
+    &__icon {
+        @include mixins.navigationIcons;
+
+        &:hover{
+            @include mixins.navigationIconHover;
+        }
+
+        &--one {
+            animation: animateVertically 0.5s ease-out;
+        }
+
+        &--two {
+            animation: animateVertically 0.75s ease-out;
+        }
+
+        &--three {
+            animation: animateVertically 1s ease-out;
+        }
+
+        &--four {
+            animation: animateVertically 1.25s ease-out;
+        }
+    }    
+
+    &__link {
+        @include mixins.navigationLinks;
+
+        &:hover {
+            @include mixins.navigationIconHover;
+        }
+    }
+}

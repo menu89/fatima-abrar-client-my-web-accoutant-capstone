@@ -4,6 +4,7 @@ import useForm from '../util/useForm';
 import checkFieldCompletion, {validateLoginForm} from '../util/formValidation';
 import InputField from '../components/InputField/InputField';
 import Button from '../components/Button/Button';
+import ShortNavBar from '../components/NavBar/ShortNavBar';
 import axios from 'axios';
 import propsInfo from '../assets/propsinformation.json';
 
@@ -67,6 +68,8 @@ function Login () {
     }
 
     return ( 
+        <>
+        <ShortNavBar />
         <main>
             <h1 className="main-heading">My Web Accountant</h1>
             <form>
@@ -82,6 +85,8 @@ function Login () {
             {redirectToRegister && <Redirect to='/register' />}
             <p>.</p>
         </main>
+        </>
+        
     )
 }
 
