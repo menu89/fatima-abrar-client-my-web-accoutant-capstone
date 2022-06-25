@@ -1,28 +1,34 @@
 @use '../../styles/partials/colors';
+@use '../../styles//partials//mixins';
+
+.heading {
+    margin: 0%;
+    position: fixed;
+    top: 0%;
+    width: 100vw;
+    background-color: colors.$backgroundPrimary;
+    
+    &:hover .navigation {
+        display: initial;
+    }
+
+    &__icon {
+        @include mixins.navigationIcons;
+        z-index: 1;
+    }
+}
 
 .navigation {
-    background-color: colors.$backgroundButton;
-    color: colors.$fontButton;
-    border-radius: 15px;
+    position: fixed;
+    top: 0%;
+    left: 3rem;
+    display: none;
 
     &__list {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-evenly;
         list-style: none;
-        padding: 0.5rem;
+        padding: 0%;
         margin: 0%;
-        font-size: 0.75rem;        
-    }
-
-    &__list-item {
-        padding: 0.25rem;
-        margin: 0.25rem;
-        border: 1px solid colors.$fontButton;
-    }
-
-    &__list-link {
-        color: colors.$fontButton;
-        text-decoration: none;
     }
 }

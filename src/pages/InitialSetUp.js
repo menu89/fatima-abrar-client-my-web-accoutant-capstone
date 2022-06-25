@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import {v4} from 'uuid';
 import DisplayFieldOne from '../components/DisplayFieldOne/DisplayFieldOne';
+import NavBar from '../components/NavBar/NavBar';
 import Button from '../components/Button/Button';
 import axios from 'axios';
 
@@ -15,6 +16,7 @@ function InitialSetUp () {
     const [validationStatus, setValidationStatus] = useState(null)
     const [validationMsg, setValidationMsg] = useState(null)
 
+    //axios call on first load to pull the list of bank accounts for the user
     useEffect(()=>{
         const token = JSON.parse(sessionStorage.getItem('JWT-Token'))
 
@@ -40,47 +42,53 @@ function InitialSetUp () {
     }, [])
 
     return (
+        <>
+        {(bankList.length !== 0) && <NavBar />}
         <main>
             <h1 className="main-heading">My Web Accountant</h1>
-            <h2>Account List</h2>
-            <section>
-                <DisplayFieldOne 
-                    objectClass="display-three" 
-                    one='Account Type'
-                    two='Account Info'
-                    three='Initial Account Balance'
-                />
-                {gotList && bankList.map(oneBank => {
-                    const {acc_type, acc_des, amount} = oneBank
-                    const id = v4()
-                    return <DisplayFieldOne 
-                        key={id}
-                        objectClass="display-three display-three--regular" 
-                        one={acc_type} 
-                        two={acc_des} 
-                        three={amount}
+            <section className='section-container'>
+                <h2>Account List</h2>
+                <section>
+                    <DisplayFieldOne 
+                        objectClass="display-three" 
+                        one='Account Type'
+                        two='Account Info'
+                        three='Initial Account Balance'
                     />
-                })}
+                    {gotList && bankList.map(oneBank => {
+                        const {acc_type, acc_des, amount} = oneBank
+                        const id = v4()
+                        return <DisplayFieldOne 
+                            key={id}
+                            objectClass="display-three display-three--regular" 
+                            one={acc_type} 
+                            two={acc_des} 
+                            three={amount}
+                        />
+                    })}
+                </section>
+                
+                <div className='button-container'>
+                    <Button 
+                        content='+ Add another account' 
+                        clickFunc={()=>(setRedirectToForm(true))}
+                        buttonEnabled={false}
+                    />
+                    {/* button is only enabled if there is at least one entry showing */}
+                    <Button 
+                        content='Dashboard' 
+                        clickFunc={()=>(setRedirectToDash(true))}
+                        buttonEnabled={!(bankList.length !== 0)}
+                    />
+                </div>
             </section>
             
-            <div className='button-container'>
-                <Button 
-                    content='+ Add another account' 
-                    clickFunc={()=>(setRedirectToForm(true))}
-                    buttonEnabled={false}
-                />
-                <Button 
-                    content='Dashboard' 
-                    clickFunc={()=>(setRedirectToDash(true))}
-                    buttonEnabled={!(bankList.length !== 0)}
-                />
-            </div>
-
-            {!validationStatus && <p>{validationMsg}</p>}
+            {/* error message */}
+            {!validationStatus && <p className='validation-message'>{validationMsg}</p>}
             {redirectToForm && <Redirect to='/add-account' />}
             {redirectToDash && <Redirect to='/dashboard' />}
-            <p>.</p>
         </main>
+        </>
     )
 }
 
