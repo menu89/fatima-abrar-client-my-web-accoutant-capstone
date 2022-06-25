@@ -8,6 +8,7 @@ import AddBankAcc from './pages/AddBankAcc';
 import Actions from './pages/Actions';
 import Entryform from './pages/Entryform';
 import TranByPeriod from './pages/TranByPeriod';
+import Credits from './pages/Credits';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Switch>
         <Route path="/" exact component={Login} />
         <Route path="/register" component={Register} />
+        <Route path="/credits" component={Credits} />
         <Route path="/ISU" component={InitialSetUp} />
         <Route path="/account-list" component={InitialSetUp} />
         <Route path='/add-account' component={AddBankAcc} />

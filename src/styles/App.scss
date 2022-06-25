@@ -71,3 +71,19 @@ h2 {
     display: inline-block;
     margin: 1rem;
 }
+
+.credits-page {
+    &__icons {
+        height: 1.5rem;
+        padding-right: 0.5rem;
+    }
+
+    &__para {
+        display: inline-block;
+        font-size: 0.7rem;
+    }
+
+    &__links {
+        color:colors.$fontPrimary;
+    }
+}

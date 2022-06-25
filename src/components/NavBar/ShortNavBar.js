@@ -4,6 +4,7 @@ import loginSvg from '../../assets/icon/login.svg';
 import registrationSvg from '../../assets/icon/registration.svg';
 import helpSvg from '../../assets/icon/help.svg';
 import aboutSvg from '../../assets/icon/about.svg';
+import creditsSvg from '../../assets/icon/clipboard.svg';
 import {Link} from 'react-router-dom';
 
 function ShortNavBar () {
@@ -36,6 +37,12 @@ function ShortNavBar () {
                             <img src={aboutSvg} alt="about icon" className='short-navigation__icon short-navigation__icon--four' />
                         </Link>
                         <Link to='/' className='short-navigation__link'>About</Link>
+                    </li>
+                    <li className='short-navigation__list-item'>
+                        <Link to='/credits' >
+                            <img src={creditsSvg} alt="credits icon" className='short-navigation__icon short-navigation__icon--four' />
+                        </Link>
+                        <Link to='/credits' className='short-navigation__link'>Credits</Link>
                     </li>
                 </ul>
             </nav>
