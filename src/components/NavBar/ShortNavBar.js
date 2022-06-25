@@ -1,5 +1,5 @@
 import './ShortNavBar.scss';
-import linkSvg from '../../assets/icon/list.svg';
+import listSvg from '../../assets/icon/list.svg';
 import loginSvg from '../../assets/icon/login.svg';
 import registrationSvg from '../../assets/icon/registration.svg';
 import helpSvg from '../../assets/icon/help.svg';
@@ -11,37 +11,27 @@ function ShortNavBar () {
     return (
         <>
         <header className='heading'>
-            <img src={linkSvg} alt="list icon" className='heading__icon' />
+            <img src={listSvg} alt="list icon" className='heading__icon' />
             <nav className='short-navigation'>
                 <ul className='short-navigation__list'>
                     <li className='short-navigation__list-item'>
-                        <Link to='/'>
-                            <img src={loginSvg} alt="log in icon" className='short-navigation__icon short-navigation__icon--one' />
-                        </Link>
+                        <img src={loginSvg} alt="log in icon" className='short-navigation__icon short-navigation__icon--one' />
                         <Link to='/' className='short-navigation__link'>Log In</Link>
                     </li>
                     <li className='short-navigation__list-item'>
-                        <Link to='/register' >
-                            <img src={registrationSvg} alt="registration icon" className='short-navigation__icon short-navigation__icon--two' />
-                        </Link>
+                        <img src={registrationSvg} alt="registration icon" className='short-navigation__icon short-navigation__icon--two' />
                         <Link to='/register' className='short-navigation__link'>Register</Link>
                     </li>
                     <li className='short-navigation__list-item'>
-                        <Link to='/' >
-                            <img src={helpSvg} alt="help icon" className='short-navigation__icon short-navigation__icon--three' />
-                        </Link>
+                        <img src={helpSvg} alt="help icon" className='short-navigation__icon short-navigation__icon--three' />
                         <Link to='/' className='short-navigation__link'>Help</Link>
                     </li>
                     <li className='short-navigation__list-item'>
-                        <Link to='/' >
-                            <img src={aboutSvg} alt="about icon" className='short-navigation__icon short-navigation__icon--four' />
-                        </Link>
+                        <img src={aboutSvg} alt="about icon" className='short-navigation__icon short-navigation__icon--four' />
                         <Link to='/' className='short-navigation__link'>About</Link>
                     </li>
                     <li className='short-navigation__list-item'>
-                        <Link to='/credits' >
-                            <img src={creditsSvg} alt="credits icon" className='short-navigation__icon short-navigation__icon--four' />
-                        </Link>
+                        <img src={creditsSvg} alt="credits icon" className='short-navigation__icon short-navigation__icon--four' />
                         <Link to='/credits' className='short-navigation__link'>Credits</Link>
                     </li>
                 </ul>

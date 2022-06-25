@@ -6,6 +6,7 @@ import helpSvg from '../assets/icon/help.svg';
 import aboutSvg from '../assets/icon/about.svg';
 import creditsSvg from '../assets/icon/clipboard.svg';
 
+//this page is to list recognitions for artists whose material has been used to build the website.
 function Credits () {
     return (
         <>

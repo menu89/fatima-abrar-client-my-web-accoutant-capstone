@@ -17,6 +17,7 @@ function Register () {
     const [validationStatus, setValidationStatus] = useState(null)
     const [validationMsg, setValidationMsg] = useState(null)
 
+    //props info used to populate the input labels and fields
     const propsArray = [
         { ...propsInfo.nameLabel, changeFunc:handleOnChange, values:values['username']},
         { ...propsInfo.emailLabel, changeFunc:handleOnChange, values:values['email']},
@@ -24,10 +25,12 @@ function Register () {
         { ...propsInfo.confirmPasswordLabel, changeFunc:handleOnChange, values:values['confirmPassword']}
     ]
 
+    //checks to see if the fields are empty and enables the button if they are not.
     useEffect(()=> {
         setButtonStatus(checkFieldCompletion(values))
     }, [values])
 
+    //axios call to server to register the user
     const callAxios = () => {
         const newUser = {
             username: values['username'],
@@ -40,10 +43,12 @@ function Register () {
         .then((response) => {
             setValidationMsg(response.data)
             setValidationStatus(false)
+            //redirects to main page if registration is successful
             setTimeout(()=>{
                 setRedirectState(true)
             },3000)
         })
+        //if the call fails, then show error information at the bottom of the page.
         .catch((err) => {
             let message = ""
             if (err.response.status === 404) {
@@ -56,6 +61,7 @@ function Register () {
         })
     }
 
+    //validates the fields once you click register. Updates an error message at the bottom of the page if there is a problem with the fields. If all fields are good, then goes onto make the axios call.
     const register = (event) => {
         event.preventDefault()
         const {status, message} = validateRegistrationForm(values)
@@ -97,10 +103,10 @@ function Register () {
             </section>
             
             
-            {}
+            {/* populates the error message */}
             {!validationStatus && <p className='validation-message'>{validationMsg}</p>}
+            {/* redirects back to login page */}
             {redirectState && <Redirect to='/' />}
-            <p>.</p>
         </main>
         </>
     )
