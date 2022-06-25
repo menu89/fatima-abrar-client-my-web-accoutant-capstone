@@ -72,18 +72,20 @@ function Login () {
         <ShortNavBar />
         <main>
             <h1 className="main-heading">My Web Accountant</h1>
-            <form>
-                {propsArray.map(oneItem => <InputField key={oneItem.name} fieldData={oneItem} />)}
-            </form>
-            <div className='button-container'>
-                <Button content="Register" clickFunc={()=>setRedirectToRegister(true)} buttonEnabled={false} />
-                <Button content="Log In" clickFunc={(event)=>login(event)} buttonEnabled={buttonStatus} />
-            </div>
+            <section className='section-container'>
+                <form>
+                    {propsArray.map(oneItem => <InputField key={oneItem.name} fieldData={oneItem} />)}
+                </form>
+                <div className='button-container'>
+                    <Button content="Register" clickFunc={()=>setRedirectToRegister(true)} buttonEnabled={false} />
+                    <Button content="Log In" clickFunc={(event)=>login(event)} buttonEnabled={buttonStatus} />
+                </div>
+            </section>
 
-            {!validationStatus && <p>{validationMsg}</p>}
+            {!validationStatus && <p className='validation-message'>{validationMsg}</p>}
             {redirectToISU && <Redirect to='ISU'/>}
             {redirectToRegister && <Redirect to='/register' />}
-            <p>.</p>
+            
         </main>
         </>
         

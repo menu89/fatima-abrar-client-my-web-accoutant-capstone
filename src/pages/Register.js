@@ -4,6 +4,7 @@ import useForm from '../util/useForm';
 import checkFieldCompletion, {validateRegistrationForm} from '../util/formValidation';
 import InputField from '../components/InputField/InputField';
 import Button from '../components/Button/Button';
+import ShortNavBar from '../components/NavBar/ShortNavBar';
 import axios from 'axios';
 import propsInfo from '../assets/propsinformation.json';
 
@@ -68,34 +69,40 @@ function Register () {
     }
 
     return (
-        <main>
+        <>
+        <ShortNavBar />
+        <main>    
             <h1 className="main-heading">My Web Accountant</h1>
-            <form>
-                {propsArray.map( 
-                    oneItem => <InputField key={oneItem.name} fieldData={oneItem} />
-                )}
-                            
-                <div className='button-container'>
-                    <Button 
-                        content="Register" 
-                        clickFunc={(event) => register(event)} 
-                        buttonEnabled={buttonStatus}
-                    />
-                    <Button 
-                        content="Back to Log In" 
-                        clickFunc={
-                            () => setRedirectState(true)
-                        }
-                        buttonEnabled={false} 
-                    />
-                </div>
-            </form>
+            <section className='section-container'>
+                <form>
+                    {propsArray.map( 
+                        oneItem => <InputField key={oneItem.name} fieldData={oneItem} />
+                    )}
+                                
+                    <div className='button-container'>
+                        <Button 
+                            content="Register" 
+                            clickFunc={(event) => register(event)} 
+                            buttonEnabled={buttonStatus}
+                        />
+                        <Button 
+                            content="Back to Log In" 
+                            clickFunc={
+                                () => setRedirectState(true)
+                            }
+                            buttonEnabled={false} 
+                        />
+                    </div>
+                </form>
+            </section>
+            
             
             {}
-            {!validationStatus && <p>{validationMsg}</p>}
+            {!validationStatus && <p className='validation-message'>{validationMsg}</p>}
             {redirectState && <Redirect to='/' />}
             <p>.</p>
         </main>
+        </>
     )
 }
 
