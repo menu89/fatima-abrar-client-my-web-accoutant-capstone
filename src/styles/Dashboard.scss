@@ -12,9 +12,17 @@
     margin: 1rem;
     padding: 1rem;
     border-radius: 10px;
+    
+    border: 2px solid colors.$boundarySecondary;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px colors.$boundaryPrimary;
 
     & span {
-        margin-right: 2rem;
+        margin-right: 8px;
+    }
+
+    &__heading {
+        text-decoration: underline;
     }
 
     & p {

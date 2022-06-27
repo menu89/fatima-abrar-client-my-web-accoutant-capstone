@@ -26,7 +26,7 @@ function App() {
         <Route path='/add-inc-transaction' component={Entryform} />
         <Route path='/add-exp-budget' component={Entryform} />
         <Route path='/add-inc-budget' component={Entryform} />
-        <Route path='/tran-by-period' component={TranByPeriod} />
+        <Route path='/history' component={TranByPeriod} />
         <Route path='/actions' component={Actions} />
         <Redirect to="/" />
       </Switch>

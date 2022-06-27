@@ -32,7 +32,7 @@ function NavBar () {
         {imgSource:dahboardSvg, altText:'dashboard icon', linkAdd:'/dashboard', linkText:'Dashboard', classModifier:'--one'},
         {imgSource:accListSvg, altText:'account list icon', linkAdd:'/account-list', linkText:'Account List', classModifier:'--two'},
         {imgSource:actionSvg, altText:'action icon', linkAdd:'/actions', linkText:'Actions', classModifier:'--three'},
-        {imgSource:tranHisSvg, altText:'transaction history icon', linkAdd:'tran-by-period', linkText:'Transactions History', classModifier:'--four'},
+        {imgSource:tranHisSvg, altText:'transaction history icon', linkAdd:'/history', linkText:'Transactions History', classModifier:'--four'},
         {imgSource:aboutSvg, altText:'about icon', linkAdd:'/', linkText:'About Us', classModifier:'--five'},
         {imgSource:creditsSvg, altText:'credits icon', linkAdd:'/credits', linkText:'Credits', classModifier:'--six'}
     ]

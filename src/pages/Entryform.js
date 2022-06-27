@@ -32,8 +32,8 @@ function Entryform() {
     let bankCategory = ''
     let trantype = ''
     let tranCategory = ''
-    const debitObj = {name:'debit', values:values['debit'],changeFunc:handleOnChange, options:debitOptions}
-    const creditObj = {name:'credit',values:values['credit'],changeFunc:handleOnChange, options:creditOptions}
+    const debitObj = {name:'debit', values:values['debit'],changeFunc:handleOnChange, options:debitOptions, componentClasses:'input'}
+    const creditObj = {name:'credit',values:values['credit'],changeFunc:handleOnChange, options:creditOptions, componentClasses:'input'}
     
     //additional input fields that vary depending on type of transaction
     if((propInfo.path === '/add-exp-transaction') || (propInfo.path === '/add-exp-budget')) {
