@@ -5,6 +5,7 @@ import checkFieldCompletion from '../util/formValidation';
 import Button from "../components/Button/Button";
 import InputField from "../components/InputField/InputField";
 import InputDropDown from "../components/InputField/InputDropDown";
+import NavBar from "../components/NavBar/NavBar";
 import axios from 'axios';
 import propsInfo from '../assets/propsinformation.json';
 
@@ -18,24 +19,60 @@ function Entryform() {
     const [redirectAdd, setRedirectAdd] = useState("")
     const propInfo = useRouteMatch()
 
+    //props information that is the same accross all transaction types
     const propsArray = [
         { ...propsInfo.amountLabel, changeFunc:handleOnChange, values:values['amount']},
         { ...propsInfo.descriptionLabel, changeFunc:handleOnChange, values:values['description']},
         { ...propsInfo.tranDateLabel, changeFunc:handleOnChange, values:values['trandate']}
     ]
     
+    //variables that change based on type of transaction
+    let headingTitle = ''
     let optionArray = []
     let bankCategory = ''
     let trantype = ''
-    if(propInfo.path === '/add-transaction') {
+    let tranCategory = ''
+    const debitObj = {name:'debit', values:values['debit'],changeFunc:handleOnChange, options:debitOptions}
+    const creditObj = {name:'credit',values:values['credit'],changeFunc:handleOnChange, options:creditOptions}
+    
+    //additional input fields that vary depending on type of transaction
+    if((propInfo.path === '/add-exp-transaction') || (propInfo.path === '/add-exp-budget')) {
         bankCategory = 'c'
         trantype = 'expense'
+        
         optionArray = [
-            {name:'debit', labelText: 'Expense',values:values['debit'],changeFunc:handleOnChange, options:debitOptions},
-            {name:'credit', labelText: 'Payment from:',values:values['credit'],changeFunc:handleOnChange, options:creditOptions}
+            {labelText: 'Expense', ...debitObj},
+            {labelText: 'Payment from:', ...creditObj}
         ]
+        if (propInfo.path === '/add-exp-transaction') {
+            tranCategory = 'actual'
+            headingTitle = 'Bought Something / Paid Expense'
+        }
+        if (propInfo.path === '/add-exp-budget') {
+            tranCategory = 'budget'
+            headingTitle = 'Budget Purchase / Budget Expense'
+        }
+
+    } else if ((propInfo.path === '/add-inc-transaction') || (propInfo.path === '/add-inc-budget')) {
+        bankCategory = 'd'
+        trantype = 'income'
+        tranCategory = 'actual'
+        optionArray = [
+            {labelText: 'Pay into', ...debitObj},
+            {labelText: 'Income', ...creditObj}
+        ]
+
+        if (propInfo.path === '/add-inc-transaction') {
+            tranCategory = 'actual'
+            headingTitle = 'Money received from income, etc'
+        }
+        if (propInfo.path === '/add-inc-budget') {
+            tranCategory = 'budget'
+            headingTitle = 'Budget for expected incoming cash'
+        }
     }
 
+    //this hook loads when bank category changes which is only on first load. it pulls the list of bank accounts and assigns it to one of the drop down lists.
     useEffect(() =>{
         const token = JSON.parse(sessionStorage.getItem('JWT-Token'))
 
@@ -58,6 +95,7 @@ function Entryform() {
         })   
     },[bankCategory])
 
+    //this hook runs when trantype changes which is only when the components mounts/loads. it searches for list of accounts and adds them to the relevant drop down.
     useEffect(() => {
         //get's list of expense and income accounts
         axios.get(`${axiosURL}/account-list`)
@@ -75,10 +113,13 @@ function Entryform() {
             }
             if (trantype === 'expense') {
                 setDebitOptions([...prepareExpArray])
+            } else if (trantype === 'income') {
+                setCreditOptions([...prepareIncArray])
             }
         })
     },[trantype])
 
+    //this function organizes information from the form and sends it to the server, then redirects to the dashboard
     const clickAdd = (event) => {
         event.preventDefault()
         const token = JSON.parse(sessionStorage.getItem('JWT-Token'))
@@ -91,7 +132,7 @@ function Entryform() {
             'amount':values['amount'],
             'description':values['description']
         }
-        axios.post(`${axiosURL}/actual/transaction`, sendTran, {headers: {
+        axios.post(`${axiosURL}/${tranCategory}/transaction-single`, sendTran, {headers: {
             "Content-type": "application/json",
             'authorization': `Bearer ${token}`
         }})
@@ -100,25 +141,28 @@ function Entryform() {
         })
     }
 
+    //this function checks to see that all fields are updated
     useEffect(()=> {
         setButtonStatus(checkFieldCompletion(values))
     }, [values])
     
     return (
         <>
-            <header>
-                <h1 className="main-heading">My Web Accountant</h1>
-            </header>
+            <NavBar />      
             <main>
-                <h2>Bought Something / Paid Expense</h2>
-                <form>
-                    {optionArray.map(oneItem => <InputDropDown key={oneItem.name} fieldData={oneItem} />)}
-                    {propsArray.map(oneItem => <InputField key={oneItem.name} fieldData={oneItem} />)}
-                    <div className="button-container">
-                        <Button content='+ Add' buttonEnabled={buttonStatus} clickFunc={(event)=> {clickAdd(event)}} />
-                        <Button content='Cancel' buttonEnabled={false} clickFunc={()=> {setRedirectAdd('/actions')}} />
-                    </div>
-                </form>
+                <h1 className="main-heading">My Web Accountant</h1>
+                <section className="section-container">
+                    <h2>{headingTitle}</h2>
+                    <form>
+                        {optionArray.map(oneItem => <InputDropDown key={oneItem.name} fieldData={oneItem} />)}
+                        {propsArray.map(oneItem => <InputField key={oneItem.name} fieldData={oneItem} />)}
+                        <div className="button-container">
+                            <Button content='+ Add' buttonEnabled={buttonStatus} clickFunc={(event)=> {clickAdd(event)}} />
+                            <Button content='Cancel' buttonEnabled={false} clickFunc={()=> {setRedirectAdd('/actions')}} />
+                        </div>
+                    </form>
+                </section>
+                
                 <p>.</p>
             </main>
             {redirectAdd && <Redirect to={redirectAdd} />}

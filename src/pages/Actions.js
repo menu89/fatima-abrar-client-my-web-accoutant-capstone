@@ -10,16 +10,22 @@ function Actions () {
 
     return (
         <>
-            <header>
-                <h1 className="main-heading">My Web Accountant</h1>
-                <NavBar />
-            </header>
+            <NavBar />
             <main>
-                <h2>Actions</h2>
-                <div className="button-container">
-                    <Button content='Add a purchase' buttonEnabled={false} clickFunc={()=> {setRedirectAdd('/add-transaction')}} />
-                    <Button content='Add a Payment Account' buttonEnabled={false} clickFunc={()=> {setRedirectAdd('/add-account')}} />
-                </div>
+                <h1 className="main-heading">My Web Accountant</h1>
+                <section className="section-container">
+                    <h2>Actions</h2>
+                    <div className="button-container">
+                        <Button content='Add a purchase' buttonEnabled={false} clickFunc={()=> {setRedirectAdd('/add-exp-transaction')}} />
+                        <Button content='Add Incoming Cash' buttonEnabled={false} clickFunc={()=> {setRedirectAdd('/add-inc-transaction')}} />
+
+                        <Button content='Budget a purchase' buttonEnabled={false} clickFunc={()=> {setRedirectAdd('/add-exp-budget')}} />
+                        <Button content='Budget for income' buttonEnabled={false} clickFunc={()=> {setRedirectAdd('/add-inc-budget')}} />
+                        
+                        <Button content='Add a Payment Account' buttonEnabled={false} clickFunc={()=> {setRedirectAdd('/add-account')}} />
+                    </div>
+                </section>
+                
             </main>
 
             {redirectAdd && <Redirect to={redirectAdd} />}

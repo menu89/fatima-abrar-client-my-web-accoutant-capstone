@@ -22,7 +22,10 @@ function App() {
         <Route path="/account-list" component={InitialSetUp} />
         <Route path='/add-account' component={AddBankAcc} />
         <Route path='/dashboard' component={Dashboard} />
-        <Route path='/add-transaction' component={Entryform} />
+        <Route path='/add-exp-transaction' component={Entryform} />
+        <Route path='/add-inc-transaction' component={Entryform} />
+        <Route path='/add-exp-budget' component={Entryform} />
+        <Route path='/add-inc-budget' component={Entryform} />
         <Route path='/tran-by-period' component={TranByPeriod} />
         <Route path='/actions' component={Actions} />
         <Redirect to="/" />
