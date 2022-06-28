@@ -1,5 +1,7 @@
 import { Redirect, useRouteMatch } from "react-router-dom";
 import { useEffect, useState } from "react";
+import {validateEditInformation} from '../util/formValidation';
+import {organizeDate, organizeForTranPatchCall} from '../util/organizeInfo';
 import useForm from '../util/useForm';
 import checkFieldCompletion from '../util/formValidation';
 import Button from "../components/Button/Button";
@@ -12,7 +14,27 @@ import propsInfo from '../assets/propsinformation.json';
 const axiosURL = process.env.REACT_APP_AXIOSURL
 
 function Entryform() {
-    const [values, handleOnChange] = useForm({amount:"",description:"",trandate:"", debit:"", credit:""})
+    const editObject = JSON.parse(sessionStorage.getItem('edit-transaction-info'))
+    const token = JSON.parse(sessionStorage.getItem('JWT-Token'))
+
+    let populateCredit = ""
+    let populateDebit = ""
+    let populateTranDate = ""
+    let populateAmount = ""
+    let populateDescription = ""
+    
+    //if it is an edit page, then it takes the object from session storage and populates the initial values using said object
+    if (!!editObject) {
+        populateCredit = editObject.Credit
+        populateDebit = editObject.Debit 
+        populateAmount = editObject.amount
+        populateDescription = editObject.Description
+        
+        const workingDate = new Date(editObject.Transaction_timestamp)
+        populateTranDate = organizeDate(workingDate)
+    }
+
+    const [values, handleOnChange] = useForm({amount:populateAmount,description:populateDescription,trandate:populateTranDate, debit:populateDebit, credit:populateCredit})
     const [buttonStatus, setButtonStatus] = useState(true)
     const [creditOptions, setCreditOptions] = useState([])
     const [debitOptions, setDebitOptions] = useState([])
@@ -34,7 +56,9 @@ function Entryform() {
     let tranCategory = ''
     const debitObj = {name:'debit', values:values['debit'],changeFunc:handleOnChange, options:debitOptions, componentClasses:'input'}
     const creditObj = {name:'credit',values:values['credit'],changeFunc:handleOnChange, options:creditOptions, componentClasses:'input'}
-    
+
+    let areWeEditing = false
+
     //additional input fields that vary depending on type of transaction
     if((propInfo.path === '/add-exp-transaction') || (propInfo.path === '/add-exp-budget')) {
         bankCategory = 'c'
@@ -70,6 +94,31 @@ function Entryform() {
             tranCategory = 'budget'
             headingTitle = 'Budget for expected incoming cash'
         }
+    } else if ( (propInfo.path === '/edit-transaction') || (propInfo.path === '/edit-budget')) {
+        bankCategory = editObject.Bank_type
+        tranCategory = editObject.tranType
+
+        if (bankCategory === 'c' ) {
+            trantype = 'expense'
+            optionArray = [
+                {labelText: 'Expense', ...debitObj},
+                {labelText: 'Payment from:', ...creditObj}
+            ]
+        } else if (bankCategory === 'd') {
+            trantype = 'income'
+            optionArray = [
+                {labelText: 'Pay into', ...debitObj},
+                {labelText: 'Income', ...creditObj}
+            ]
+        }
+
+        if (tranCategory === "Actual") {
+            headingTitle = 'Edit Actuals'
+        } else if (tranCategory === "Budget") {
+            headingTitle = 'Edit Budget Record'
+        }
+
+        areWeEditing = true
     }
 
     //this hook loads when bank category changes which is only on first load. it pulls the list of bank accounts and assigns it to one of the drop down lists.
@@ -122,7 +171,7 @@ function Entryform() {
     //this function organizes information from the form and sends it to the server, then redirects to the dashboard
     const clickAdd = (event) => {
         event.preventDefault()
-        const token = JSON.parse(sessionStorage.getItem('JWT-Token'))
+        
         const dateConvert = Date.parse(new Date(values['trandate']))
         const sendTran = {
             'debit':values['debit'],
@@ -141,6 +190,27 @@ function Entryform() {
         })
     }
 
+    const clickEdit = (event) => {
+        event.preventDefault()
+
+        const {status} = validateEditInformation(values, editObject)
+        let patchObject ={}
+
+        if (status) {
+            patchObject = organizeForTranPatchCall(values, editObject)
+        }
+
+        axios.patch(`${axiosURL}/${tranCategory}/transaction-single`, patchObject, {headers: {
+            "Content-type": "application/json",
+            'authorization': `Bearer ${token}`
+        }})
+        .then(response => {
+            setRedirectAdd('/history')
+        })
+
+        console.log(patchObject)
+    }
+
     //this function checks to see that all fields are updated
     useEffect(()=> {
         setButtonStatus(checkFieldCompletion(values))
@@ -157,13 +227,12 @@ function Entryform() {
                         {optionArray.map(oneItem => <InputDropDown key={oneItem.name} fieldData={oneItem} />)}
                         {propsArray.map(oneItem => <InputField key={oneItem.name} fieldData={oneItem} />)}
                         <div className="button-container">
-                            <Button content='+ Add' buttonEnabled={buttonStatus} clickFunc={(event)=> {clickAdd(event)}} />
+                            {areWeEditing && <Button content="Edit" buttonEnabled={buttonStatus} clickFunc={(event) => {clickEdit(event)}} />}
+                            {!areWeEditing && <Button content='+ Add' buttonEnabled={buttonStatus} clickFunc={(event)=> {clickAdd(event)}} />}
                             <Button content='Cancel' buttonEnabled={false} clickFunc={()=> {setRedirectAdd('/actions')}} />
                         </div>
                     </form>
                 </section>
-                
-                <p>.</p>
             </main>
             {redirectAdd && <Redirect to={redirectAdd} />}
         </>

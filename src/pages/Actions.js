@@ -5,6 +5,8 @@ import Button from "../components/Button/Button";
 
 
 function Actions () {
+    //remove edit information from session storage
+    sessionStorage.removeItem('edit-transaction-info') 
 
     const [redirectAdd, setRedirectAdd] = useState("")
 

@@ -3,9 +3,11 @@ import DeleteTransaction from './DeleteTransaction';
 import editSvg from '../../assets/icon/edit.svg';
 import deleteSvg from '../../assets/icon/remove.svg';
 import {useState} from 'react';
+import {Redirect} from 'react-router-dom';
 
 function SingleTransaction ({tranData, tranType}) {
     const [loadDelete, setLoadDelete] = useState(false)
+    const [redirectStatus, setRedirectStatus] = useState(false)
 
     //convert timestamp to string
     const adjustTimestamp = (timeData) => {
@@ -35,6 +37,21 @@ function SingleTransaction ({tranData, tranType}) {
         tranType: tranType
     }
 
+    let redirectAddress = ''
+    if (tranType === 'Actual') {
+        redirectAddress = 'edit-transaction'
+    } else if (tranType === "Budget") {
+        redirectAddress = 'edit-budget'
+    }
+
+    const clickEdit = (event) => {
+        event.preventDefault()
+        sessionStorage.setItem('edit-transaction-info', JSON.stringify(propObj))
+        setTimeout(() => {
+            setRedirectStatus(true)
+        },500)
+    }
+
     return (
         <>
         {loadDelete && <DeleteTransaction propObj={propObj} noButton={() => {setLoadDelete(false)}} />}
@@ -62,7 +79,7 @@ function SingleTransaction ({tranData, tranType}) {
             <div className='transaction-actions'>
                 <ul className='transaction-actions__list'>
                     <li>
-                        <img src={editSvg} alt='edit icon' className='transaction-actions__icon' />
+                        <img src={editSvg} alt='edit icon' className='transaction-actions__icon' onClick={(event) => {clickEdit(event)}} />
                     </li>
                     <li>
                         <img src={deleteSvg} alt='delete icon' className='transaction-actions__icon' onClick={() => {setLoadDelete(true)}} />
@@ -70,6 +87,7 @@ function SingleTransaction ({tranData, tranType}) {
                 </ul>
             </div>
         </article>
+        {redirectStatus && <Redirect to={redirectAddress} />}
         </>
     )
 }
