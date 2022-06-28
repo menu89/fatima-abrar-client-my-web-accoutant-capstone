@@ -7,32 +7,3 @@
     margin-left: 1rem;
 }
 
-.transaction-list {
-    background-color: colors.$fieldTertiary;
-    margin: 1rem;
-    padding: 1rem;
-    border-radius: 10px;
-    
-    border: 2px solid colors.$boundarySecondary;
-    border-radius: 10px;
-    box-shadow: 2px 2px 4px colors.$boundaryPrimary;
-
-    & span {
-        margin-right: 8px;
-    }
-
-    &__heading {
-        text-decoration: underline;
-    }
-
-    & p {
-        margin: 0%;
-        margin-bottom: 0.25rem;
-        font-size: 0.8rem;
-    }
-
-    &--amount {
-        font-weight: bold;
-    }
-    
-}

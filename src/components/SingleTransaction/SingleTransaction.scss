@@ -1,0 +1,58 @@
+@use '../../styles/partials/colors';
+@use '../../styles/partials/mixins';
+
+.transaction-list {
+    background-color: colors.$fieldTertiary;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    position: relative;
+    
+    border: 2px solid colors.$boundarySecondary;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px colors.$boundaryPrimary;
+
+    & span {
+        margin-right: 8px;
+    }
+
+    &__heading {
+        text-decoration: underline;
+    }
+
+    & p {
+        margin: 0%;
+        margin-bottom: 0.25rem;
+        font-size: 0.8rem;
+    }
+
+    &--amount {
+        font-weight: bold;
+    }
+    
+}
+
+.transaction-actions {
+    position: absolute;
+    top:0%;
+    right:0%;
+    margin: 0%;
+    padding: 0%;
+
+    &__list {
+        list-style: none;
+        margin: 0%;
+        padding: 0%;
+    }
+
+    &__icon {
+        @include mixins.navigationIcons;
+        margin:2px 8px;
+
+        &:hover {
+            @include mixins.navigationIconHover;
+        }
+    }
+
+    
+}

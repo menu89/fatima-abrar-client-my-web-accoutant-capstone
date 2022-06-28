@@ -6,6 +6,7 @@ import NavBar from "../components/NavBar/NavBar";
 import InputField from "../components/InputField/InputField";
 import InputDropDown from '../components/InputField/InputDropDown';
 import Button from "../components/Button/Button";
+import SingleTransaction from '../components/SingleTransaction/SingleTransaction';
 import axios from "axios";
 import propsInfo from '../assets/propsinformation.json';
 
@@ -71,12 +72,6 @@ function TranByPeriod () {
         }
     }
 
-    //convert timestamp to string
-    const adjustTimestamp = (timeData) => {
-        const convertDate = new Date(timeData).toDateString()
-        return convertDate
-    }
-
     //checks the fields at every change and disables or enables the go button accordingly.
     useEffect(()=> {
         setButtonStatus(checkFieldCompletion(values))
@@ -100,43 +95,7 @@ function TranByPeriod () {
                 <section className='section-container'>
                     <section>
                         {tableRows && tableRows.map((oneRow, rowIndex) => {
-                            const {Credit, Debit, Description,amount,Transaction_timestamp,Bank_type} = oneRow
-                            const convertTimestamp = adjustTimestamp(Transaction_timestamp)
-                            let paymentAcc = ''
-                            let accType = ''
-
-                            if (Bank_type === 'd') {
-                                paymentAcc = Debit
-                                accType = Credit
-                            } else {
-                                paymentAcc = Credit
-                                accType = Debit
-                            }
-                            
-                            return (
-                                <article className='transaction-list' key={rowIndex}>
-                                    <p> 
-                                        <span className='transaction-list__heading'>Date:</span> 
-                                        <span>{convertTimestamp}</span> 
-                                    </p>
-                                    <p>
-                                        <span className='transaction-list__heading' >Amount: </span>
-                                        <span className='transaction-list--amount'>$ {amount}</span>
-                                    </p>
-                                    <p>
-                                        <span className='transaction-list__heading' >Paid from/to:</span>
-                                        <span> {paymentAcc}</span>
-                                    </p>
-                                    <p>
-                                        <span  className='transaction-list__heading' >Type: </span>
-                                        <span> {accType}</span>
-                                    </p>
-                                    <p>
-                                        <span className='transaction-list__heading' >Description:</span>
-                                        <span> {Description}</span>
-                                    </p>
-                                </article>
-                            )
+                            return <SingleTransaction key={rowIndex} tranData={oneRow} tranType={values['searchTranType']} />
                         })}
                         
                     </section>
