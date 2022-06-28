@@ -9,6 +9,7 @@ import tranHisSvg from '../../assets/icon/history-paper.svg';
 import logOutSvg from '../../assets/icon/logout.svg';
 import aboutSvg from '../../assets/icon/about.svg';
 import creditsSvg from '../../assets/icon/clipboard.svg';
+import cashflowSvg from '../../assets/icon/cash-flow.svg';
 import {useEffect, useState} from 'react';
 import {Redirect} from 'react-router-dom';
 
@@ -30,11 +31,12 @@ function NavBar () {
 
     const propsArray =[
         {imgSource:dahboardSvg, altText:'dashboard icon', linkAdd:'/dashboard', linkText:'Dashboard', classModifier:'--one'},
-        {imgSource:accListSvg, altText:'account list icon', linkAdd:'/account-list', linkText:'Account List', classModifier:'--two'},
+        {imgSource:cashflowSvg, altText:'cashflow icon', linkAdd:'/cashflow', linkText:'Cashflow', classModifier:'--two'},
         {imgSource:actionSvg, altText:'action icon', linkAdd:'/actions', linkText:'Actions', classModifier:'--three'},
         {imgSource:tranHisSvg, altText:'transaction history icon', linkAdd:'/history', linkText:'Transactions History', classModifier:'--four'},
-        {imgSource:aboutSvg, altText:'about icon', linkAdd:'/', linkText:'About Us', classModifier:'--five'},
-        {imgSource:creditsSvg, altText:'credits icon', linkAdd:'/credits', linkText:'Credits', classModifier:'--six'}
+        {imgSource:accListSvg, altText:'account list icon', linkAdd:'/account-list', linkText:'Account List', classModifier:'--five'},
+        {imgSource:aboutSvg, altText:'about icon', linkAdd:'/', linkText:'About Us', classModifier:'--six'},
+        {imgSource:creditsSvg, altText:'credits icon', linkAdd:'/credits', linkText:'Credits', classModifier:'--seven'}
     ]
 
     return (
