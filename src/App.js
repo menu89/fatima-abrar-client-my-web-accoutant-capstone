@@ -7,6 +7,7 @@ import InitialSetUp from './pages/InitialSetUp';
 import AddBankAcc from './pages/AddBankAcc';
 import Actions from './pages/Actions';
 import Entryform from './pages/Entryform';
+import TransferEntryform from './pages/TransferEntryform';
 import TranByPeriod from './pages/TranByPeriod';
 import Credits from './pages/Credits';
 
@@ -30,6 +31,9 @@ function App() {
 
         <Route path='/edit-transaction' component={Entryform} />
         <Route path='/edit-budget' component={Entryform} />
+
+        <Route path='/add-transfer' component={TransferEntryform} />
+        <Route path='/edit-transfer' component={TransferEntryform} />
 
         <Route path='/history' component={TranByPeriod} />
         <Route path='/actions' component={Actions} />

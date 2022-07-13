@@ -20,7 +20,7 @@ function InitialSetUp () {
     useEffect(()=>{
         const token = JSON.parse(sessionStorage.getItem('JWT-Token'))
 
-        axios.get(`${axiosURL}/user/bank-list`, {headers: {
+        axios.get(`${axiosURL}/banks/list`, {headers: {
             "Content-type": "application/json",
             'authorization': `Bearer ${token}`
         }})

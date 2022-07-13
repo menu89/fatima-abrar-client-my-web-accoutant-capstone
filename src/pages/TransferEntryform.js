@@ -13,8 +13,8 @@ import propsInfo from '../assets/propsinformation.json';
 
 const axiosURL = process.env.REACT_APP_AXIOSURL
 
-function Entryform() {
-    const editObject = JSON.parse(sessionStorage.getItem('edit-transaction-info'))
+function TransferEntryform() {
+    const editObject = JSON.parse(sessionStorage.getItem('edit-transfer-info'))
     const token = JSON.parse(sessionStorage.getItem('JWT-Token'))
 
     let populateCredit = ""
@@ -22,6 +22,8 @@ function Entryform() {
     let populateTranDate = ""
     let populateAmount = ""
     let populateDescription = ""
+
+    //console.log(editObject)
     
     //if it is an edit page, then it takes the object from session storage and populates the initial values using said object
     if (!!editObject) {
@@ -47,77 +49,23 @@ function Entryform() {
         { ...propsInfo.descriptionLabel, changeFunc:handleOnChange, values:values['description']},
         { ...propsInfo.tranDateLabel, changeFunc:handleOnChange, values:values['trandate']}
     ]
-    
+
+    const optionArray = [
+        {labelText: 'Paid into:', name:'debit', values:values['debit'],changeFunc:handleOnChange, options:debitOptions, componentClasses:'input'},
+        {labelText: 'Payment from:', name:'credit',values:values['credit'],changeFunc:handleOnChange, options:creditOptions, componentClasses:'input'}
+    ]
+    const tranCategory = 'Transfer'
+
     //variables that change based on type of transaction
     let headingTitle = ''
-    let optionArray = []
-    let bankCategory = ''
-    let trantype = ''
-    let tranCategory = ''
-    const debitObj = {name:'debit', values:values['debit'],changeFunc:handleOnChange, options:debitOptions, componentClasses:'input'}
-    const creditObj = {name:'credit',values:values['credit'],changeFunc:handleOnChange, options:creditOptions, componentClasses:'input'}
-
     let areWeEditing = false
-
+    
     //additional input fields that vary depending on type of transaction
-    if((propInfo.path === '/add-exp-transaction') || (propInfo.path === '/add-exp-budget')) {
-        bankCategory = 'c'
-        trantype = 'expense'
-        
-        optionArray = [
-            {labelText: 'Expense', ...debitObj},
-            {labelText: 'Payment from:', ...creditObj}
-        ]
-        if (propInfo.path === '/add-exp-transaction') {
-            tranCategory = 'actual'
-            headingTitle = 'Bought Something / Paid Expense'
-        }
-        if (propInfo.path === '/add-exp-budget') {
-            tranCategory = 'budget'
-            headingTitle = 'Budget Purchase / Budget Expense'
-        }
+    if((propInfo.path === '/add-transfer')) {
+        headingTitle = 'Book a transfer'
 
-    } else if ((propInfo.path === '/add-inc-transaction') || (propInfo.path === '/add-inc-budget')) {
-        bankCategory = 'd'
-        trantype = 'income'
-        tranCategory = 'actual'
-        optionArray = [
-            {labelText: 'Pay into', ...debitObj},
-            {labelText: 'Income', ...creditObj}
-        ]
-
-        if (propInfo.path === '/add-inc-transaction') {
-            tranCategory = 'actual'
-            headingTitle = 'Money received from income, etc'
-        }
-        if (propInfo.path === '/add-inc-budget') {
-            tranCategory = 'budget'
-            headingTitle = 'Budget for expected incoming cash'
-        }
-    } else if ( (propInfo.path === '/edit-transaction') || (propInfo.path === '/edit-budget')) {
-        bankCategory = editObject.Bank_type
-        tranCategory = editObject.tranType
-
-        if (bankCategory === 'c' ) {
-            trantype = 'expense'
-            optionArray = [
-                {labelText: 'Expense', ...debitObj},
-                {labelText: 'Payment from:', ...creditObj}
-            ]
-        } else if (bankCategory === 'd') {
-            trantype = 'income'
-            optionArray = [
-                {labelText: 'Pay into', ...debitObj},
-                {labelText: 'Income', ...creditObj}
-            ]
-        }
-
-        if (tranCategory === "Actual") {
-            headingTitle = 'Edit Actuals'
-        } else if (tranCategory === "Budget") {
-            headingTitle = 'Edit Budget Record'
-        }
-
+    } else if ( (propInfo.path === '/edit-transfer')) {
+        headingTitle = 'Edit Transfer'
         areWeEditing = true
     }
 
@@ -136,37 +84,10 @@ function Entryform() {
             for (let loopBanks =0; loopBanks < responseList.length; loopBanks++) {
                 prepareArray.push(responseList[loopBanks]['acc_des'])
             }
-            if (bankCategory === 'c') {
-                setCreditOptions([...prepareArray])
-            } else (
-                setDebitOptions([...prepareArray])
-            )
+            setCreditOptions([...prepareArray])
+            setDebitOptions([...prepareArray])
         })   
-    },[bankCategory])
-
-    //this hook runs when trantype changes which is only when the components mounts/loads. it searches for list of accounts and adds them to the relevant drop down.
-    useEffect(() => {
-        //get's list of expense and income accounts
-        axios.get(`${axiosURL}/account-list`)
-        .then(response => {
-            const responseList = response.data
-            const prepareExpArray = []
-            const prepareIncArray = []
-            for (let loopAcc = 0; loopAcc < responseList.length; loopAcc++) {
-                if (responseList[loopAcc]['type'] === 'expense') {
-                    prepareExpArray.push(responseList[loopAcc]['name'])
-                }
-                if (responseList[loopAcc]['type'] === 'income') {
-                    prepareIncArray.push(responseList[loopAcc]['name'])
-                }
-            }
-            if (trantype === 'expense') {
-                setDebitOptions([...prepareExpArray])
-            } else if (trantype === 'income') {
-                setCreditOptions([...prepareIncArray])
-            }
-        })
-    },[trantype])
+    },[])
 
     //this function organizes information from the form and sends it to the server, then redirects to the dashboard
     const clickAdd = (event) => {
@@ -176,7 +97,6 @@ function Entryform() {
         const sendTran = {
             'debit':values['debit'],
             'credit':values['credit'],
-            'bank_type':bankCategory,
             'transaction_timestamp': dateConvert,
             'amount':values['amount'],
             'description':values['description']
@@ -241,4 +161,4 @@ function Entryform() {
     )
 }
 
-export default Entryform;
+export default TransferEntryform;

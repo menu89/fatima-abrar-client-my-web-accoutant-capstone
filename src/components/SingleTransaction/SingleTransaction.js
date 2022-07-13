@@ -19,13 +19,20 @@ function SingleTransaction ({tranData, tranType}) {
     const convertTimestamp = adjustTimestamp(Transaction_timestamp)
     let paymentAcc = ''
     let accType = ''
+    let accTypeHeadingText = ''
 
     if (Bank_type === 'd') {
         paymentAcc = Debit
         accType = Credit
+        accTypeHeadingText = 'Income Account'
+    } else if (Bank_type === 'c') {
+        paymentAcc = Credit
+        accType = Debit
+        accTypeHeadingText = 'Expense Account'
     } else {
         paymentAcc = Credit
         accType = Debit
+        accTypeHeadingText = 'Paid Into'
     }
 
     //put together the props object to store into session stroage for edit and feeding into deletedtransaction props for axios calls etc.
@@ -34,7 +41,8 @@ function SingleTransaction ({tranData, tranType}) {
         paymentAcc: paymentAcc,
         accType: accType,
         dateString: convertTimestamp,
-        tranType: tranType
+        tranType: tranType,
+        typeHeadingText:accTypeHeadingText
     }
 
     let redirectAddress = ''
@@ -42,11 +50,17 @@ function SingleTransaction ({tranData, tranType}) {
         redirectAddress = 'edit-transaction'
     } else if (tranType === "Budget") {
         redirectAddress = 'edit-budget'
+    } else if (tranType === 'Transfer') {
+        redirectAddress = 'edit-transfer'
     }
 
     const clickEdit = (event) => {
         event.preventDefault()
-        sessionStorage.setItem('edit-transaction-info', JSON.stringify(propObj))
+        if (tranType === 'Transfer') {
+            sessionStorage.setItem('edit-transfer-info', JSON.stringify(propObj))
+        } else {
+            sessionStorage.setItem('edit-transaction-info', JSON.stringify(propObj))
+        }
         setTimeout(() => {
             setRedirectStatus(true)
         },500)
@@ -69,7 +83,7 @@ function SingleTransaction ({tranData, tranType}) {
                 <span> {paymentAcc}</span>
             </p>
             <p>
-                <span  className='transaction-list__heading' >Type: </span>
+                <span  className='transaction-list__heading' >{accTypeHeadingText}: </span>
                 <span> {accType}</span>
             </p>
             <p>

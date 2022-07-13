@@ -46,7 +46,7 @@ function AddBankAcc() {
             amount:values['amount'],
             balance_timestamp:dateConvert
         }
-        axios.post(`${axiosURL}/user/initial-set-up`,isuInfo, {headers: {
+        axios.post(`${axiosURL}/banks/add-bank-account`,isuInfo, {headers: {
             "Content-type": "application/json",
             'authorization': `Bearer ${token}`
         }})

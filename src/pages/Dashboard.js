@@ -22,6 +22,11 @@ function Dashboard () {
     const [tableRow, setTableRow] = useState([])
     const [totalActual, setTotalActual] = useState(0)
     const [totalBudget, setTotalBudget] = useState(0)
+
+    const [tableIncRow, setTableIncRow] = useState([])
+    const [totalIncActual, setTotalIncActual] = useState(0)
+    const [totalIncBudget, setTotalIncBudget] = useState(0)
+
     const [validationStatus, setValidationStatus] = useState(null)
     const [validationMsg, setValidationMsg] = useState(null)
 
@@ -36,7 +41,7 @@ function Dashboard () {
         const token = JSON.parse(sessionStorage.getItem('JWT-Token'))
 
         return new Promise((resolve, reject) => {
-            axios.get(`${axiosURL}/actual/total-by-period?month=${values['searchMonth']}&year=${values['searchYear']}`,{
+            axios.get(`${axiosURL}/actual/totals-by-period?month=${values['searchMonth']}&year=${values['searchYear']}`,{
                 headers: {
                 "Content-type": "application/json",
                 'authorization': `Bearer ${token}`
@@ -71,9 +76,13 @@ function Dashboard () {
 
     //makes an axios call for actuals, organizes received data, then makes axios call for budget information and organizes information received.
     const organizeData = () => {
-        const prepareArray = []
-        let calcTotalActual = 0
-        let calcTotalBudget = 0
+        const prepareExpArray = []
+        let calcExpTotalActual = 0
+        let calcExpTotalBudget = 0
+
+        const prepareIncArray =[]
+        let calcIncTotalActual = 0
+        let calcIncTotalBudget = 0
 
         callAxiosForActuals()
         .then (response => {
@@ -86,29 +95,42 @@ function Dashboard () {
                     budget:0,
                     actual:oneItem[getKey]
                 }
-                calcTotalActual += oneItem[getKey]
-                prepareArray.push(obj)
+                calcExpTotalActual += oneItem[getKey]
+                prepareExpArray.push(obj)
+            })
+
+            const incResponse = response.income
+
+            incResponse.forEach(oneItem => {
+                const getKey = Object.keys(oneItem)
+                const obj = {
+                    heading:getKey[0],
+                    budget:0,
+                    actual:oneItem[getKey]
+                }
+                calcIncTotalActual += oneItem[getKey]
+                prepareIncArray.push(obj)
             })
     
             return callAxiosForBudgets()
         }).then(response => {
-            const isArrayPopulated = prepareArray.length
+            const isExpArrayPopulated = prepareExpArray.length
             const expResponse = response.expense
 
             expResponse.forEach(oneItem => {
                 const getKey = Object.keys(oneItem)
                 let keyCounted = ''
 
-                if (isArrayPopulated > 0) {
-                    for (let oneAcc = 0; oneAcc < isArrayPopulated; oneAcc++ ) {
-                        if (prepareArray[oneAcc]['heading'] === getKey[0]) {
-                            prepareArray[oneAcc]['budget'] = oneItem[getKey]
+                if (isExpArrayPopulated > 0) {
+                    for (let oneAcc = 0; oneAcc < isExpArrayPopulated; oneAcc++ ) {
+                        if (prepareExpArray[oneAcc]['heading'] === getKey[0]) {
+                            prepareExpArray[oneAcc]['budget'] = oneItem[getKey]
                             keyCounted = getKey
                         } 
                     }
                 }
 
-                calcTotalBudget += oneItem[getKey]
+                calcExpTotalBudget += oneItem[getKey]
 
                 if (keyCounted !== getKey) {
                     const obj = {
@@ -116,21 +138,57 @@ function Dashboard () {
                         budget:oneItem[getKey],
                         actual:0
                     }
-                    prepareArray.push(obj)
+                    prepareExpArray.push(obj)
                 }
             })
 
-            setTableRow(prepareArray)
-            setTotalActual(calcTotalActual)
-            setTotalBudget(calcTotalBudget)
+            const isIncArrayPopulated = prepareIncArray.length
+            const incResponse = response.income
+
+            incResponse.forEach(oneItem => {
+                const getKey = Object.keys(oneItem)
+                let keyCounted = ''
+                if (isIncArrayPopulated > 0) {
+                    for (let oneAcc =0; oneAcc < isIncArrayPopulated; oneAcc++) {
+                        if (prepareIncArray[oneAcc]['heading'] === getKey[0]) {
+                            prepareIncArray[oneAcc]['budget'] = oneItem[getKey]
+                            keyCounted = getKey
+                        }
+                    }
+                }
+
+                calcIncTotalBudget += oneItem[getKey]
+
+                if (keyCounted !== getKey) {
+                    const obj = {
+                        heading:getKey[0],
+                        budget:oneItem[getKey],
+                        actual:0
+                    }
+                    prepareIncArray.push(obj)
+                }
+            })
+
+            setTableRow(prepareExpArray)
+            setTotalActual(calcExpTotalActual)
+            setTotalBudget(calcExpTotalBudget)
+
+            setTableIncRow(prepareIncArray)
+            setTotalIncActual(calcIncTotalActual)
+            setTotalIncBudget(calcIncTotalBudget)
 
         }).catch( err => {
-            if (prepareArray.length > 0) {
-                setTableRow(prepareArray)
-                setTotalActual(calcTotalActual)
+            if (prepareExpArray.length > 0 || prepareIncArray.length > 0) {
+                setTableRow(prepareExpArray)
+                setTotalActual(calcExpTotalActual)
                 setTotalBudget(0)
+
+                setTableIncRow(prepareIncArray)
+                setTotalIncActual(calcIncTotalActual)
+                setTotalIncBudget(0)
             } else {
                 setTableRow(err)
+                setTableIncRow(err)
             }
         })
     }
@@ -170,15 +228,25 @@ function Dashboard () {
                         <Button content='Go' clickFunc={(event)=>{clickGo(event)}} buttonEnabled={buttonStatus} newClass={true}/>
                         
                     </form>
-                
+
+                    {/* display income information  */}
                     <DisplayFieldTwo objectClass='display-four' one='Expense' two='Budget' three='Actual' four='Difference'/>
+                    {tableIncRow.map((oneRow,rowIndex) => {
+                        const {heading, budget, actual} = oneRow
+                        let diff = budget - actual
+                        return (<DisplayFieldTwo key={rowIndex} objectClass='display-four display-four--regular' one={heading} two={budget} three={actual} four={diff} />)
+                    })}
+                    {(tableIncRow.length > 0) &&
+                    <DisplayFieldTwo objectClass='display-four' one='Income Total' two={totalIncBudget} three={totalIncActual} four={totalIncBudget-totalIncActual}/>}
+
+                    {/* display the expense information */}
                     {tableRow.map((oneRow,rowIndex) => {
                         const {heading, budget, actual} = oneRow
                         let diff = budget - actual
                         return (<DisplayFieldTwo key={rowIndex} objectClass='display-four display-four--regular' one={heading} two={budget} three={actual} four={diff} />)
                     })}
                     {(tableRow.length > 0) &&
-                    <DisplayFieldTwo objectClass='display-four' one='Total' two={totalBudget} three={totalActual} four={totalBudget-totalActual}/>}
+                    <DisplayFieldTwo objectClass='display-four' one='Expense Total' two={totalBudget} three={totalActual} four={totalBudget-totalActual}/>}
                 </section>
                 
             </main>

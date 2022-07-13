@@ -27,7 +27,7 @@
         "name":"searchYear", "labelText": "Year", "type":"text","componentClasses":"mini-input"
     },
     "searchTranType":{
-        "name":"searchTranType", "labelText": "Search For", "options":["Actual","Budget"],"componentClasses":"mini-input","componentClassesTwo":"mini-input--width"
+        "name":"searchTranType", "labelText": "Search For", "options":["Actual","Budget","Transfer"],"componentClasses":"mini-input","componentClassesTwo":"mini-input--width"
     },
     "searchPeriod":{
         "name":"searchPeriod", "labelText": "Search Type", "options":["All","by-period"],"componentClasses":"mini-input","componentClassesTwo":"mini-input--width"
@@ -36,6 +36,6 @@
         "name":"acc_des", "labelText": "Account Description", "type":"text", "componentClasses":"input"
     },
     "bankAccTypeOptions": {
-        "name":"acc_type", "labelText": "Account Type", "options":["chequeing","credit-card","line-of-credit"]
+        "name":"acc_type", "labelText": "Account Type", "options":["chequeing","credit-card","line-of-credit","cash","savings"],"componentClasses":"input"
     }
 }

@@ -6,7 +6,7 @@ import axios from 'axios';
 const axiosURL=process.env.REACT_APP_AXIOSURL
 
 function DeleteTransaction ({propObj, noButton}) {
-    const {Description,amount, paymentAcc, accType,dateString, tranType,id} = propObj
+    const {Description,amount, paymentAcc, accType,dateString, tranType,id,typeHeadingText} = propObj
 
     const [validationStatus, setValidationStatus] = useState(true)
     const [validationMsg, setValidationMsg] = useState(null)
@@ -15,7 +15,7 @@ function DeleteTransaction ({propObj, noButton}) {
     const callAxiosToDelete = (event) => {
         event.preventDefault()
         const token = JSON.parse(sessionStorage.getItem('JWT-Token'))
-        axios.delete(`${axiosURL}/${tranType}/transaction-single?tranid=${id}`,{
+        axios.delete(`${axiosURL}/${tranType}/single?tranid=${id}`,{
             headers: {
             "Content-type": "application/json",
             'authorization': `Bearer ${token}`
@@ -45,7 +45,7 @@ function DeleteTransaction ({propObj, noButton}) {
                     <span>Paid to/from:</span> {paymentAcc} 
                 </p>
                 <p>
-                    <span>Type:</span> {accType}
+                    <span>{typeHeadingText}:</span> {accType}
                 </p>
                 <p>
                     <span>Description:</span> {Description}

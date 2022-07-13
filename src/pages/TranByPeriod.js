@@ -47,7 +47,7 @@ function TranByPeriod () {
             axiosPeriod = 'all'
         }
 
-        axios.get(`${axiosURL}/${values['searchTranType']}/transactions-${axiosPeriod}`,{
+        axios.get(`${axiosURL}/${values['searchTranType']}/${axiosPeriod}`,{
             headers: {
             "Content-type": "application/json",
             'authorization': `Bearer ${token}`

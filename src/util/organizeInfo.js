@@ -36,7 +36,10 @@ function organizeForTranPatchCall(values, editObject) {
         returnObject[`debit`] = debit
         returnObject[`bank_type`] = editObject.Bank_type
     }
-    if (trandate !== modifiedTranDate) { returnObject[`transaction_timestamp`] = trandate }
+    if (trandate !== modifiedTranDate) { 
+        const dateConvert = Date.parse(new Date(values[trandate]))
+        returnObject[`transaction_timestamp`] = dateConvert 
+    }
 
     return returnObject
 }
