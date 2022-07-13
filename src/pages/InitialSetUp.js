@@ -5,6 +5,8 @@ import DisplayFieldOne from '../components/DisplayFieldOne/DisplayFieldOne';
 import NavBar from '../components/NavBar/NavBar';
 import Button from '../components/Button/Button';
 import axios from 'axios';
+import viewSvg from '../assets/icon/list-02.svg';
+import BankDetails from '../components/BankDetails/BankDetails';
 
 const axiosURL = process.env.REACT_APP_AXIOSURL
 
@@ -15,6 +17,8 @@ function InitialSetUp () {
     const [gotList, setGotList] = useState(false)
     const [validationStatus, setValidationStatus] = useState(null)
     const [validationMsg, setValidationMsg] = useState(null)
+    const [displayDetails, setDisplayDetails] = useState(null)
+    const [bankSearchData, setBankSearchData] = useState(null)
 
     //axios call on first load to pull the list of bank accounts for the user
     useEffect(()=>{
@@ -41,6 +45,13 @@ function InitialSetUp () {
         })
     }, [])
 
+    //this function takes the bank info for one bank and feeds it as a parameter to BankDetails component.
+    const clickView = (event, oneBank) => {
+        event.preventDefault()
+        setBankSearchData(oneBank)
+        setDisplayDetails(true)
+    }
+
     return (
         <>
         {(bankList.length !== 0) && <NavBar />}
@@ -58,13 +69,17 @@ function InitialSetUp () {
                     {gotList && bankList.map(oneBank => {
                         const {acc_type, acc_des, amount} = oneBank
                         const id = v4()
-                        return <DisplayFieldOne 
-                            key={id}
-                            objectClass="display-three display-three--regular" 
-                            one={acc_type} 
-                            two={acc_des} 
-                            three={amount}
-                        />
+                        return (
+                        <article key={id} className='bank-container'>
+                            <DisplayFieldOne 
+                                objectClass="display-three display-three--regular" 
+                                one={acc_type} 
+                                two={acc_des} 
+                                three={amount}
+                            />
+                            <img src={viewSvg} alt='view icon' className='bank-actions-icons' onClick={(event)=>{clickView(event, oneBank)}} />
+                        </article>
+                        )
                     })}
                 </section>
                 
@@ -83,6 +98,7 @@ function InitialSetUp () {
                 </div>
             </section>
             
+            {displayDetails && <BankDetails searchData={bankSearchData} listFunc={setDisplayDetails} />}
             {/* error message */}
             {!validationStatus && <p className='validation-message'>{validationMsg}</p>}
             {redirectToForm && <Redirect to='/add-account' />}

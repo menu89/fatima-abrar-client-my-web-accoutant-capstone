@@ -1,4 +1,5 @@
 @use './partials/colors';
+@use './partials/mixins';
 
 .dashboard__form {
     display: flex;
@@ -7,3 +8,20 @@
     margin-left: 1rem;
 }
 
+.bank-container {
+    position: relative;
+}
+
+.bank-actions-icons {
+    @include mixins.navigationIcons;
+    margin:2px 8px;
+    position: absolute;
+    left:-1.5rem;
+    top:0%;
+    height: 1.5rem;
+    
+
+    &:hover {
+        @include mixins.navigationIconHover;
+    }
+}

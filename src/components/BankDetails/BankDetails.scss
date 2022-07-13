@@ -1,0 +1,48 @@
+@use '../../styles/partials/colors';
+@use '../../styles/partials/mixins';
+
+.bank-details {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    height: 100vh;
+    width: 100vw;
+
+    &__container {
+        padding: 2rem 1rem;
+        min-width: 18rem;
+        max-width: 80vw;
+        margin: auto;
+        margin-top: 5rem;
+        background-color: colors.$backgroundPrimary;
+        opacity: 100%;
+        border: 2px solid colors.$boundarySecondary;
+        border-radius: 10px;
+        box-shadow: 2px 2px 4px colors.$boundaryPrimary;
+    }
+
+    &--amount-container {
+        width: fit-content;
+        margin-top: 2rem;
+    }
+
+    &__content {
+        background-color: colors.$fieldPrimary;
+        border: 2px solid colors.$boundarySecondary;
+        box-shadow: 1px 1px 4px colors.$boundaryPrimary;
+        padding: 0.5rem 1rem;
+        margin: 0.5rem 1rem;
+        font-size: 0.9rem;
+        position: relative;
+
+        & p {
+            margin: 0%;
+            margin-right: 3rem;
+        }
+
+        & span {
+            position: absolute;
+            right: 1rem;
+        }
+    }
+}
