@@ -1,8 +1,10 @@
+import './BankDetails.scss';
 import { useEffect, useState } from 'react';
 import SingleTransaction from '../SingleTransaction/SingleTransaction';
-import axios from 'axios';
-import './BankDetails.scss';
 import Button from '../Button/Button';
+import DeleteBank from './DeleteBank';
+import deleteSvg from '../../assets/icon/remove.svg';
+import axios from 'axios';
 
 const axiosURL = process.env.REACT_APP_AXIOSURL
 
@@ -12,6 +14,8 @@ function BankDetails ({searchData, listFunc}) {
     const token = JSON.parse(sessionStorage.getItem('JWT-Token'))
 
     const [bankInfo, setBankInfo] = useState(null)
+    const [showDelete, setShowDelete] = useState(null)
+    const [doWeDelete, setDoWeDelete] = useState(null)
 
     useEffect(() => {
         axios.get(`${axiosURL}/banks/account-details-by-date?bankid=${id}&balance_timestamp='${currentDate}`, {headers: {
@@ -19,8 +23,16 @@ function BankDetails ({searchData, listFunc}) {
             'authorization': `Bearer ${token}`
         }})
         .then(response => {
-            setBankInfo(response.data)
-            console.log(bankInfo)
+            const {recent_five_actuals, recent_five_transfers, recent_five_budget_records} = response.data
+            
+            if ((recent_five_actuals.length === 0) && (recent_five_budget_records.length === 0) && (recent_five_transfers.length === 0)) {
+                setBankInfo(response.data)
+                setShowDelete(true)
+            } else {
+                setBankInfo(response.data)
+                setShowDelete(false)
+            }
+            
         })
         //eslint-disable-next-line
     },[])
@@ -69,6 +81,8 @@ function BankDetails ({searchData, listFunc}) {
                         return <SingleTransaction key={rowIndex} tranData={oneRow} tranType='Actual' />
                     })}
                 </details>
+                {/* display delete button only if there are no budget, actual, or transfer records. */}
+                {showDelete && <img src={deleteSvg} alt='delete icon' className='bank-details__icon' onClick={() => {setDoWeDelete(true)}} />}
                 <div className='button-container'>
                     <Button 
                         content='Back to Account List'
@@ -76,6 +90,7 @@ function BankDetails ({searchData, listFunc}) {
                         buttonEnabled={false}
                     />
                 </div>
+                {doWeDelete && <DeleteBank bankId={id} listFunc={listFunc} />}
             </aside>
         </div>}
     </>)

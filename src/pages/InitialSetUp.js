@@ -21,7 +21,7 @@ function InitialSetUp () {
     const [bankSearchData, setBankSearchData] = useState(null)
 
     //axios call on first load to pull the list of bank accounts for the user
-    useEffect(()=>{
+    const callAxiosForBankList = () => {
         const token = JSON.parse(sessionStorage.getItem('JWT-Token'))
 
         axios.get(`${axiosURL}/banks/list`, {headers: {
@@ -43,7 +43,20 @@ function InitialSetUp () {
             setValidationMsg(message)
             setValidationStatus(false)
         })
+    }
+
+    //makes axios call o first load
+    useEffect(()=>{
+        callAxiosForBankList()
+        console.log('loop')
     }, [])
+
+    //makes axios call whenever we close the details of a single account
+    useEffect(() => {
+        if (!displayDetails) {
+            callAxiosForBankList()
+        }
+    },[displayDetails])
 
     //this function takes the bank info for one bank and feeds it as a parameter to BankDetails component.
     const clickView = (event, oneBank) => {

@@ -19,6 +19,7 @@
         border: 2px solid colors.$boundarySecondary;
         border-radius: 10px;
         box-shadow: 2px 2px 4px colors.$boundaryPrimary;
+        position: relative;
     }
 
     &--amount-container {
@@ -32,7 +33,7 @@
         box-shadow: 1px 1px 4px colors.$boundaryPrimary;
         padding: 0.5rem 1rem;
         margin: 0.5rem 1rem;
-        font-size: 0.9rem;
+        font-size: 0.75rem;
         position: relative;
 
         & p {
@@ -43,6 +44,18 @@
         & span {
             position: absolute;
             right: 1rem;
+        }
+    }
+
+    &__icon {
+        @include mixins.navigationIcons;
+        margin:2px 8px;
+        position: absolute;
+        top:0%;
+        right: 0%;
+        
+        &:hover {
+            @include mixins.navigationIconHover;
         }
     }
 }
