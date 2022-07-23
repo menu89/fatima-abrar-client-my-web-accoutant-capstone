@@ -137,6 +137,15 @@ function ForgotPassword () {
                         }
                         buttonEnabled={requestButtonStatus} 
                     />
+                    {!getCode && (
+                        <Button 
+                            content="I already have a Reset Code" 
+                            clickFunc={
+                                () => setCode(true)
+                            }
+                            buttonEnabled={false} 
+                        />
+                    )}
                 </div>
                 {getCode && (
                     <form>

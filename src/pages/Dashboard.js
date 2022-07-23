@@ -49,8 +49,8 @@ function Dashboard () {
             .then(response => {
                 resolve(response.data)
             })
-            .catch(response => {
-                reject([])
+            .catch(() => {
+                resolve('no response')
             })
         })
     }
@@ -68,27 +68,47 @@ function Dashboard () {
             .then(response => {
                 resolve(response.data)
             })
-            .catch(response => {
-                reject([])
+            .catch(() => {
+                resolve('no response')
             })
         })
     }
 
     //makes an axios call for actuals, organizes received data, then makes axios call for budget information and organizes information received.
     const organizeData = () => {
-        const prepareExpArray = []
-        let calcExpTotalActual = 0
-        let calcExpTotalBudget = 0
+        let actualExp = []
+        let actualInc = []
+        let budgetExp = []
+        let budgetInc = []
+        
+        Promise.all([callAxiosForActuals(),callAxiosForBudgets()])
+        .then(response => {
+            console.log(response)
+            if (response[0]['enquiry'] === "actual") {
+                actualExp = response[0]['expense']
+                actualInc = response[0]['income']
+            } else if (response[1]['enquiry'] === "actual") {
+                actualExp = response[1]['expense']
+                actualInc = response[1]['income']
+            }
 
-        const prepareIncArray =[]
-        let calcIncTotalActual = 0
-        let calcIncTotalBudget = 0
-
-        callAxiosForActuals()
-        .then (response => {
-            const expResponse = response.expense
+            if (response[0]['enquiry'] === "budget") {
+                budgetExp = response[0]['expense']
+                budgetInc = response[0]['income']
+            } else if (response[1]['enquiry'] === "budget") {
+                budgetExp = response[1]['expense']
+                budgetInc = response[1]['income']
+            }
             
-            expResponse.forEach(oneItem => {
+            const prepareExpArray = []
+            let calcExpTotalActual = 0
+            let calcExpTotalBudget = 0
+    
+            const prepareIncArray =[]
+            let calcIncTotalActual = 0
+            let calcIncTotalBudget = 0
+    
+            actualExp.forEach(oneItem => {
                 const getKey = Object.keys(oneItem)
                 const obj = {
                     heading:getKey[0],
@@ -98,10 +118,8 @@ function Dashboard () {
                 calcExpTotalActual += oneItem[getKey]
                 prepareExpArray.push(obj)
             })
-
-            const incResponse = response.income
-
-            incResponse.forEach(oneItem => {
+    
+            actualInc.forEach(oneItem => {
                 const getKey = Object.keys(oneItem)
                 const obj = {
                     heading:getKey[0],
@@ -112,15 +130,11 @@ function Dashboard () {
                 prepareIncArray.push(obj)
             })
     
-            return callAxiosForBudgets()
-        }).then(response => {
             const isExpArrayPopulated = prepareExpArray.length
-            const expResponse = response.expense
-
-            expResponse.forEach(oneItem => {
+            budgetExp.forEach(oneItem => {
                 const getKey = Object.keys(oneItem)
                 let keyCounted = ''
-
+    
                 if (isExpArrayPopulated > 0) {
                     for (let oneAcc = 0; oneAcc < isExpArrayPopulated; oneAcc++ ) {
                         if (prepareExpArray[oneAcc]['heading'] === getKey[0]) {
@@ -129,9 +143,8 @@ function Dashboard () {
                         } 
                     }
                 }
-
                 calcExpTotalBudget += oneItem[getKey]
-
+    
                 if (keyCounted !== getKey) {
                     const obj = {
                         heading:getKey[0],
@@ -141,11 +154,9 @@ function Dashboard () {
                     prepareExpArray.push(obj)
                 }
             })
-
+    
             const isIncArrayPopulated = prepareIncArray.length
-            const incResponse = response.income
-
-            incResponse.forEach(oneItem => {
+            budgetInc.forEach(oneItem => {
                 const getKey = Object.keys(oneItem)
                 let keyCounted = ''
                 if (isIncArrayPopulated > 0) {
@@ -156,9 +167,9 @@ function Dashboard () {
                         }
                     }
                 }
-
+    
                 calcIncTotalBudget += oneItem[getKey]
-
+    
                 if (keyCounted !== getKey) {
                     const obj = {
                         heading:getKey[0],
@@ -168,28 +179,17 @@ function Dashboard () {
                     prepareIncArray.push(obj)
                 }
             })
-
+      
             setTableRow(prepareExpArray)
             setTotalActual(calcExpTotalActual)
             setTotalBudget(calcExpTotalBudget)
-
+    
             setTableIncRow(prepareIncArray)
             setTotalIncActual(calcIncTotalActual)
             setTotalIncBudget(calcIncTotalBudget)
-
-        }).catch( err => {
-            if (prepareExpArray.length > 0 || prepareIncArray.length > 0) {
-                setTableRow(prepareExpArray)
-                setTotalActual(calcExpTotalActual)
-                setTotalBudget(0)
-
-                setTableIncRow(prepareIncArray)
-                setTotalIncActual(calcIncTotalActual)
-                setTotalIncBudget(0)
-            } else {
-                setTableRow(err)
-                setTableIncRow(err)
-            }
+        })
+        .catch(err => {
+            return 
         })
     }
 
@@ -213,7 +213,6 @@ function Dashboard () {
     //calls the function to populate the table on first mounting/loading the component
     useEffect(() => {
         organizeData()
-        
         //eslint-disable-next-line
     }, [])
 
@@ -231,16 +230,16 @@ function Dashboard () {
 
                     {/* display income information  */}
                     <DisplayFieldTwo objectClass='display-four' one='Expense' two='Budget' three='Actual' four='Difference'/>
-                    {tableIncRow.map((oneRow,rowIndex) => {
+                    {(tableIncRow.length > 0) && tableIncRow.map((oneRow,rowIndex) => {
                         const {heading, budget, actual} = oneRow
                         let diff = budget - actual
                         return (<DisplayFieldTwo key={rowIndex} objectClass='display-four display-four--regular' one={heading} two={budget} three={actual} four={diff} />)
                     })}
                     {(tableIncRow.length > 0) &&
                     <DisplayFieldTwo objectClass='display-four' one='Income Total' two={totalIncBudget} three={totalIncActual} four={totalIncBudget-totalIncActual}/>}
-
+                    
                     {/* display the expense information */}
-                    {tableRow.map((oneRow,rowIndex) => {
+                    {(tableRow.length > 0) && tableRow.map((oneRow,rowIndex) => {
                         const {heading, budget, actual} = oneRow
                         let diff = budget - actual
                         return (<DisplayFieldTwo key={rowIndex} objectClass='display-four display-four--regular' one={heading} two={budget} three={actual} four={diff} />)

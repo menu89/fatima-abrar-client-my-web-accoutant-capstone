@@ -45,6 +45,8 @@
     &__link{
         @include mixins.navigationLinks;
         width:fit-content;
+        font-size: 0.75rem;
+        z-index:2;
 
         &:hover {
             @include mixins.navigationIconHover;

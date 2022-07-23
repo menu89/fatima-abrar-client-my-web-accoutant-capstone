@@ -17,6 +17,8 @@ function NavBar () {
     const [logout, setLogout] = useState(false)
     const [checkLogIn, setCheckLogIn] = useState(true)
 
+    const username = JSON.parse(sessionStorage.getItem('username')) 
+
     //remove token on logout
     const removeToken = (event) => {
         event.preventDefault()
@@ -57,12 +59,11 @@ function NavBar () {
                         <p className='single-link__link' onClick={(event) => removeToken(event)}>Log Out</p>
                     </li>
                 </ul>
-
-                {!checkLogIn && <Redirect to='/' />}
-                {logout && <Redirect to='/' />}
             </nav>
+            <p className="heading__right-text">Welcome {username}</p>
         </header>
-        
+        {!checkLogIn && <Redirect to='/' />}
+        {logout && <Redirect to='/' />}        
         </>
     )
 }
