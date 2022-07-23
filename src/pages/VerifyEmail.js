@@ -4,6 +4,7 @@ import {Redirect} from 'react-router-dom';
 import ShortNavBar from '../components/NavBar/ShortNavBar';
 import InputField from '../components/InputField/InputField';
 import Button from '../components/Button/Button';
+import ResendCode from '../components/ResendCode/ResendCode';
 import propsInfo from '../assets/propsinformation.json';
 import checkFieldCompletion, {validateLoginForm} from '../util/formValidation';
 import axios from 'axios';
@@ -24,7 +25,7 @@ function VerifyEmail() {
         { ...propsInfo.verificationCodeLabel, changeFunc:handleOnChange, values:values['verificationCode']}
     ]
     
-    //everytime the value in the input field is updated, check to see if all fields are filled and change the status of the login button from disabled to enabled
+    //everytime the value in the input field is updated, check to see if all fields are filled and change the status of the submit button from disabled to enabled
     useEffect(()=> {
         setButtonStatus(checkFieldCompletion(values))
     }, [values])
@@ -37,10 +38,12 @@ function VerifyEmail() {
         }
 
         axios.post(`${axiosURL}/user/verify-email`, verifyAccount)
-        .then(() => {
+        .then(response => {
+            setValidationMsg(response.data)
+            setValidationStatus(false)
             setTimeout(() => {
                 setRedirectState(true)
-            },1000)
+            },3000)
         })
         .catch((err) => {
             let message = ""
@@ -104,6 +107,8 @@ function VerifyEmail() {
         {!validationStatus && <p className='validation-message'>{validationMsg}</p>}
         {/* redirects back to login page */}
         {redirectState && <Redirect to='/' />}
+        {/* opens a new component to resend the email verification code */}
+        {getNewCode && <ResendCode listFunc={setNewCode} />}
     </>)
 }
 
