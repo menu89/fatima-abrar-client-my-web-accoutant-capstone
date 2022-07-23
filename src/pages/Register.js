@@ -14,7 +14,7 @@ function Register () {
     const [values, handleOnChange] = useForm({username:"",email:"",password:"",confirmPassword:""})
     const [redirectState, setRedirectState] = useState(false)
     const [buttonStatus, setButtonStatus] = useState(true)
-    const [validationStatus, setValidationStatus] = useState(null)
+    const [validationStatus, setValidationStatus] = useState(true)
     const [validationMsg, setValidationMsg] = useState(null)
 
     //props info used to populate the input labels and fields

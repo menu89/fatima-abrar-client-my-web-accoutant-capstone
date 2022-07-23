@@ -10,6 +10,9 @@ import Entryform from './pages/Entryform';
 import TransferEntryform from './pages/TransferEntryform';
 import TranByPeriod from './pages/TranByPeriod';
 import Credits from './pages/Credits';
+import Cashflow from './pages/Cashflow';
+import VerifyEmail from './pages/VerifyEmail';
+import ForgotPassword from './pages/ForgotPassword';
 
 function App() {
   return (
@@ -19,6 +22,9 @@ function App() {
         <Route path="/" exact component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/credits" component={Credits} />
+        <Route path='/verify-email' component={VerifyEmail} />
+        <Route path='/forgot-password' component={ForgotPassword} />
+
         <Route path="/ISU" component={InitialSetUp} />
         <Route path="/account-list" component={InitialSetUp} />
         <Route path='/add-account' component={AddBankAcc} />
@@ -37,6 +43,7 @@ function App() {
 
         <Route path='/history' component={TranByPeriod} />
         <Route path='/actions' component={Actions} />
+        <Route path='/cashflow' component={Cashflow} />
         <Redirect to="/" />
       </Switch>
     </BrowserRouter>

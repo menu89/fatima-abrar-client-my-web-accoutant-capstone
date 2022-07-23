@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {Redirect} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 import useForm from '../util/useForm';
 import checkFieldCompletion, {validateLoginForm} from '../util/formValidation';
 import InputField from '../components/InputField/InputField';
@@ -15,7 +15,7 @@ function Login () {
     const [redirectToRegister, setRedirectToRegister] = useState(false)
     const [redirectToISU, setRedirectToISU] = useState(false)
     const [buttonStatus, setButtonStatus] = useState(true)
-    const [validationStatus, setValidationStatus] = useState(null)
+    const [validationStatus, setValidationStatus] = useState(true)
     const [validationMsg, setValidationMsg] = useState(null)
 
     //this is the list of props used to populate the input labels and fields
@@ -43,7 +43,9 @@ function Login () {
       
         axios.post(`${axiosURL}/user/login`,userLogin)
         .then(response => {
-            sessionStorage.setItem('JWT-Token', JSON.stringify(response.data.token))
+            sessionStorage.setItem('JWT-Token', JSON.stringify(response.data.returnObj.token))
+            sessionStorage.setItem('username', JSON.stringify(response.data.returnObj.username))
+            sessionStorage.setItem('email', JSON.stringify(values['email']))
             setTimeout(()=>{
                 setRedirectToISU(true)
             },1000)
@@ -85,6 +87,10 @@ function Login () {
                 <div className='button-container'>
                     <Button content="Register" clickFunc={()=>setRedirectToRegister(true)} buttonEnabled={false} />
                     <Button content="Log In" clickFunc={(event)=>login(event)} buttonEnabled={buttonStatus} />
+                </div>
+                <div>
+                    <p><Link className='login-links' to='/verify-email'>Verify Your Email</Link> to complete your account registration.</p>
+                    <p>Can't remember your password? Click <Link className='login-links' to='/forgot-password'>here</Link> to reset it.</p>
                 </div>
             </section>
 

@@ -21,6 +21,10 @@ function NavBar () {
     const removeToken = (event) => {
         event.preventDefault()
         sessionStorage.removeItem('JWT-Token')
+        sessionStorage.removeItem('username')
+        sessionStorage.removeItem('email')
+        sessionStorage.removeItem('edit-transaction-info')
+        sessionStorage.removeItem('edit-transfer-info') 
         setLogout(true)
     }
 

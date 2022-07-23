@@ -5,6 +5,9 @@
     "emailLabel": {
         "name":"email", "labelText": "Email", "type":"text" ,"componentClasses":"input"
     },
+    "verificationCodeLabel" :{
+        "name":"verificationCode" , "labelText": "Verification Code", "type":"number","componentClasses":"input"
+    },
     "passwordLabel": {
         "name":"password" , "labelText": "Password", "type":"password","componentClasses":"input"
     },
