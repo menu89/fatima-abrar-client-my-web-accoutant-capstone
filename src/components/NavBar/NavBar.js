@@ -45,7 +45,7 @@ function NavBar () {
         {imgSource:accListSvg, altText:'account list icon', linkAdd:'/account-list', linkText:'Account List', classModifier:'--five'},
         {imgSource:passwordSvg, altText:'change password icon', linkAdd:'/change-password', linkText:'Change Password', classModifier:'--six'},
         {imgSource:deleteSvg, altText:'remove user icon', linkAdd:'/delete-user', linkText:'Delete My User', classModifier:'--seven'},
-        {imgSource:aboutSvg, altText:'about icon', linkAdd:'/', linkText:'About Us', classModifier:'--eight'},
+        {imgSource:aboutSvg, altText:'about icon', linkAdd:'/about-us', linkText:'About Us', classModifier:'--eight'},
         {imgSource:creditsSvg, altText:'credits icon', linkAdd:'/credits', linkText:'Credits', classModifier:'--nine'}
     ]
 

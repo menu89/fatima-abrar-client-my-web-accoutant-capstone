@@ -12,7 +12,7 @@ function ShortNavBar () {
         {imgSource:loginSvg, altText:'log in icon', linkAdd:'/', linkText:'Log In', classModifier:'--one'},
         {imgSource:registrationSvg, altText:'registration icon', linkAdd:'/register', linkText:'Register', classModifier:'--two'},
         {imgSource:helpSvg, altText:'help icon', linkAdd:'/', linkText:'Help', classModifier:'--three'},
-        {imgSource:aboutSvg, altText:'about icon', linkAdd:'/', linkText:'About Us', classModifier:'--four'},
+        {imgSource:aboutSvg, altText:'about icon', linkAdd:'/about-us', linkText:'About Us', classModifier:'--four'},
         {imgSource:creditsSvg, altText:'credits icon', linkAdd:'/credits', linkText:'Credits', classModifier:'--five'}
     ]
     return (
