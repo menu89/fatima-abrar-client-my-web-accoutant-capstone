@@ -14,6 +14,7 @@ import logOutSvg from '../assets/icon/logout.svg';
 import editSvg from '../assets/icon/edit.svg';
 import deleteSvg from '../assets/icon/remove.svg';
 import cashflowSvg from '../assets/icon/cash-flow.svg';
+import passwordSvg from '../assets/icon/password.svg';
 
 //this page is to list recognitions for artists whose material has been used to build the website.
 function Credits () {
@@ -112,6 +113,13 @@ function Credits () {
                         <p className="credits-page__para">
                             <a className="credits-page__links" href="https://iconscout.com/icons/cash-flow">Cash Flow Icon</a> by <a className="credits-page__links" href="https://iconscout.com/contributors/uniconlabs">Uniconlabs</a> on <a className="credits-page__links" href="https://iconscout.com">IconScout</a>
                         </p>
+                    </li>
+                    <li>
+                        <img className="credits-page__icons" src={passwordSvg} alt='change paddword icon' />
+                        <p className="credits-page__para">
+                            <a href="https://iconscout.com/icons/password" >Password Icon</a> by <a href="https://iconscout.com/contributors/kiran-shastry">Kiran Shastry</a>
+                        </p>
+                        
                     </li>
                 </ul>
             </section>

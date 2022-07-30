@@ -10,6 +10,8 @@ import logOutSvg from '../../assets/icon/logout.svg';
 import aboutSvg from '../../assets/icon/about.svg';
 import creditsSvg from '../../assets/icon/clipboard.svg';
 import cashflowSvg from '../../assets/icon/cash-flow.svg';
+import deleteSvg from '../../assets/icon/remove.svg';
+import passwordSvg from '../../assets/icon/password.svg';
 import {useEffect, useState} from 'react';
 import {Redirect} from 'react-router-dom';
 
@@ -41,8 +43,10 @@ function NavBar () {
         {imgSource:actionSvg, altText:'action icon', linkAdd:'/actions', linkText:'Actions', classModifier:'--three'},
         {imgSource:tranHisSvg, altText:'transaction history icon', linkAdd:'/history', linkText:'Transactions History', classModifier:'--four'},
         {imgSource:accListSvg, altText:'account list icon', linkAdd:'/account-list', linkText:'Account List', classModifier:'--five'},
-        {imgSource:aboutSvg, altText:'about icon', linkAdd:'/', linkText:'About Us', classModifier:'--six'},
-        {imgSource:creditsSvg, altText:'credits icon', linkAdd:'/credits', linkText:'Credits', classModifier:'--seven'}
+        {imgSource:passwordSvg, altText:'change password icon', linkAdd:'/change-password', linkText:'Change Password', classModifier:'--six'},
+        {imgSource:deleteSvg, altText:'remove user icon', linkAdd:'/delete-user', linkText:'Delete My User', classModifier:'--seven'},
+        {imgSource:aboutSvg, altText:'about icon', linkAdd:'/', linkText:'About Us', classModifier:'--eight'},
+        {imgSource:creditsSvg, altText:'credits icon', linkAdd:'/credits', linkText:'Credits', classModifier:'--nine'}
     ]
 
     return (
@@ -55,7 +59,7 @@ function NavBar () {
                         return <SingleLink linkdata={oneLink} key={linkIndex} />
                     })}
                     <li className='single-link__list-item' >
-                        <img src={logOutSvg} alt='logout icon' className='single-link__icon single-link__icon--seven' />
+                        <img src={logOutSvg} alt='logout icon' className='single-link__icon single-link__icon--ten' />
                         <p className='single-link__link' onClick={(event) => removeToken(event)}>Log Out</p>
                     </li>
                 </ul>

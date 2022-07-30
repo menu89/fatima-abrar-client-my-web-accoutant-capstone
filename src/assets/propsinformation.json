@@ -14,6 +14,9 @@
     "confirmPasswordLabel": {
         "name":"confirmPassword", "labelText": "Confirm Password", "type":"password", "componentClasses":"input"
     },
+    "oldPasswordLabel": {
+        "name":"oldPassword", "labelText": "Current Password", "type":"password", "componentClasses":"input"
+    },
     "amountLabel": {
         "name":"amount", "labelText": "Amount", "type":"number","componentClasses":"input"
     },

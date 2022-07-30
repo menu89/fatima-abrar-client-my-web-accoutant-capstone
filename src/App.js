@@ -13,6 +13,8 @@ import Credits from './pages/Credits';
 import Cashflow from './pages/Cashflow';
 import VerifyEmail from './pages/VerifyEmail';
 import ForgotPassword from './pages/ForgotPassword';
+import ChangePassword from './pages/ChangePassword';
+import DeleteUser from './pages/DeleteUser';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
         <Route path="/credits" component={Credits} />
         <Route path='/verify-email' component={VerifyEmail} />
         <Route path='/forgot-password' component={ForgotPassword} />
+        <Route path='/change-password' component={ChangePassword} />
+        <Route path='/delete-user' component={DeleteUser} />
 
         <Route path="/ISU" component={InitialSetUp} />
         <Route path="/account-list" component={InitialSetUp} />

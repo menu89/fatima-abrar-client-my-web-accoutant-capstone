@@ -48,7 +48,6 @@ function InitialSetUp () {
     //makes axios call o first load
     useEffect(()=>{
         callAxiosForBankList()
-        console.log('loop')
     }, [])
 
     //makes axios call whenever we close the details of a single account
