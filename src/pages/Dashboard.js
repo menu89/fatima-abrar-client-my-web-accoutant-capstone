@@ -83,7 +83,6 @@ function Dashboard () {
         
         Promise.all([callAxiosForActuals(),callAxiosForBudgets()])
         .then(response => {
-            console.log(response)
             if (response[0]['enquiry'] === "actual") {
                 actualExp = response[0]['expense']
                 actualInc = response[0]['income']

@@ -40,5 +40,8 @@
     },
     "bankAccTypeOptions": {
         "name":"acc_type", "labelText": "Account Type", "options":["chequeing","credit-card","line-of-credit","cash","savings"],"componentClasses":"input"
+    },
+    "cashFlowOptions" : {
+        "name":"cashflow-period", "labelText":"Specify Period", "options":["three-month","six-month", "twelve-month"],"componentClasses":"mini-input","componentClassesTwo":"mini-input--width"
     }
 }
