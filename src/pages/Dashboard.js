@@ -27,7 +27,7 @@ function Dashboard () {
     const [totalIncActual, setTotalIncActual] = useState(0)
     const [totalIncBudget, setTotalIncBudget] = useState(0)
 
-    const [validationStatus, setValidationStatus] = useState(null)
+    const [validationStatus, setValidationStatus] = useState(true)
     const [validationMsg, setValidationMsg] = useState(null)
 
     //information realted to the form

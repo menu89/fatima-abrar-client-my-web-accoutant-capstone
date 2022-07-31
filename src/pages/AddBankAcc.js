@@ -15,7 +15,7 @@ function AddBankAcc() {
     const [values, handleOnChange] = useForm({acc_des:"",amount:"",acc_type:'', trandate:''})
     const [redirectToISU, setRedirectToISU] = useState(false)
     const [buttonStatus, setButtonStatus] = useState(true)
-    const [validationStatus, setValidationStatus] = useState(null)
+    const [validationStatus, setValidationStatus] = useState(true)
     const [validationMsg, setValidationMsg] = useState(null)
 
     //information for input fields that require options information

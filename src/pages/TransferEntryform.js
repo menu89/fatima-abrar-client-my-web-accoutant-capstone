@@ -43,6 +43,10 @@ function TransferEntryform() {
     const [redirectAdd, setRedirectAdd] = useState("")
     const propInfo = useRouteMatch()
 
+    const [validationStatus, setValidationStatus] = useState(true)
+    const [validationMsg, setValidationMsg] = useState(null)
+    const [formDisplayStatus, setFormDisplayStatus] = useState(true)
+
     //props information that is the same accross all transaction types
     const propsArray = [
         { ...propsInfo.amountLabel, changeFunc:handleOnChange, values:values['amount']},
@@ -70,6 +74,7 @@ function TransferEntryform() {
     }
 
     //this hook loads when bank category changes which is only on first load. it pulls the list of bank accounts and assigns it to one of the drop down lists.
+    //it checks to see if there are more then two accounts set up. if only one is set up, you cannot proceed with the transfer entry.
     useEffect(() =>{
         const token = JSON.parse(sessionStorage.getItem('JWT-Token'))
 
@@ -81,12 +86,18 @@ function TransferEntryform() {
         .then(response => {
             const responseList = response.data
             const prepareArray = []
-            for (let loopBanks =0; loopBanks < responseList.length; loopBanks++) {
-                prepareArray.push(responseList[loopBanks]['acc_des'])
+
+            if (responseList.length <= 1) {
+                setFormDisplayStatus(false)
+            } else {
+                for (let loopBanks =0; loopBanks < responseList.length; loopBanks++) {
+                    prepareArray.push(responseList[loopBanks]['acc_des'])
+                }
+                setCreditOptions([...prepareArray])
+                setDebitOptions([...prepareArray])
             }
-            setCreditOptions([...prepareArray])
-            setDebitOptions([...prepareArray])
-        })   
+        })
+        // eslint-disable-next-line   
     },[])
 
     //this function organizes information from the form and sends it to the server, then redirects to the dashboard
@@ -105,8 +116,12 @@ function TransferEntryform() {
             "Content-type": "application/json",
             'authorization': `Bearer ${token}`
         }})
-        .then(response => {
+        .then(() => {
             setRedirectAdd('/dashboard')
+        })
+        .catch(err => {
+            setValidationStatus(false)
+            setValidationMsg(err.response.data)
         })
     }
 
@@ -120,17 +135,13 @@ function TransferEntryform() {
             patchObject = organizeForTranPatchCall(values, editObject)
         }
 
-        console.log(editObject)
-
         axios.patch(`${axiosURL}/${tranCategory}/single`, patchObject, {headers: {
             "Content-type": "application/json",
             'authorization': `Bearer ${token}`
         }})
-        .then(response => {
+        .then(() => {
             setRedirectAdd('/history')
         })
-
-        console.log(patchObject)
     }
 
     //this function checks to see that all fields are updated
@@ -144,19 +155,35 @@ function TransferEntryform() {
             <main>
                 <h1 className="main-heading">My Web Accountant</h1>
                 <section className="section-container">
-                    <h2>{headingTitle}</h2>
-                    <form>
-                        {optionArray.map(oneItem => <InputDropDown key={oneItem.name} fieldData={oneItem} />)}
-                        {propsArray.map(oneItem => <InputField key={oneItem.name} fieldData={oneItem} />)}
-                        <div className="button-container">
-                            {areWeEditing && <Button content="Edit" buttonEnabled={buttonStatus} clickFunc={(event) => {clickEdit(event)}} />}
-                            {!areWeEditing && <Button content='+ Add' buttonEnabled={buttonStatus} clickFunc={(event)=> {clickAdd(event)}} />}
-                            <Button content='Cancel' buttonEnabled={false} clickFunc={()=> {setRedirectAdd('/actions')}} />
+                    {!formDisplayStatus 
+                    ? (
+                        <div>
+                            <p>You need more then one payment account set up to create a transfer.</p>
+                            <div className="button-container">
+                                <Button content='+ Add a payment account' buttonEnabled={false} clickFunc={()=> {setRedirectAdd('/add-account')}} />
+                            </div>  
                         </div>
-                    </form>
+                    )
+                    : (
+                        <div>
+                        <h2>{headingTitle}</h2>
+                        <form>
+                            {optionArray.map(oneItem => <InputDropDown key={oneItem.name} fieldData={oneItem} />)}
+                            {propsArray.map(oneItem => <InputField key={oneItem.name} fieldData={oneItem} />)}
+                            <div className="button-container">
+                                {areWeEditing && <Button content="Edit" buttonEnabled={buttonStatus} clickFunc={(event) => {clickEdit(event)}} />}
+                                {!areWeEditing && <Button content='+ Add' buttonEnabled={buttonStatus} clickFunc={(event)=> {clickAdd(event)}} />}
+                                <Button content='Cancel' buttonEnabled={false} clickFunc={()=> {setRedirectAdd('/actions')}} />
+                            </div>
+                        </form>
+                        </div>
+                    )}
+                    
                 </section>
             </main>
             {redirectAdd && <Redirect to={redirectAdd} />}
+            {/* populates the error message */}
+            {!validationStatus && <p className='validation-message'>{validationMsg}</p>}
         </>
     )
 }

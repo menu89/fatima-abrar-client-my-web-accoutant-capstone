@@ -16,6 +16,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import ChangePassword from './pages/ChangePassword';
 import DeleteUser from './pages/DeleteUser';
 import AboutUs from './pages/AboutUs';
+import Help from './pages/Help';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path='/change-password' component={ChangePassword} />
         <Route path='/delete-user' component={DeleteUser} />
         <Route path='/about-us' component={AboutUs} />
+        <Route path='/help' component={Help} />
 
         <Route path="/ISU" component={InitialSetUp} />
         <Route path="/account-list" component={InitialSetUp} />

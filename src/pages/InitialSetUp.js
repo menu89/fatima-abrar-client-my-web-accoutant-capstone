@@ -15,7 +15,7 @@ function InitialSetUp () {
     const [redirectToForm, setRedirectToForm] = useState(false)
     const [bankList, setBankList] = useState([])
     const [gotList, setGotList] = useState(false)
-    const [validationStatus, setValidationStatus] = useState(null)
+    const [validationStatus, setValidationStatus] = useState(true)
     const [validationMsg, setValidationMsg] = useState(null)
     const [displayDetails, setDisplayDetails] = useState(null)
     const [bankSearchData, setBankSearchData] = useState(null)

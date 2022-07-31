@@ -89,6 +89,12 @@ h2 {
     }
 }
 
+.aboutus-page {
+    &__links {
+        color:colors.$fontPrimary;
+    }
+}
+
 .login-links {
     color:colors.$fontPrimary;
 }

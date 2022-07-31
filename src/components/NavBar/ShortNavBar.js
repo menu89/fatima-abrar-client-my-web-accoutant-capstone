@@ -6,14 +6,15 @@ import registrationSvg from '../../assets/icon/registration.svg';
 import helpSvg from '../../assets/icon/help.svg';
 import aboutSvg from '../../assets/icon/about.svg';
 import creditsSvg from '../../assets/icon/clipboard.svg';
+import navProps from '../../assets/navigationProps.json';
 
 function ShortNavBar () {
     const propsArray =[
-        {imgSource:loginSvg, altText:'log in icon', linkAdd:'/', linkText:'Log In', classModifier:'--one'},
-        {imgSource:registrationSvg, altText:'registration icon', linkAdd:'/register', linkText:'Register', classModifier:'--two'},
-        {imgSource:helpSvg, altText:'help icon', linkAdd:'/', linkText:'Help', classModifier:'--three'},
-        {imgSource:aboutSvg, altText:'about icon', linkAdd:'/about-us', linkText:'About Us', classModifier:'--four'},
-        {imgSource:creditsSvg, altText:'credits icon', linkAdd:'/credits', linkText:'Credits', classModifier:'--five'}
+        {imgSource:loginSvg, classModifier:'--one', ...navProps.logInNav},
+        {imgSource:registrationSvg, classModifier:'--two', ...navProps.registerNav},
+        {imgSource:helpSvg, classModifier:'--three', ...navProps.helpNav},
+        {imgSource:aboutSvg, classModifier:'--four', ...navProps.aboutUsNav},
+        {imgSource:creditsSvg, classModifier:'--five', ...navProps.creditsNav}
     ]
     return (
         <>

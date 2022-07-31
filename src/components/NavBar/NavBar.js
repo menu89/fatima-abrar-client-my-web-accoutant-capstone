@@ -12,8 +12,10 @@ import creditsSvg from '../../assets/icon/clipboard.svg';
 import cashflowSvg from '../../assets/icon/cash-flow.svg';
 import deleteSvg from '../../assets/icon/remove.svg';
 import passwordSvg from '../../assets/icon/password.svg';
+import helpSvg from '../../assets/icon/help.svg';
 import {useEffect, useState} from 'react';
 import {Redirect} from 'react-router-dom';
+import navProps from '../../assets/navigationProps.json';
 
 function NavBar () {
     const [logout, setLogout] = useState(false)
@@ -38,15 +40,16 @@ function NavBar () {
     },[])
 
     const propsArray =[
-        {imgSource:dahboardSvg, altText:'dashboard icon', linkAdd:'/dashboard', linkText:'Dashboard', classModifier:'--one'},
-        {imgSource:cashflowSvg, altText:'cashflow icon', linkAdd:'/cashflow', linkText:'Cashflow', classModifier:'--two'},
-        {imgSource:actionSvg, altText:'action icon', linkAdd:'/actions', linkText:'Actions', classModifier:'--three'},
-        {imgSource:tranHisSvg, altText:'transaction history icon', linkAdd:'/history', linkText:'Transactions History', classModifier:'--four'},
-        {imgSource:accListSvg, altText:'account list icon', linkAdd:'/account-list', linkText:'Account List', classModifier:'--five'},
-        {imgSource:passwordSvg, altText:'change password icon', linkAdd:'/change-password', linkText:'Change Password', classModifier:'--six'},
-        {imgSource:deleteSvg, altText:'remove user icon', linkAdd:'/delete-user', linkText:'Delete My User', classModifier:'--seven'},
-        {imgSource:aboutSvg, altText:'about icon', linkAdd:'/about-us', linkText:'About Us', classModifier:'--eight'},
-        {imgSource:creditsSvg, altText:'credits icon', linkAdd:'/credits', linkText:'Credits', classModifier:'--nine'}
+        {imgSource:dahboardSvg, classModifier:'--one', ...navProps.dashboardNav},
+        {imgSource:cashflowSvg, classModifier:'--two', ...navProps.cashflowNav},
+        {imgSource:actionSvg, classModifier:'--three', ...navProps.actionsNav},
+        {imgSource:tranHisSvg, classModifier:'--four', ...navProps.historyNav},
+        {imgSource:accListSvg, classModifier:'--five', ...navProps.accListNav},
+        {imgSource:passwordSvg, classModifier:'--six', ...navProps.passwordNav},
+        {imgSource:deleteSvg, classModifier:'--seven', ...navProps.deleteUserNav},
+        {imgSource:helpSvg, classModifier:'--eight', ...navProps.helpNav},
+        {imgSource:aboutSvg, classModifier:'--eight', ...navProps.aboutUsNav},
+        {imgSource:creditsSvg, classModifier:'--nine', ...navProps.creditsNav}
     ]
 
     return (

@@ -117,7 +117,7 @@ function Credits () {
                     <li>
                         <img className="credits-page__icons" src={passwordSvg} alt='change paddword icon' />
                         <p className="credits-page__para">
-                            <a href="https://iconscout.com/icons/password" >Password Icon</a> by <a href="https://iconscout.com/contributors/kiran-shastry">Kiran Shastry</a>
+                            <a className="credits-page__links" href="https://iconscout.com/icons/password" >Password Icon</a> by <a className="credits-page__links" href="https://iconscout.com/contributors/kiran-shastry">Kiran Shastry</a>
                         </p>
                         
                     </li>

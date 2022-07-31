@@ -1,6 +1,28 @@
 @use './colors';
 @use './topography';
 
+$mobileMaxSize: 47.5rem;
+$tabletSize: 48rem;
+$desktopSize: 80rem;
+
+@mixin belowTablet {
+    @media (max-width: $mobileMaxSize) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (min-width: $tabletSize) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $desktopSize) {
+        @content;
+    }
+}
+
 @mixin headingStyles {
     display: flex;
     justify-content: space-evenly;

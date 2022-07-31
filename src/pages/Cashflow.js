@@ -14,6 +14,7 @@ function Cashflow () {
     
     const [validationStatus, setValidationStatus] = useState(null)
     const [validationMsg, setValidationMsg] = useState(true)
+    const [buttonStatus, setButtonStatus] = useState(true)
     const [currentPeriodInfo, setCurrentPeriodInfo] = useState(null)
     const [futurePeriodBudgets, setFuturePeriodBudgets] = useState(null)
     const [value, setValue] = useState('three-month')
@@ -22,6 +23,7 @@ function Cashflow () {
 
     const optionsObj = {values:value, changeFunc:valueEvent, ...propsInfo.cashFlowOptions}
 
+    //makes an axios call to server for 3,6,or 12-month information, organizes it and then populates the tables.
     const callAxiosForCashflow = () => {
         axios.get(`${axiosURL}/cashflow/${value}`,{
             headers: {
@@ -185,11 +187,22 @@ function Cashflow () {
         })
     }
 
+    //checks to see if all field is completed and sets the button status accordingly.
+    useEffect(()=> {
+        if (value.length > 0) {
+            setButtonStatus(false)
+        } else {
+            setButtonStatus(true)
+        }
+    }, [value])
+
+    //makes an axios call when you click submit button
     const clickSubmit = (event) => {
         event.preventDefault()
         callAxiosForCashflow()
     }
 
+    //calls the axios function on first load
     useEffect(() => {
         callAxiosForCashflow()
         //eslint-disable-next-line
@@ -203,7 +216,7 @@ function Cashflow () {
                 <h2>Cashflow</h2>
                 <form>
                     <InputDropDown fieldData={optionsObj} />
-                    <Button content='Search' buttonEnabled={false} clickFunc={(event)=> clickSubmit(event)} newClass={true} />
+                    <Button content='Search' buttonEnabled={buttonStatus} clickFunc={(event)=> clickSubmit(event)} newClass={true} />
                 </form>
             </section>
             {!!currentPeriodInfo && 
