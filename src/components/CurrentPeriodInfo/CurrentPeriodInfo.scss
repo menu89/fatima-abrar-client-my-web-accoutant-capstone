@@ -1,0 +1,45 @@
+@use '../../styles/partials/colors';
+@use '../../styles/partials/mixins';
+
+.balances-container {
+
+    width: fit-content;
+    margin-bottom: 0.5rem;
+    
+    font-size: 0.75rem;
+
+    @include mixins.tablet {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    &__content {
+        margin: 0%;
+        position: relative;
+    }
+
+    &__amount {
+        position: absolute;
+        right: 1rem; 
+        
+        @include mixins.tablet {
+            right: 2rem;
+        }
+    }
+    
+    &--total {
+        margin-left: 2rem;
+
+        @include mixins.tablet {
+            margin-left: 3rem;
+        }
+    }
+
+    &--adjusted-total {
+        margin-left: 3rem;
+        
+        @include mixins.tablet {
+            margin-left: 8rem;
+        }
+    }
+}

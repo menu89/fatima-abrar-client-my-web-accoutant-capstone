@@ -1,0 +1,92 @@
+@use '../../styles/partials/colors';
+@use '../../styles/partials/mixins';
+
+.transaction-list {
+    background-color: colors.$fieldTertiary;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    position: relative;
+    
+    border: 2px solid colors.$boundarySecondary;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px colors.$boundaryPrimary;
+
+    @include mixins.desktop {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    & span {
+        margin-right: 8px;
+
+        @include mixins.desktop {
+            margin-right: 0px;
+        }
+    }
+
+    &__heading {
+        text-decoration: underline;
+
+        @include mixins.desktop {
+            display: none;
+        }
+    }
+
+    &__text {
+        margin: 0%;
+        margin-bottom: 0.25rem;
+        font-size: 0.8rem;
+
+        @include mixins.tablet {
+            font-size: 1.25rem;
+        }
+
+        @include mixins.desktop {
+            width: 15%;
+            border-right: 1px solid white;
+            padding: 0.5rem;
+        }
+        
+        &--description {
+            @include mixins.desktop {
+                width: 30%;
+                border: none;
+            }
+        }
+    }
+
+    &--amount {
+        font-weight: bold;
+    }
+    
+}
+
+.transaction-actions {
+    position: absolute;
+    top:0%;
+    right:0%;
+    margin: 0%;
+    padding: 0%;
+
+    &__list {
+        list-style: none;
+        margin: 0%;
+        padding: 0%;
+    }
+
+    &__icon {
+        @include mixins.navigationIcons;
+        margin:2px 8px;
+
+        @include mixins.tablet{
+            height: 2rem;
+        }
+
+        &:hover {
+            @include mixins.navigationIconHover;
+        }
+    }
+
+    
+}

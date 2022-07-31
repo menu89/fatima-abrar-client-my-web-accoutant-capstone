@@ -1,15 +1,20 @@
-$fontPrimary: #000000;
+$fontPrimary: white;
+$fontSecondary: black;
 $negativeNumber: #FF0000;
 
+$boundaryPrimary: lightgray;
+$boundarySecondary:lightslategray;
+$boundaryTertiary:lightskyblue;
+
 //#05743e 35%
-$backgroundPrimary: rgba(5, 116, 62, 0.35);
-$backgroundSecondary: #ADE8F4;
+$backgroundPrimary:black;
+$backgroundSecondary: lightgrey;
 
 $fontButton: #ffffff;
-$backgroundButton: #03045E;
+$backgroundButton: black;
 
 //571089
-$fieldPrimary: rgba(87, 16, 137, 0.25);
+$fieldPrimary: rgba(87, 16, 137, 0.75);
 $fieldSecondary: rgba(5, 116, 62, 0.35);
 $fieldTertiary: rgba(87, 16, 137, 0.20);
 
