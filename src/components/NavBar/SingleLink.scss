@@ -49,6 +49,10 @@
         font-size: 0.75rem;
         z-index:2;
 
+        @include mixins.tablet {
+            font-size: 1.5rem;
+        }
+
         &:hover {
             @include mixins.navigationIconHover;
         }

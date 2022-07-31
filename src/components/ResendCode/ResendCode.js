@@ -63,7 +63,7 @@ function ResendCode ({listFunc}) {
         <div className='resend-code-component'>
             <aside>
                 <h2 className="main-heading">Request New Code</h2>
-                <section className='section-container'>
+                <section className='section-container section-container--small'>
                     <form>
                         {propsArray.map( 
                             oneItem => <InputField key={oneItem.name} fieldData={oneItem} />

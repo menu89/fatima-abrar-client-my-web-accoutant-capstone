@@ -115,8 +115,8 @@ function ForgotPassword () {
     return (<>
         <ShortNavBar />
         <main>
-            <h1 className="main-heading">Verify your Email</h1>
-            <section className='section-container'>
+            <h1 className="main-heading">Reset Forgotten Password</h1>
+            <section className='section-container section-container--small'>
                 <form>
                     {propsArray.map( 
                         oneItem => <InputField key={oneItem.name} fieldData={oneItem} />

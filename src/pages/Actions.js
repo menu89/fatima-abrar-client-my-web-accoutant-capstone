@@ -16,7 +16,7 @@ function Actions () {
             <NavBar />
             <main>
                 <h1 className="main-heading">My Web Accountant</h1>
-                <section className="section-container">
+                <section className="section-container section-container--small">
                     <h2>Actions</h2>
                     <div className="button-container">
                         <Button content='Add a purchase' buttonEnabled={false} clickFunc={()=> {setRedirectAdd('/add-exp-transaction')}} />

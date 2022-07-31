@@ -20,6 +20,11 @@
     top:0%;
     height: 1.5rem;
     
+    @include mixins.tablet {
+        height: 2rem;
+        left: -2rem;
+        top:-7%;
+    }
 
     &:hover {
         @include mixins.navigationIconHover;

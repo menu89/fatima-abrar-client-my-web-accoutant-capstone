@@ -20,11 +20,19 @@
         border-radius: 10px;
         box-shadow: 2px 2px 4px colors.$boundaryPrimary;
         position: relative;
+
+        @include mixins.tablet {
+            max-width: 90vw;
+        }
     }
 
     &--amount-container {
         width: fit-content;
         margin-top: 2rem;
+
+        @include mixins.tablet {
+            font-size: 1.25rem;
+        }
     }
 
     &__content {
@@ -35,6 +43,10 @@
         margin: 0.5rem 1rem;
         font-size: 0.75rem;
         position: relative;
+
+        @include mixins.tablet {
+            font-size: 1.25rem;
+        }
 
         & p {
             margin: 0%;

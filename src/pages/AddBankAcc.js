@@ -85,7 +85,7 @@ function AddBankAcc() {
         <NavBar />
         <main>
             <h1 className="main-heading">My Web Accountant</h1>
-            <section className='section-container'>
+            <section className='section-container section-container--small'>
                 <form>
                     <InputDropDown fieldData={optionArray[0]} />
                     {propsArray.map(oneItem => <InputField key={oneItem.name} fieldData={oneItem} />)}

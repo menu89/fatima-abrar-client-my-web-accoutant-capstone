@@ -80,7 +80,7 @@ function DeleteUser () {
         <NavBar />
         <main>
             <h1 className="main-heading">My Web Accountant</h1>
-            <section className="section-container">
+            <section className="section-container section-container--small">
                 <h2>Delete My User</h2>
                 <p>Please note that deleteing your user will also delete all other information {`(i.e. transactions, transfers, etc)`} permanently. This action cannot be reversed. Are you sure you want to permanently delete your user and all related information?</p>
                 <form>

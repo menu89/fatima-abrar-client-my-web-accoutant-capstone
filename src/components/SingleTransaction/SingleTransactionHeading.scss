@@ -1,0 +1,13 @@
+@use '../../styles/partials/colors';
+@use '../../styles/partials/mixins';
+
+.single-transaction {
+    &__container {
+        display: none;
+
+        @include mixins.desktop {
+            display: initial;
+            @include mixins.headingStyles;
+        }
+    }
+}

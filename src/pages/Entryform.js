@@ -223,7 +223,7 @@ function Entryform() {
             <NavBar />      
             <main>
                 <h1 className="main-heading">My Web Accountant</h1>
-                <section className="section-container">
+                <section className="section-container section-container--small">
                     <h2>{headingTitle}</h2>
                     <form>
                         {optionArray.map(oneItem => <InputDropDown key={oneItem.name} fieldData={oneItem} />)}

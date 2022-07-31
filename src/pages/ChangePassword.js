@@ -71,7 +71,7 @@ function ChangePassword () {
         <NavBar />
         <main>
             <h1 className="main-heading">My Web Accountant</h1>
-            <section className="section-container">
+            <section className="section-container section-container--small">
                 <h2>Change your password</h2>
                 <form>
                     {propsArray.map( 

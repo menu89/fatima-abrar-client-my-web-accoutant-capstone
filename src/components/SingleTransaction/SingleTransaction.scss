@@ -24,6 +24,10 @@
         margin: 0%;
         margin-bottom: 0.25rem;
         font-size: 0.8rem;
+
+        @include mixins.tablet {
+            font-size: 1.25rem;
+        }
     }
 
     &--amount {
@@ -48,6 +52,10 @@
     &__icon {
         @include mixins.navigationIcons;
         margin:2px 8px;
+
+        @include mixins.tablet{
+            height: 2rem;
+        }
 
         &:hover {
             @include mixins.navigationIconHover;

@@ -70,7 +70,10 @@ function CurrentPeriodInfo ({periodProps}) {
             <span className='balances-container--total'>{Intl.NumberFormat().format(-expenseDiff)}</span>
         </summary>
     </details>
-    <p>Adjusted Total: {Intl.NumberFormat().format(adjustedTotal)}</p>
+    <p>
+        Adjusted Total: 
+        <span className='balances-container--adjusted-total'> {Intl.NumberFormat().format(adjustedTotal)}</span>
+    </p>
     </>)
 }
 

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import SingleTransaction from '../SingleTransaction/SingleTransaction';
 import Button from '../Button/Button';
 import DeleteBank from './DeleteBank';
+import SingleTransactionHeading from '../SingleTransaction/SingleTransactionHeading';
 import deleteSvg from '../../assets/icon/remove.svg';
 import axios from 'axios';
 
@@ -70,6 +71,7 @@ function BankDetails ({searchData, listFunc}) {
                 <details>
                     <summary>Show the most recent transactions for actuals made from this account.</summary>
                     <h2>Recent Actuals</h2>
+                    {(bankInfo.recent_five_actuals.length > 0) ? <SingleTransactionHeading /> :''}
                     {bankInfo.recent_five_actuals.map((oneRow,rowIndex) => {
                         return <SingleTransaction key={rowIndex} tranData={oneRow} tranType='Actual' />
                     })}
@@ -77,6 +79,7 @@ function BankDetails ({searchData, listFunc}) {
                 <details>
                     <summary>Show the most recent transfers for actuals made from this account.</summary>
                     <h2>Recent Transfers</h2>
+                    {(bankInfo.recent_five_transfers.length > 0) ? <SingleTransactionHeading /> : ''}
                     {bankInfo.recent_five_transfers.map((oneRow,rowIndex) => {
                         return <SingleTransaction key={rowIndex} tranData={oneRow} tranType='Actual' />
                     })}

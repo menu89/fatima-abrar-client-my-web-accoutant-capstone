@@ -1,4 +1,5 @@
 @use './partials/colors';
+@use './partials/mixins';
 @use './partials//topography';
 
 *, *::after, *::before {
@@ -36,12 +37,32 @@ h1 {
     font-weight: topography.$weightNormal;
     display: inline-block;
     font-size: 1.5rem;
+
+    @include mixins.tablet {
+        font-size: 3rem;
+    }
 }
 
 h2 {
     padding-top: 1rem;
     text-align: center;
     margin-top: 0rem;
+
+    @include mixins.tablet {
+        font-size: 2rem;
+    }
+}
+
+p {
+    @include mixins.tablet {
+        font-size: 1.25rem;
+    }
+}
+
+details {
+    @include mixins.tablet {
+        font-size: 1.25rem;
+    }
 }
 
 .main-heading {
@@ -54,6 +75,12 @@ h2 {
     display: flex;
     flex-direction: column;
     padding: 1rem;
+
+    @include mixins.tablet {
+        max-width: 20rem;
+        margin: auto;
+        margin-top: 1rem;
+    }
 }
 
 .section-container {
@@ -62,6 +89,15 @@ h2 {
     border: 2px solid colors.$boundarySecondary;
     border-radius: 10px;
     box-shadow: 2px 2px 4px colors.$boundaryPrimary;
+
+    &--small{
+        max-width: 30rem;
+        margin: auto;
+    }
+
+    @include mixins.tablet {
+        padding: 2rem;
+    }
 }
 
 .validation-message {
@@ -71,17 +107,29 @@ h2 {
     padding: 6px;
     display: inline-block;
     margin: 1rem;
+
+    @include mixins.tablet {
+        margin-left: 20vw;
+    }
 }
 
 .credits-page {
     &__icons {
         height: 1.5rem;
         padding-right: 0.5rem;
+
+        @include mixins.tablet {
+            height: 2rem;
+        }
     }
 
     &__para {
         display: inline-block;
         font-size: 0.7rem;
+
+        @include mixins.tablet {
+            font-size: 1.25rem;
+        }
     }
 
     &__links {
