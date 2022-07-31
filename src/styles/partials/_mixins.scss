@@ -1,11 +1,11 @@
 @use './colors';
 @use './topography';
 
-$mobileMaxSize: 47.5rem;
+$mobileMaxSize: 79.5rem;
 $tabletSize: 48rem;
 $desktopSize: 80rem;
 
-@mixin belowTablet {
+@mixin belowDesktop {
     @media (max-width: $mobileMaxSize) {
         @content;
     }
@@ -120,5 +120,11 @@ $desktopSize: 80rem;
     @include tablet {
         top:90%;
         left: 5%;
+    }
+
+    @include desktop {
+        display: initial;
+        top: 5%;
+        left: 110%;
     }
 }

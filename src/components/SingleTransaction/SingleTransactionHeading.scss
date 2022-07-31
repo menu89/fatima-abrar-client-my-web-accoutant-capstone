@@ -10,4 +10,16 @@
             @include mixins.headingStyles;
         }
     }
+
+    &__text {
+        width: 15%;
+        text-align: center;
+        border-right: 1px solid white;
+        padding: 0.5rem;
+
+        &--long {
+            width: 30%;
+            border: none;
+        }
+    }
 }

@@ -70,23 +70,23 @@ function SingleTransaction ({tranData, tranType}) {
         <>
         {loadDelete && <DeleteTransaction propObj={propObj} noButton={() => {setLoadDelete(false)}} />}
         <article className='transaction-list'>
-            <p> 
+            <p className='transaction-list__text'> 
                 <span className='transaction-list__heading'>Date:</span> 
                 <span>{convertTimestamp}</span> 
             </p>
-            <p>
+            <p className='transaction-list__text'>
                 <span className='transaction-list__heading' >Amount: </span>
                 <span className='transaction-list--amount'>$ {amount}</span>
             </p>
-            <p>
+            <p className='transaction-list__text'>
                 <span className='transaction-list__heading' >Paid from/to:</span>
                 <span> {paymentAcc}</span>
             </p>
-            <p>
+            <p className='transaction-list__text'>
                 <span  className='transaction-list__heading' >{accTypeHeadingText}: </span>
                 <span> {accType}</span>
             </p>
-            <p>
+            <p className='transaction-list__text transaction-list__text--description'>
                 <span className='transaction-list__heading' >Description:</span>
                 <span> {Description}</span>
             </p>

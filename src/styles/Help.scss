@@ -1,4 +1,11 @@
+@use '../styles//partials/mixins';
+
 .video-display {
-    width: 16rem;
-    height:9rem;
+    width: 60vw;
+    height:50vw;
+
+    @include mixins.desktop {
+        width: 32rem;
+        height: 18rem;
+    }
 }

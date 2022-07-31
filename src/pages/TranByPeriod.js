@@ -7,6 +7,7 @@ import InputField from "../components/InputField/InputField";
 import InputDropDown from '../components/InputField/InputDropDown';
 import Button from "../components/Button/Button";
 import SingleTransaction from '../components/SingleTransaction/SingleTransaction';
+import SingleTransactionHeading from '../components/SingleTransaction/SingleTransactionHeading';
 import axios from "axios";
 import propsInfo from '../assets/propsinformation.json';
 
@@ -94,6 +95,7 @@ function TranByPeriod () {
                 </section>
                 <section className='section-container'>
                     <section>
+                        {tableRows && <SingleTransactionHeading />}
                         {tableRows && tableRows.map((oneRow, rowIndex) => {
                             return <SingleTransaction key={rowIndex} tranData={oneRow} tranType={values['searchTranType']} />
                         })}

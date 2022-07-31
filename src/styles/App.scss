@@ -12,6 +12,12 @@ body {
     font-weight: topography.$weightNormal;
     margin: 0%;
     background-color: colors.$backgroundPrimary;
+
+    @include mixins.desktop {
+        width: 80rem;
+        margin: auto;
+        position: relative;
+    }
 }
 
 header {
@@ -20,6 +26,11 @@ header {
     border-radius: 30px;
     margin: 1rem 2.5vw;
     height: fit-content;
+
+    @include mixins.desktop {
+        width: fit-content;
+        height: 95vh;
+    }
 }
 
 main {
@@ -30,6 +41,11 @@ main {
     margin: 6rem 2.5vw;
     height: fit-content;
     min-height: 20rem;
+
+    @include mixins.desktop {
+        max-width: 58rem;
+        margin-left: 20rem;
+    }
 }
 
 h1 {

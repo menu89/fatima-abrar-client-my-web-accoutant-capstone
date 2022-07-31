@@ -12,21 +12,47 @@
     border-radius: 10px;
     box-shadow: 2px 2px 4px colors.$boundaryPrimary;
 
+    @include mixins.desktop {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
     & span {
         margin-right: 8px;
+
+        @include mixins.desktop {
+            margin-right: 0px;
+        }
     }
 
     &__heading {
         text-decoration: underline;
+
+        @include mixins.desktop {
+            display: none;
+        }
     }
 
-    & p {
+    &__text {
         margin: 0%;
         margin-bottom: 0.25rem;
         font-size: 0.8rem;
 
         @include mixins.tablet {
             font-size: 1.25rem;
+        }
+
+        @include mixins.desktop {
+            width: 15%;
+            border-right: 1px solid white;
+            padding: 0.5rem;
+        }
+        
+        &--description {
+            @include mixins.desktop {
+                width: 30%;
+                border: none;
+            }
         }
     }
 

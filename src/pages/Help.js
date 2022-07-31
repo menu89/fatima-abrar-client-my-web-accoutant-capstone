@@ -14,8 +14,8 @@ function Help () {
                 <article>
                     <p>Please check out the videos below to see how you can navigate the website. If you still have additional questions, you can reach out to us at <a className="aboutus-page__links" href="mailto:info@my-web-accountant.com"> info@my-web-accountant.com</a></p>
                 </article>
-                <article>
-                    <ReactPlayer width='60vw' height='50vw' controls url='https://www.youtube.com/watch?v=7sDY4m8KNLc' />
+                <article className='video-display'>
+                    <ReactPlayer width='100%' height='100%' controls url='https://www.youtube.com/watch?v=7sDY4m8KNLc' />
                 </article>
             </section>
         </main>
