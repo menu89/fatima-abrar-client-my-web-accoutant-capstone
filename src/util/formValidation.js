@@ -1,3 +1,4 @@
+import {organizeDate} from './organizeInfo';
 
 //this function receives form fields as input and checks to see if they have a value
 function checkFieldCompletion(values) {
@@ -119,10 +120,38 @@ function validateTotalSearch (values) {
     return {status: true}
 }
 
+function validateEditInformation (values, editObject) {
+    const {amount, description, trandate, debit, credit} = values
+    console.log(editObject)
+    let countCategoriesChanged = 0
+
+    const workingDate = new Date(editObject.Transaction_timestamp)
+    const modifiedTranDate = organizeDate(workingDate)
+
+    if (amount !== editObject.amount) { countCategoriesChanged += 1}
+    if (description !== editObject.Description) { countCategoriesChanged += 1}
+    if (credit !== editObject.Credit) { countCategoriesChanged += 1}
+    if (debit !== editObject.Debit) { countCategoriesChanged += 1}
+    if (trandate !== modifiedTranDate) { countCategoriesChanged += 1}
+    
+    if (countCategoriesChanged === 0) {
+        return ({
+            status:false,
+            message: "No Fields have been updated. Please change at least one field."
+        })
+    } else {
+        return ({
+            status:true,
+            message:`${countCategoriesChanged} fields changed.`
+        })
+    }
+}
+
 export default checkFieldCompletion;
 export {
     validateRegistrationForm,
     validateLoginForm,
     validateBankInfo,
-    validateTotalSearch
+    validateTotalSearch,
+    validateEditInformation
 }

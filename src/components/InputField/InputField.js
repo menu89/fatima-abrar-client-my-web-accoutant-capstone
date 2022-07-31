@@ -4,7 +4,7 @@ function InputField ({fieldData}) {
     const {name, labelText, changeFunc,values,type, componentClasses} = fieldData
     
     return (
-        <div className={`${componentClasses}__contianer`}>
+        <div className={`${componentClasses}__container`}>
             <label className={`${componentClasses}__label`}>
                 {labelText}
                 <input 

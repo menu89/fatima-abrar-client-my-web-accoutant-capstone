@@ -1,28 +1,74 @@
 @use '../../styles/partials/colors';
+@use '../../styles//partials//mixins';
+
+.heading {
+    margin: 0%;
+    position: fixed;
+    top: 0%;
+    width: 100vw;
+    background-color: colors.$backgroundPrimary;
+
+    @include mixins.desktop {
+        width: fit-content;
+    }
+    
+    &:hover .navigation {
+        display: initial;
+    }
+
+    &__icon {
+        @include mixins.navigationIcons;
+        z-index: 1;
+    }
+
+    &__right-text {
+        display: inline-block;
+        font-size: 0.75rem;
+        margin: 6px;
+        padding:6px;
+        position: fixed;
+        top: 0%;
+        right: 0%;
+        width:3.5rem;
+        text-align: center;
+
+        @include mixins.tablet {
+            font-size: 1.25rem;
+            width: 6rem;
+        }
+    }
+}
 
 .navigation {
-    background-color: colors.$backgroundButton;
-    color: colors.$fontButton;
-    border-radius: 15px;
+    position: fixed;
+    top: 0%;
+    left: 3rem;
+    display: none;
+    width: calc(100% - 3rem - 3.5rem);
+
+    @include mixins.tablet {
+        left: 4rem;
+        width: calc(100% - 4rem - 6rem);
+    }
+
+    @include mixins.desktop {
+        width:fit-content;
+        display: initial;
+        position: relative;
+        top: 0%;
+        left:0%;
+    }
 
     &__list {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-evenly;
         list-style: none;
-        padding: 0.5rem;
+        padding: 0%;
         margin: 0%;
-        font-size: 0.75rem;        
-    }
 
-    &__list-item {
-        padding: 0.25rem;
-        margin: 0.25rem;
-        border: 1px solid colors.$fontButton;
-    }
-
-    &__list-link {
-        color: colors.$fontButton;
-        text-decoration: none;
+        @include mixins.desktop {
+            flex-direction: column;
+            
+        }
     }
 }

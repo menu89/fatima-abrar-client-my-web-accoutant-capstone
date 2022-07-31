@@ -1,0 +1,38 @@
+{
+    "logInNav":{
+        "altText":"log in icon", "linkAdd":"/", "linkText":"Log In"
+    },
+    "registerNav":{
+        "altText":"registration icon", "linkAdd":"/register", "linkText":"Register"
+    },
+    "helpNav":{
+        "altText":"help icon", "linkAdd":"/help", "linkText":"Help"
+    },
+    "aboutUsNav":{
+        "altText":"about icon", "linkAdd":"/about-us", "linkText":"About Us"
+    },
+    "creditsNav":{
+        "altText":"credits icon", "linkAdd":"/credits", "linkText":"Credits"
+    },
+    "dashboardNav":{
+        "altText":"dashboard icon", "linkAdd":"/dashboard", "linkText":"Dashboard"
+    },
+    "cashflowNav":{
+        "altText":"cashflow icon", "linkAdd":"/cashflow", "linkText":"Cashflow"
+    },
+    "actionsNav":{
+        "altText":"action icon", "linkAdd":"/actions", "linkText":"Actions"
+    },
+    "historyNav":{
+        "altText":"transaction history icon", "linkAdd":"/history", "linkText":"Transactions History"
+    },
+    "accListNav":{
+        "altText":"account list icon", "linkAdd":"/account-list", "linkText":"Account List"
+    },
+    "passwordNav":{
+        "altText":"change password icon", "linkAdd":"/change-password", "linkText":"Change Password"
+    },
+    "deleteUserNav":{
+        "altText":"remove user icon", "linkAdd":"/delete-user", "linkText":"Delete My User"
+    }
+}

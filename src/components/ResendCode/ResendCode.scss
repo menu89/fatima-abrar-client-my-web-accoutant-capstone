@@ -1,0 +1,12 @@
+@use '../../styles/partials/colors';
+
+.resend-code-component {
+    position: fixed;
+    padding: 1rem;
+    top: 0%;
+    left: 0%;
+    height: 100vh;
+    width: 100vw;
+    background-color: colors.$backgroundPrimary;
+    opacity: 100%;
+}
