@@ -228,23 +228,26 @@ function Dashboard () {
                     </form>
 
                     {/* display income information  */}
-                    <DisplayFieldTwo objectClass='display-four' one='Expense' two='Budget' three='Actual' four='Difference'/>
+                    <DisplayFieldTwo objectClass='display-four' one='Account' two='Budget' three='Actual' four='Difference'/>
                     {(tableIncRow.length > 0) && tableIncRow.map((oneRow,rowIndex) => {
                         const {heading, budget, actual} = oneRow
                         let diff = budget - actual
-                        return (<DisplayFieldTwo key={rowIndex} objectClass='display-four display-four--regular' one={heading} two={budget} three={actual} four={diff} />)
+                        return (<DisplayFieldTwo key={rowIndex} objectClass='display-four display-four--regular' one={heading} two={-budget} three={-actual} four={diff} />)
                     })}
                     {(tableIncRow.length > 0) &&
-                    <DisplayFieldTwo objectClass='display-four' one='Income Total' two={totalIncBudget} three={totalIncActual} four={totalIncBudget-totalIncActual}/>}
+                    <DisplayFieldTwo objectClass='display-four' one='Income Total' two={-totalIncBudget} three={-totalIncActual} four={(totalIncBudget-totalIncActual)}/>}
                     
                     {/* display the expense information */}
                     {(tableRow.length > 0) && tableRow.map((oneRow,rowIndex) => {
                         const {heading, budget, actual} = oneRow
                         let diff = budget - actual
-                        return (<DisplayFieldTwo key={rowIndex} objectClass='display-four display-four--regular' one={heading} two={budget} three={actual} four={diff} />)
+                        return (<DisplayFieldTwo key={rowIndex} objectClass='display-four display-four--regular' one={heading} two={-budget} three={-actual} four={diff} />)
                     })}
                     {(tableRow.length > 0) &&
-                    <DisplayFieldTwo objectClass='display-four' one='Expense Total' two={totalBudget} three={totalActual} four={totalBudget-totalActual}/>}
+                    <DisplayFieldTwo objectClass='display-four' one='Expense Total' two={-totalBudget} three={-totalActual} four={(totalBudget-totalActual)}/>}
+                    
+                    {(tableRow.length > 0) && (tableIncRow.length > 0) &&
+                    <DisplayFieldTwo objectClass='display-four' one='Total' two={-totalBudget-totalIncBudget} three={-totalActual-totalIncActual} four={(totalBudget-totalActual)+(totalIncBudget-totalIncActual)}/>}
                 </section>
                 
             </main>

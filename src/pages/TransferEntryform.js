@@ -1,7 +1,7 @@
 import { Redirect, useRouteMatch } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {validateEditInformation} from '../util/formValidation';
-import {organizeDate, organizeForTranPatchCall} from '../util/organizeInfo';
+import {organizeDate, organizeForTranPatchCall, fixDateToSend} from '../util/organizeInfo';
 import useForm from '../util/useForm';
 import checkFieldCompletion from '../util/formValidation';
 import Button from "../components/Button/Button";
@@ -104,7 +104,7 @@ function TransferEntryform() {
     const clickAdd = (event) => {
         event.preventDefault()
         
-        const dateConvert = Date.parse(new Date(values['trandate']))
+        const dateConvert = Date.parse(new Date(fixDateToSend(values['trandate'])))
         const sendTran = {
             'debit':values['debit'],
             'credit':values['credit'],

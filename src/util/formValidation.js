@@ -38,6 +38,19 @@ function checkNumber (numInput) {
     return (numInput.length === numArray)
 }
 
+function checkNumberPlusNegative (numInput) {
+    const numbers = '0123456789.-'
+    const numArray = (
+        numInput.split('')
+                .map(oneNum => {
+                    return numbers.includes(oneNum)
+                })
+                .filter(num => !(!num))
+                .length
+    )
+    return (numInput.length === numArray)
+}
+
 function validateRegistrationForm (values) {
     //also recieves username but not using it anywhere at this time
     const { email, password, confirmPassword} = values
@@ -73,7 +86,7 @@ function validateLoginForm (values) {
 
 function validateBankInfo (values) {
     const { amount,} = values
-    if (!checkNumber(amount)) {
+    if (!checkNumberPlusNegative(amount)) {
         return {
             status:false,
             message: "You must only use numbers for the amount"

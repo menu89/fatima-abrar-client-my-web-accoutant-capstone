@@ -1,3 +1,4 @@
+
 //this function changes the date to match a format that can be updated in the input field that supports "date"
 function organizeDate(workingDate) {
     let workingMonth = ''
@@ -16,6 +17,17 @@ function organizeDate(workingDate) {
     return `${workingDate.getFullYear()}-${workingMonth}-${workingDay}`
 }
 
+function fixDateToSend(inputFieldDate) {
+    const dateArray = inputFieldDate.split('-')
+
+    const monthStringArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    const dateMonth = dateArray[1]-1
+    dateArray[1] = monthStringArray[dateMonth]
+
+    return dateArray.join(" ")
+
+}
+
 //this function organizes the info for editing an actual or budget transaction
 function organizeForTranPatchCall(values, editObject) {
     const {amount, description, trandate, debit, credit} = values
@@ -24,6 +36,7 @@ function organizeForTranPatchCall(values, editObject) {
     returnObject[`tranid`] = editObject.id
 
     const workingDate = new Date(editObject.Transaction_timestamp)
+    console.log(workingDate.toDateString())
     const modifiedTranDate = organizeDate(workingDate)
 
     if (amount !== editObject.amount) { returnObject[`amount`] = amount}
@@ -37,7 +50,8 @@ function organizeForTranPatchCall(values, editObject) {
         returnObject[`bank_type`] = editObject.Bank_type
     }
     if (trandate !== modifiedTranDate) { 
-        const dateConvert = Date.parse(new Date(values[trandate]))
+        const dateToSend = fixDateToSend(trandate)
+        const dateConvert = Date.parse(new Date(dateToSend))
         returnObject[`transaction_timestamp`] = dateConvert 
     }
 
@@ -46,5 +60,6 @@ function organizeForTranPatchCall(values, editObject) {
 
 export {
     organizeDate,
-    organizeForTranPatchCall
+    organizeForTranPatchCall,
+    fixDateToSend
 }

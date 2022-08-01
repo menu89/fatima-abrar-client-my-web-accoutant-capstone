@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react';
 import {Redirect} from 'react-router-dom';
+import { fixDateToSend } from '../util/organizeInfo';
 import useForm from '../util/useForm';
 import checkFieldCompletion, {validateBankInfo} from '../util/formValidation';
 import InputField from '../components/InputField/InputField';
@@ -38,7 +39,7 @@ function AddBankAcc() {
     //this function looks for the JWT token, organizes the data from the input fields and makes an axios call to the backend server to create the account
     const callAxios = () => {
         const token = JSON.parse(sessionStorage.getItem('JWT-Token'))
-        const dateConvert = Date.parse(new Date(values['trandate']))
+        const dateConvert = Date.parse(new Date(fixDateToSend(values['trandate'])))
 
         const isuInfo = {
             accType:values['acc_type'],

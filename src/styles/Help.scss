@@ -3,9 +3,29 @@
 .video-display {
     width: 60vw;
     height:50vw;
+    padding: 1rem;
+
+    max-width: 32rem;
+    max-height: 18rem;
 
     @include mixins.desktop {
         width: 32rem;
         height: 18rem;
+    }
+}
+
+.help-section {
+    &__article {
+        margin-top: 2.5rem;
+    }
+
+    &__sub-heading {
+        text-align: center;
+        font-size: 1.2rem;
+        margin: 0%;
+
+        @include mixins.tablet {
+            font-size: 1.75rem;
+        }
     }
 }

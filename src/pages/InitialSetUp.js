@@ -40,6 +40,8 @@ function InitialSetUp () {
             } else {
                 message = err.response.data
             }
+            setBankList([])
+            setGotList(null)
             setValidationMsg(message)
             setValidationStatus(false)
         })
