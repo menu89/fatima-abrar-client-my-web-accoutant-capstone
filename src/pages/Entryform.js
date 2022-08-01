@@ -9,9 +9,10 @@ import InputField from "../components/InputField/InputField";
 import InputDropDown from "../components/InputField/InputDropDown";
 import NavBar from "../components/NavBar/NavBar";
 import axios from 'axios';
+import { API_URL } from "../config";
 import propsInfo from '../assets/propsinformation.json';
 
-const axiosURL = process.env.REACT_APP_AXIOSURL
+const axiosURL = API_URL
 
 function Entryform() {
     const editObject = JSON.parse(sessionStorage.getItem('edit-transaction-info'))

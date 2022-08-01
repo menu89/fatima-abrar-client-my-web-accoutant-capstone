@@ -1,9 +1,10 @@
 import { useState } from "react";
 import Button from "../Button/Button";
 import axios from 'axios';
+import { API_URL } from "../../config";
 import { useEffect } from "react";
 
-const axiosURL = process.env.REACT_APP_AXIOSURL
+const axiosURL = API_URL
 
 function DeleteBank ({bankId, listFunc}) {
 

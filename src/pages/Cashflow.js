@@ -6,8 +6,9 @@ import DisplayFieldTwo from "../components/DisplayFieldTwo/DisplayFieldTwo";
 import { useState, useEffect } from 'react';
 import propsInfo from '../assets/propsinformation.json';
 import axios from "axios";
+import { API_URL } from "../config";
 
-const axiosURL=process.env.REACT_APP_AXIOSURL
+const axiosURL= API_URL
 
 function Cashflow () {
     const token = JSON.parse(sessionStorage.getItem('JWT-Token'))
@@ -39,8 +40,10 @@ function Cashflow () {
             const {actual_expense, budget_expense, actual_income, budget_income} = currentPeriod
             let incomeDiff = budget_income - actual_income
             let expenseDiff = budget_expense - actual_expense
-            if (expenseDiff < 0) { expenseDiff = 0 }
-            if (incomeDiff > 0) { incomeDiff = 0 }
+            if (expenseDiff < 0) { expenseDiff = actual_expense }
+            else { expenseDiff = budget_expense}
+            if (incomeDiff > 0) { incomeDiff = actual_income }
+            else { incomeDiff = budget_income}
 
             const stateObj = {
                 openingBalances: opening_account_balances,

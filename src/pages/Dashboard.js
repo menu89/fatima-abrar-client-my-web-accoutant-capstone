@@ -7,9 +7,10 @@ import DisplayFieldTwo from '../components/DisplayFieldTwo/DisplayFieldTwo';
 import InputField from '../components/InputField/InputField';
 import Button from '../components/Button/Button';
 import axios from 'axios';
+import { API_URL } from '../config';
 import propsInfo from '../assets/propsinformation.json';
 
-const axiosURL=process.env.REACT_APP_AXIOSURL
+const axiosURL= API_URL
 
 function Dashboard () {
     const currentDate = new Date(Date.now())

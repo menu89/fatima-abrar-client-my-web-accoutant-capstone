@@ -6,9 +6,10 @@ import InputField from '../components/InputField/InputField';
 import Button from '../components/Button/Button';
 import ShortNavBar from '../components/NavBar/ShortNavBar';
 import axios from 'axios';
+import { API_URL } from '../config';
 import propsInfo from '../assets/propsinformation.json';
 
-const axiosURL = process.env.REACT_APP_AXIOSURL
+const axiosURL = API_URL
 
 function Register () {
     const [values, handleOnChange] = useForm({username:"",email:"",password:"",confirmPassword:""})

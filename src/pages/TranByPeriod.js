@@ -9,9 +9,10 @@ import Button from "../components/Button/Button";
 import SingleTransaction from '../components/SingleTransaction/SingleTransaction';
 import SingleTransactionHeading from '../components/SingleTransaction/SingleTransactionHeading';
 import axios from "axios";
+import { API_URL } from '../config';
 import propsInfo from '../assets/propsinformation.json';
 
-const axiosURL=process.env.REACT_APP_AXIOSURL
+const axiosURL= API_URL
 
 function TranByPeriod () {
     const currentDate = new Date(Date.now())

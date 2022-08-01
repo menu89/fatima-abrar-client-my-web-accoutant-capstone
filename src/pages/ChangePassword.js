@@ -6,8 +6,9 @@ import Button from "../components/Button/Button";
 import propsInfo from '../assets/propsinformation.json';
 import checkFieldCompletion, {validateRegistrationForm} from "../util/formValidation";
 import axios from 'axios';
+import { API_URL } from "../config";
 
-const axiosURL=process.env.REACT_APP_AXIOSURL
+const axiosURL= API_URL
 
 function ChangePassword () {
     const email = JSON.parse(sessionStorage.getItem('email'))

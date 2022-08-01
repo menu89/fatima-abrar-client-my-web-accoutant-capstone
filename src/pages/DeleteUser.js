@@ -7,8 +7,9 @@ import propsInfo from '../assets/propsinformation.json';
 import checkFieldCompletion, {validateLoginForm} from '../util/formValidation';
 import {Redirect} from 'react-router-dom';
 import axios from 'axios';
+import { API_URL } from "../config";
 
-const axiosURL=process.env.REACT_APP_AXIOSURL
+const axiosURL= API_URL
 
 function DeleteUser () {
     const email = JSON.parse(sessionStorage.getItem('email'))

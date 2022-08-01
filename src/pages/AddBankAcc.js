@@ -8,9 +8,10 @@ import InputDropDown from '../components/InputField/InputDropDown';
 import Button from '../components/Button/Button';
 import NavBar from '../components/NavBar/NavBar';
 import axios from 'axios';
+import { API_URL } from '../config';
 import propsInfo from '../assets/propsinformation.json';
 
-const axiosURL=process.env.REACT_APP_AXIOSURL
+const axiosURL = API_URL
 
 function AddBankAcc() {
     const [values, handleOnChange] = useForm({acc_des:"",amount:"",acc_type:'', trandate:''})

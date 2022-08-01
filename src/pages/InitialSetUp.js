@@ -5,10 +5,11 @@ import DisplayFieldOne from '../components/DisplayFieldOne/DisplayFieldOne';
 import NavBar from '../components/NavBar/NavBar';
 import Button from '../components/Button/Button';
 import axios from 'axios';
+import { API_URL } from '../config';
 import viewSvg from '../assets/icon/list-02.svg';
 import BankDetails from '../components/BankDetails/BankDetails';
 
-const axiosURL = process.env.REACT_APP_AXIOSURL
+const axiosURL = API_URL
 
 function InitialSetUp () {
     const [redirectToDash, setRedirectToDash] = useState(false)

@@ -1,8 +1,9 @@
 import ShortNavBar from "../components/NavBar/ShortNavBar";
 import NavBar from "../components/NavBar/NavBar";
 import {Link} from 'react-router-dom';
+import { API_URL } from "../config";
 
-const axiosURL=process.env.REACT_APP_AXIOSURL
+const axiosURL = API_URL
 
 function AboutUs () {
     const token = JSON.parse(sessionStorage.getItem('JWT-Token'))

@@ -8,8 +8,9 @@ import ResendCode from '../components/ResendCode/ResendCode';
 import propsInfo from '../assets/propsinformation.json';
 import checkFieldCompletion, {validateLoginForm} from '../util/formValidation';
 import axios from 'axios';
+import { API_URL } from '../config';
 
-const axiosURL=process.env.REACT_APP_AXIOSURL
+const axiosURL=API_URL
 
 function VerifyEmail() {
     const [values, handleOnChange] = useForm({email:"",verificationCode:""})

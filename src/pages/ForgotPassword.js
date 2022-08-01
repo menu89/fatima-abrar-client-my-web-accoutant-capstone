@@ -7,8 +7,9 @@ import Button from '../components/Button/Button';
 import propsInfo from '../assets/propsinformation.json';
 import checkFieldCompletion, {validateLoginForm, validateRegistrationForm} from '../util/formValidation';
 import axios from 'axios';
+import { API_URL } from '../config';
 
-const axiosURL=process.env.REACT_APP_AXIOSURL
+const axiosURL= API_URL
 
 function ForgotPassword () {
     const [values, handleOnChange] = useForm({email:"",verificationCode:"",password:"",confirmPassword:""})

@@ -2,8 +2,9 @@ import './DeleteTransaction.scss';
 import Button from '../Button/Button';
 import { useState } from 'react';
 import axios from 'axios';
+import { API_URL } from '../../config';
 
-const axiosURL=process.env.REACT_APP_AXIOSURL
+const axiosURL= API_URL
 
 function DeleteTransaction ({propObj, noButton}) {
     const {Description,amount, paymentAcc, accType,dateString, tranType,id,typeHeadingText} = propObj

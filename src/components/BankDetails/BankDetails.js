@@ -6,8 +6,9 @@ import DeleteBank from './DeleteBank';
 import SingleTransactionHeading from '../SingleTransaction/SingleTransactionHeading';
 import deleteSvg from '../../assets/icon/remove.svg';
 import axios from 'axios';
+import { API_URL } from '../../config';
 
-const axiosURL = process.env.REACT_APP_AXIOSURL
+const axiosURL = API_URL
 
 function BankDetails ({searchData, listFunc}) {
     const {id} = searchData
